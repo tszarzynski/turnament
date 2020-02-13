@@ -1,0 +1,10 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+src/
+public/
+tsconfig.json
+package.json
+app.yaml
+yarn.lock
