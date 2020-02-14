@@ -1,10 +1,12 @@
 import { makePlayersWithResults } from '../../players';
 import { makeRound } from '../../round';
-import { Match, Player, Tournament } from '../../types';
+import { Match, Player, Scheduler } from '../../types';
 import { pairPlayers } from './pair';
 import { roundsNeeded } from './rounds';
 
-export const tournament: Tournament = {
+export const scheduler: Scheduler = {
+  name: 'Round Robin',
+  type: 'ROUND_ROBIN',
   makeRound: (players: Player[], results: Match[], roundID: number) => {
     const playersWithResults = makePlayersWithResults(players, results);
     // filter out inactive players

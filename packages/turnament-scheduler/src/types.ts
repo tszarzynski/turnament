@@ -44,9 +44,11 @@ export type Pairing = [PlayerID, PlayerID];
  */
 export type GraphEdge = [number, number, number];
 
-export type TournamentType = 'SWISS' | 'ROUNDROBIN';
+export type SchedulerType = 'SWISS' | 'ROUND_ROBIN';
 
-export interface Tournament {
+export interface Scheduler {
   makeRound: (players: Player[], results: Match[], roundID: number) => Match[];
   roundsNeeded: (numPlayers: number) => number;
+  type: SchedulerType;
+  name?: string;
 }

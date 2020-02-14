@@ -5,6 +5,7 @@ import "./App.css";
 import PlayerListPage from "./featues/players/PlayerListPage";
 import RankingListPage from "./featues/ranking/RankingListPage";
 import RoundListPage from "./featues/round/RoundListPage";
+import SetupPage from "./featues/setup/SetupPage";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xl" className={classes.paper}>
+      <SetupPage />
       <PlayerListPage />
       <RankingListPage />
       <RoundListPage />

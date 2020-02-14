@@ -9,7 +9,11 @@ import TitleIcon from "@material-ui/icons/AccountCircle";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageHeader from "../../components/PageHeader";
-import { addRound, selectCurrentRoundNumber } from "../round/roundsSlice";
+import {
+  addRound,
+  selectCurrentRoundNumber,
+  selectSchedulerType
+} from "../round/roundsSlice";
 import PlayerList from "./PlayerList";
 import {
   addPlayer,
@@ -39,8 +43,9 @@ export default function PlayerListPage() {
   const dispatch = useDispatch();
   const players = useSelector(selectPlayersListAsArray);
   const roundNumber = useSelector(selectCurrentRoundNumber);
+  const schedulerType = useSelector(selectSchedulerType);
 
-  if (roundNumber > 0) return null;
+  if (roundNumber > 0 || schedulerType === undefined) return null;
 
   return (
     <Container component="main" maxWidth="xs">
