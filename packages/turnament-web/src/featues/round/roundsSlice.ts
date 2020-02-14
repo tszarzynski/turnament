@@ -1,13 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Match, SwissTournament, getRanking, Player } from "turnament-scheduler";
+import {
+  Match,
+  SwissTournament,
+  getRanking,
+  Player
+} from "turnament-scheduler";
 import { RootState } from "../../app/reducers";
+import { selectPlayersListAsArray } from "../players/playersSlice";
 
-export type State = {
-  rounds: Match[];
+interface RoundsState {
+  rounds: Record<string, Match>;
   currentRound: number;
-};
-let initialState: State = {
-  rounds: [],
+}
+
+let initialState: RoundsState = {
+  rounds: {},
   currentRound: 0
 };
 
@@ -19,35 +26,47 @@ const roundsSlice = createSlice({
       const { players } = payload;
 
       const roundID = ++state.currentRound;
-     
-      state.rounds = state.rounds.concat(SwissTournament.makeRound(players, state.rounds, roundID));
+
+      const newRound = SwissTournament.makeRound(
+        players,
+        Object.values(state.rounds),
+        roundID
+      );
+
+      state.rounds = {
+        ...state.rounds,
+        ...newRound.reduce((acc, match) => {
+          acc[match.ID] = match;
+          return acc;
+        }, {} as Record<string, Match>)
+      };
     },
     updateMatch(state, { payload }: PayloadAction<{ matchToUpdate: Match }>) {
       const { matchToUpdate } = payload;
 
-      state.rounds = state.rounds.map(match => {
-        if (match.ID === matchToUpdate.ID) {
-          return matchToUpdate;
-        }
-        return match;
-      });
+      state.rounds[matchToUpdate.ID] = matchToUpdate;
     },
-    reset() {
+    resetRounds() {
       return initialState;
     }
   }
 });
 
+export const selectRoundsListAsArray = (state: RootState) =>
+  Object.values(state.rounds.rounds);
+
 export const selectRankedPlayers = (state: RootState) =>
-  getRanking(state.players, state.rounds.rounds);
+  getRanking(selectPlayersListAsArray(state), selectRoundsListAsArray(state));
 
 export const selectCurrentRound = (state: RootState): Match[] =>
-  state.rounds.rounds.filter(
+  selectRoundsListAsArray(state).filter(
     match => match.roundID === state.rounds.currentRound && !match.hasBye
   );
-
 export const selectCurrentRoundNumber = (state: RootState): number =>
   state.rounds.currentRound;
 
-export const { addRound, updateMatch } = roundsSlice.actions;
+export const selectIsRoundCompleted = (state: RootState): boolean =>
+  selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
+
+export const { addRound, updateMatch, resetRounds } = roundsSlice.actions;
 export default roundsSlice.reducer;

@@ -1,11 +1,11 @@
-import uuid from "uuid/v1";
-import { BYE_ID } from "./consts";
-import { Match, Pairing } from "./types";
+import uuid from 'uuid/v1';
+import { BYE_ID } from './consts';
+import { Match, Pairing } from './types';
 
 export const makeMatch = (
   roundID: number,
   pairing: Pairing,
-  ID:string = uuid()
+  ID: string = uuid()
 ): Match => {
   const hasBye = pairing.includes(BYE_ID);
 
@@ -14,7 +14,7 @@ export const makeMatch = (
     ID,
     pairing,
     result: [0, hasBye ? -1 : 0],
-    hasBye
+    hasBye,
   };
 };
 

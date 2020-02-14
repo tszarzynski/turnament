@@ -1,19 +1,21 @@
 import {
-  Avatar,
+  Button,
   Container,
   CssBaseline,
-  makeStyles,
-  Typography,
-  Button,
-  Divider
+  Divider,
+  makeStyles
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/AccountCircle";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/reducers";
-import PlayerList from "./PlayerList";
-import { addPlayer, removePlayer } from "./playersSlice";
+import PageHeader from "../../components/PageHeader";
 import { addRound, selectCurrentRoundNumber } from "../round/roundsSlice";
+import PlayerList from "./PlayerList";
+import {
+  addPlayer,
+  removePlayer,
+  selectPlayersListAsArray
+} from "./playersSlice";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 export default function PlayerListPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { players } = useSelector((state: RootState) => state);
+  const players = useSelector(selectPlayersListAsArray);
   const roundNumber = useSelector(selectCurrentRoundNumber);
 
   if (roundNumber > 0) return null;
@@ -44,12 +46,9 @@ export default function PlayerListPage() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <PageHeader labelText="Players">
           <TitleIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Players
-        </Typography>
+        </PageHeader>
         <div className={classes.form}>
           <PlayerList
             players={players}
@@ -57,7 +56,7 @@ export default function PlayerListPage() {
               dispatch(removePlayer({ playerID }));
             }}
             addPlayer={(name: string) => {
-              dispatch(addPlayer(name));
+              dispatch(addPlayer({ name }));
             }}
           />
           <Divider variant="middle" />

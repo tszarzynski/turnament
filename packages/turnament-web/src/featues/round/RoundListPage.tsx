@@ -1,20 +1,15 @@
-import {
-  Avatar,
-  Button,
-  Container,
-  CssBaseline,
-  makeStyles,
-  Typography
-} from "@material-ui/core";
+import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/List";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/reducers";
+import PageHeader from "../../components/PageHeader";
+import { selectPlayersListAsArray } from "../players/playersSlice";
 import RoundList from "./RoundList";
 import {
   addRound,
   selectCurrentRound,
-  selectCurrentRoundNumber
+  selectCurrentRoundNumber,
+  selectIsRoundCompleted
 } from "./roundsSlice";
 
 const useStyles = makeStyles(theme => ({
@@ -36,9 +31,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function RoundListPage() {
   const classes = useStyles();
-  const { players } = useSelector((state: RootState) => state);
+  const players = useSelector(selectPlayersListAsArray);
   const rounds = useSelector(selectCurrentRound);
   const roundNumber = useSelector(selectCurrentRoundNumber);
+  const isRoundCompleted = useSelector(selectIsRoundCompleted);
   const dispatch = useDispatch();
 
   if (!rounds.length) return null;
@@ -47,19 +43,17 @@ export default function RoundListPage() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <PageHeader labelText={"Round " + roundNumber}>
           <TitleIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {"Round " + roundNumber}
-        </Typography>
+        </PageHeader>
+
         <div className={classes.form}>
           <RoundList players={players} round={rounds} />
           <Button
             fullWidth
             variant="contained"
             color="secondary"
-            disabled={players.length < 2}
+            disabled={!isRoundCompleted || players.length < 2}
             onClick={() => dispatch(addRound({ players }))}
           >
             Next Round

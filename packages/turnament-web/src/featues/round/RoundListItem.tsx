@@ -33,6 +33,7 @@ export default function RoundListeItem({ match, names }: IProps) {
               required
               type="number"
               id="player-score-1"
+              autoFocus
               onChange={e => setResult1(parseInt(e.target.value))}
             />
           </TableCell>

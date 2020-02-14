@@ -3,9 +3,9 @@ import {
   Player,
   PlayerWithResults,
   Results,
-  PlayerWithStats
-} from "./types";
-import { calcOMV } from "./omv";
+  PlayerWithStats,
+} from './types';
+import { calcOMV } from './omv';
 
 export const makePlayersWithResults = (
   players: Player[],
@@ -26,20 +26,20 @@ export const makePlayersWithResults = (
           gamesWon: acc.gamesWon + match.result[idxPlayer],
           matchesWon: acc.matchesWon + (hasWon ? 1 : 0),
           matchesLost: acc.matchesLost + (!hasWon ? 1 : 0),
-          opponents: [...acc.opponents, match.pairing[idxOpponent]]
+          opponents: [...acc.opponents, match.pairing[idxOpponent]],
         };
       },
       {
         gamesWon: 0,
         matchesWon: 0,
         matchesLost: 0,
-        opponents: []
+        opponents: [],
       }
     );
 
     return {
       ...player,
-      ...results
+      ...results,
     };
   });
 
@@ -48,5 +48,5 @@ export const makePlayersWithStats = (
 ): PlayerWithStats[] =>
   players.map(player => ({
     ...player,
-    omv: calcOMV(players, player)
+    omv: calcOMV(players, player),
   }));

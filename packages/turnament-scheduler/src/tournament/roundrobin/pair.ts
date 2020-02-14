@@ -1,5 +1,5 @@
-import { PlayerWithResults, Pairing, Match } from "../../types";
-import { BYE_ID } from "../../consts";
+import { PlayerWithResults, Pairing, Match } from '../../types';
+import { BYE_ID } from '../../consts';
 
 /**
  * Shift players

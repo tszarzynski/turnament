@@ -1,7 +1,7 @@
-import { compose } from "ramda";
-import { makePlayersWithResults, makePlayersWithStats } from "./players";
-import { desc, sortWith } from "./sort";
-import { Match, Player, PlayerWithStats } from "./types";
+import { compose } from 'ramda';
+import { makePlayersWithResults, makePlayersWithStats } from './players';
+import { desc, sortWith } from './sort';
+import { Match, Player, PlayerWithStats } from './types';
 
 /**
  * Returns sorted list of players. Function tries to resolve tiebreaks by using 3 sorting critetias:
@@ -10,9 +10,9 @@ import { Match, Player, PlayerWithStats } from "./types";
  */
 export const rankPlayers = (players: PlayerWithStats[]) =>
   sortWith<PlayerWithStats>([
-    desc("matchesWon"),
-    desc("gamesWon"),
-    desc("omv")
+    desc('matchesWon'),
+    desc('gamesWon'),
+    desc('omv'),
   ])(players);
 
 export const getRanking = (players: Player[], results: Match[]) =>

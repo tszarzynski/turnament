@@ -1,5 +1,5 @@
-import { roundsNeeded } from "./rounds";
+import { roundsNeeded } from './rounds';
 
-test("roundsNeeded should calculate number of rounds", () => {
-    expect(roundsNeeded(6)).toBe(15);
-  });
+test('roundsNeeded should calculate number of rounds', () => {
+  expect(roundsNeeded(6)).toBe(15);
+});

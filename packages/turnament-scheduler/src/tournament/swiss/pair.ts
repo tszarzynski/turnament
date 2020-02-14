@@ -1,9 +1,9 @@
-import { pipe } from "ramda";
-import { BYE_ID } from "../../consts";
-import { Pairing, PlayerWithStats } from "../../types";
-import { nominatePlayerForBye } from "./bye";
-import { makeWeightedGraph } from "./graph";
-import { calcMWMForGraph, transformMWMToPairings } from "./mwm";
+import { pipe } from 'ramda';
+import { BYE_ID } from '../../consts';
+import { Pairing, PlayerWithStats } from '../../types';
+import { nominatePlayerForBye } from './bye';
+import { makeWeightedGraph } from './graph';
+import { calcMWMForGraph, transformMWMToPairings } from './mwm';
 
 export function pairPlayers(players: PlayerWithStats[]) {
   // check if we have a player with BYE nomination

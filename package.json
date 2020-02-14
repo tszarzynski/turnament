@@ -1,9 +1,10 @@
 {
   "name": "turnament",
-  "version": "1.0.0",
-  "main": "index.js",
   "author": "Tomasz Szarzynski",
   "license": "MIT",
   "private": true,
-  "workspaces":  ["packages/turnament-web", "packages/turnament-scheduler"]
+  "workspaces": [
+    "packages/turnament-web",
+    "packages/turnament-scheduler"
+  ]
 }
