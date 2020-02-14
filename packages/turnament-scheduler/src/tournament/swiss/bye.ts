@@ -1,10 +1,10 @@
-import { pipe } from "ramda";
+import { pipe } from 'ramda';
 
-import { BYE_ID } from "../../consts";
-import { rankPlayers } from "../../rank";
-import { desc, sortWith } from "../../sort";
-import { PlayerWithResults, PlayerWithBye, PlayerWithStats } from "../../types";
-import { last, prop, isOdd } from "../../utils";
+import { BYE_ID } from '../../consts';
+import { rankPlayers } from '../../rank';
+import { desc, sortWith } from '../../sort';
+import { PlayerWithResults, PlayerWithBye, PlayerWithStats } from '../../types';
+import { last, prop, isOdd } from '../../utils';
 
 const hasOddNumOfPlayers = (players: PlayerWithResults[]) =>
   isOdd(players.length);
@@ -13,7 +13,7 @@ const countByes = (opponents: number[]) =>
 const playersWithByes = (players: PlayerWithResults[]) =>
   players.map(player => ({ ...player, bye: countByes(player.opponents) }));
 const sortByBye = (players: PlayerWithBye[]) =>
-  sortWith<PlayerWithBye>([desc("bye")])(players);
+  sortWith<PlayerWithBye>([desc('bye')])(players);
 
 /**
  * Check if we need to grant 'bye' to a player and return nominated player ID
@@ -21,5 +21,5 @@ const sortByBye = (players: PlayerWithBye[]) =>
  */
 export const nominatePlayerForBye = (players: PlayerWithStats[]) =>
   hasOddNumOfPlayers(players)
-    ? pipe(rankPlayers, playersWithByes, sortByBye, last, prop("ID"))(players)
+    ? pipe(rankPlayers, playersWithByes, sortByBye, last, prop('ID'))(players)
     : BYE_ID;

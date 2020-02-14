@@ -24,7 +24,10 @@ export function playRound(players: PlayerWithStats[]): PlayerWithStats[] {
   return rankPlayers(roundResultsWithStats);
 }
 
-function updatePlayer(pl: PlayerWithResults, props: Partial<PlayerWithResults>): PlayerWithResults {
+function updatePlayer(
+  pl: PlayerWithResults,
+  props: Partial<PlayerWithResults>
+): PlayerWithResults {
   return { ...pl, ...props };
 }
 

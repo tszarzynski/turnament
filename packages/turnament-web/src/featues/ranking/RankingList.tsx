@@ -11,9 +11,10 @@ import RankingListItem from "./RankingListItem";
 
 interface IProps {
   players: PlayerWithStats[];
+  deactivatePlayer: (id: number) => void;
 }
 
-export default function RankingList({ players }: IProps) {
+export default function RankingList({ players, deactivatePlayer }: IProps) {
   return (
     <Table aria-label="simple table">
       <TableHead>
@@ -23,12 +24,17 @@ export default function RankingList({ players }: IProps) {
           <TableCell align="right">Wins</TableCell>
           <TableCell align="right">Points</TableCell>
           <TableCell align="right">OMV</TableCell>
-
+          <TableCell align="right"></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {players.map((player, index) => (
-          <RankingListItem key={index} rank={index + 1} player={player} />
+          <RankingListItem
+            key={index}
+            rank={index + 1}
+            player={player}
+            deactivatePlayer={deactivatePlayer}
+          />
         ))}
       </TableBody>
     </Table>

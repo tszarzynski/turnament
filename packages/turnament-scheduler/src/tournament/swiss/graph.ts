@@ -1,6 +1,6 @@
-import { compose } from "ramda";
-import { PlayerWithResults, GraphEdge } from "../../types";
-import { countOccurences } from "../../utils";
+import { compose } from 'ramda';
+import { PlayerWithResults, GraphEdge } from '../../types';
+import { countOccurences } from '../../utils';
 
 /**
  * Returns highest score
@@ -54,7 +54,7 @@ export const makeWeightedGraph = (players: PlayerWithResults[]) => {
       [
         p1,
         p2,
-        calcEdgeWeight(highestScore, players[p1], players[p2])
+        calcEdgeWeight(highestScore, players[p1], players[p2]),
       ] as GraphEdge
   );
 };
@@ -87,7 +87,7 @@ export function calcEdgeWeight(
   }
 
   // Determine a score for the quality of this pairing based on the points of the higher scoring participant of the two (importance) and how close the two participant's records are.
-  const best = Math.max(player1.gamesWon, player2.gamesWon); 
+  const best = Math.max(player1.gamesWon, player2.gamesWon);
   const worst = Math.min(player1.gamesWon, player2.gamesWon);
   const spread = best - worst;
   const closenes = highestScore - spread;

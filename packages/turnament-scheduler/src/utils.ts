@@ -1,4 +1,4 @@
-import { Match } from "./types";
+import { Match } from './types';
 
 /**
  * Count occurances of elements in Array

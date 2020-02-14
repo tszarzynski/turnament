@@ -1,16 +1,13 @@
-import {
-  Avatar,
-  Container,
-  CssBaseline,
-  makeStyles,
-  Typography
-} from "@material-ui/core";
+import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/EmojiEvents";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PageHeader from "../../components/PageHeader";
+import { deactivatePlayer, resetPlayers } from "../players/playersSlice";
 import {
-  selectRankedPlayers,
-  selectCurrentRoundNumber
+  resetRounds,
+  selectCurrentRoundNumber,
+  selectRankedPlayers
 } from "../round/roundsSlice";
 import RankingList from "./RankingList";
 
@@ -33,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function RankingListPage() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const players = useSelector(selectRankedPlayers);
   const roundNumber = useSelector(selectCurrentRoundNumber);
 
@@ -42,14 +40,29 @@ export default function RankingListPage() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <PageHeader labelText="Ranking">
           <TitleIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Ranking
-        </Typography>
+        </PageHeader>
+
         <div className={classes.form}>
-          <RankingList players={players} />
+          <RankingList
+            players={players}
+            deactivatePlayer={(playerID: number) => {
+              dispatch(deactivatePlayer({ playerID }));
+            }}
+          />
+
+          <Button
+            fullWidth
+            variant="outlined"
+            color="secondary"
+            onClick={() => {
+              dispatch(resetPlayers());
+              dispatch(resetRounds());
+            }}
+          >
+            Finish Tournament
+          </Button>
         </div>
       </div>
     </Container>

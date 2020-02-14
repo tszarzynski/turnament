@@ -4,5 +4,6 @@
  * @param numStandings Number of standings to determine
  */
 export function roundsNeeded(numStandings: number) {
-  return (numPlayers: number) =>  Math.ceil(Math.log2(numPlayers) + Math.log2(numStandings));
+  return (numPlayers: number) =>
+    Math.ceil(Math.log2(numPlayers) + Math.log2(numStandings));
 }

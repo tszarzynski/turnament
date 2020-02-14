@@ -1,9 +1,7 @@
 import mwm from 'edmonds-blossom';
 import { GraphEdge, Pairing, Player } from '../../types';
 
-export const transformMWMToPairings = (players: Player[]) => (
-  mwm: number[]
-) =>
+export const transformMWMToPairings = (players: Player[]) => (mwm: number[]) =>
   mwm.reduce<{ pairs: Pairing[]; paired: number[] }>(
     (acc, node, index) => {
       const { pairs, paired } = acc;
