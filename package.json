@@ -11,6 +11,9 @@
     "monorepo-run": "^0.4.2"
   },
   "scripts": {
-    "test": "mono-run test"
+    "test": "mono-run test",
+    "test:watch": "mono-run test:watch --ui",
+    "start": "mono-run start --ui",
+    "build": "mono-run build"
   }
 }
