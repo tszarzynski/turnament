@@ -15,6 +15,7 @@ test('calcHighestScore should return correct value', () => {
     {
       ID: 1,
       name: 'Player 1',
+      active: true,
       gamesWon: 2,
       matchesWon: 1,
       matchesLost: 0,
@@ -24,6 +25,7 @@ test('calcHighestScore should return correct value', () => {
     {
       ID: 2,
       name: 'Player 2',
+      active: true,
       gamesWon: 1,
       matchesWon: 0,
       matchesLost: 1,
@@ -39,6 +41,7 @@ test('calcEdgeWeight should return correct weight', () => {
   const player1 = {
     ID: 1,
     name: 'Player 1',
+    active: true,
     gamesWon: 1,
     matchesWon: 1,
     matchesLost: 0,
@@ -48,6 +51,7 @@ test('calcEdgeWeight should return correct weight', () => {
   const player2 = {
     ID: 2,
     name: 'Player 2',
+    active: true,
     gamesWon: 0,
     matchesWon: 0,
     matchesLost: 1,
@@ -57,6 +61,7 @@ test('calcEdgeWeight should return correct weight', () => {
   const player3 = {
     ID: 3,
     name: 'Player 3',
+    active: true,
     gamesWon: 0,
     matchesWon: 0,
     matchesLost: 0,
@@ -77,6 +82,7 @@ test('calcWeights should return correct weights', () => {
   const player1 = {
     ID: 1,
     name: 'Player 1',
+    active: true,
     gamesWon: 1,
     matchesWon: 1,
     matchesLost: 0,
@@ -86,6 +92,7 @@ test('calcWeights should return correct weights', () => {
   const player2 = {
     ID: 2,
     name: 'Player 2',
+    active: true,
     gamesWon: 0,
     matchesWon: 0,
     matchesLost: 1,
@@ -95,6 +102,7 @@ test('calcWeights should return correct weights', () => {
   const player3 = {
     ID: 3,
     name: 'Player 3',
+    active: true,
     gamesWon: 0,
     matchesWon: 0,
     matchesLost: 0,

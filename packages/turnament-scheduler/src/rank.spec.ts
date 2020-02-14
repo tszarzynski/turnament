@@ -5,6 +5,7 @@ test('rankPlayers should return correct value', () => {
     {
       ID: 1,
       name: 'Player 1',
+      active: true,
       gamesWon: 2,
       matchesWon: 1,
       matchesLost: 1,
@@ -14,6 +15,7 @@ test('rankPlayers should return correct value', () => {
     {
       ID: 2,
       name: 'Player 2',
+      active: true,
       gamesWon: 1,
       matchesWon: 1,
       matchesLost: 1,
@@ -23,6 +25,7 @@ test('rankPlayers should return correct value', () => {
     {
       ID: 3,
       name: 'Player 3',
+      active: true,
       gamesWon: 2,
       matchesWon: 2,
       matchesLost: 0,

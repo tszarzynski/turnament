@@ -2,10 +2,11 @@ import { nominatePlayerForBye } from './bye';
 import { PlayerWithStats } from '../../types';
 
 test('checkBye should return -1 for even number of players', () => {
-  const players: PlayerWithStats[] = [
+  const players = [
     {
       ID: 1,
       name: 'Player 1',
+      active: true,
       gamesWon: 0,
       matchesWon: 0,
       matchesLost: 0,
@@ -15,6 +16,7 @@ test('checkBye should return -1 for even number of players', () => {
     {
       ID: 2,
       name: 'Player 2',
+      active: true,
       gamesWon: 0,
       matchesWon: 0,
       matchesLost: 0,
@@ -26,10 +28,11 @@ test('checkBye should return -1 for even number of players', () => {
 });
 
 test('checkBye should return last player with smallest BYE  number', () => {
-  const players: PlayerWithStats[] = [
+  const players = [
     {
       ID: 1,
       name: 'Player 1',
+      active: true,
       gamesWon: 1,
       matchesWon: 1,
       matchesLost: 0,
@@ -39,6 +42,7 @@ test('checkBye should return last player with smallest BYE  number', () => {
     {
       ID: 2,
       name: 'Player 2',
+      active: true,
       gamesWon: 0,
       matchesWon: 0,
       matchesLost: 1,
@@ -48,6 +52,7 @@ test('checkBye should return last player with smallest BYE  number', () => {
     {
       ID: 3,
       name: 'Player 3',
+      active: true,
       gamesWon: 0,
       matchesWon: 0,
       matchesLost: 0,

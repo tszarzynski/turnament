@@ -3,12 +3,60 @@ import { PlayerWithResults, PlayerWithStats } from '../types';
 import { roundsNeeded } from '../tournament/swiss/rounds';
 
 const players: PlayerWithStats[] = [
-  { ID: 0, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
-  { ID: 1, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
-  { ID: 2, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
-  { ID: 3, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
-  { ID: 4, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
-  { ID: 5, matchesWon: 0, matchesLost: 0, omv: 0, gamesWon: 0, opponents: [] },
+  {
+    ID: 0,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
+  {
+    ID: 1,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
+  {
+    ID: 2,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
+  {
+    ID: 3,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
+  {
+    ID: 4,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
+  {
+    ID: 5,
+    active: true,
+    matchesWon: 0,
+    matchesLost: 0,
+    omv: 0,
+    gamesWon: 0,
+    opponents: [],
+  },
 ];
 
 function tournament(players: PlayerWithStats[]) {

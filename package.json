@@ -6,5 +6,11 @@
   "workspaces": [
     "packages/turnament-web",
     "packages/turnament-scheduler"
-  ]
+  ],
+  "dependencies": {
+    "monorepo-run": "^0.4.2"
+  },
+  "scripts": {
+    "test": "mono-run test"
+  }
 }
