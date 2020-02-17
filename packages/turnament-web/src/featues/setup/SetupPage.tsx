@@ -12,10 +12,11 @@ import {
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/List";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getSchedulerTypesAsList, SchedulerType } from "turnament-scheduler";
+import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
-import { selectSchedulerType, setSchedulerType } from "../round/roundsSlice";
+import { setSchedulerType } from "../round/roundsSlice";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,9 +45,6 @@ export default function SetupPage() {
   const [state, setState] = useState<{ schedulerType: SchedulerType }>({
     schedulerType: "ROUND_ROBIN"
   });
-  const schedulerType = useSelector(selectSchedulerType);
-
-  if (schedulerType !== undefined) return null;
 
   const handleChange = (key: keyof typeof state) => (
     event: React.ChangeEvent<{ value: unknown }>
@@ -59,6 +57,8 @@ export default function SetupPage() {
 
   const handleNext = () => {
     dispatch(setSchedulerType({ schedulerType: state.schedulerType }));
+
+    routes.players.push();
   };
 
   const options = getSchedulerTypesAsList().map(option => (

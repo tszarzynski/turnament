@@ -1,11 +1,9 @@
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import PlayerListPage from "./featues/players/PlayerListPage";
-import RankingListPage from "./featues/ranking/RankingListPage";
-import RoundListPage from "./featues/round/RoundListPage";
-import SetupPage from "./featues/setup/SetupPage";
+import { getCurrentRoute, listen } from "./app/router";
+import { Page } from "./components/Page";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -14,17 +12,22 @@ const useStyles = makeStyles(theme => ({
     alignItems: "flex-start",
 
     flexWrap: "wrap"
+  },
+  page: {
+    position: "absolute",
+    willChange: "transform, opacity"
   }
 }));
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const [route, setRoute] = useState(getCurrentRoute());
+
+  useEffect(() => listen(setRoute), [route]);
+
   return (
     <Container component="main" maxWidth="xl" className={classes.paper}>
-      <SetupPage />
-      <PlayerListPage />
-      <RankingListPage />
-      <RoundListPage />
+      <Page route={route} />
     </Container>
   );
 };
