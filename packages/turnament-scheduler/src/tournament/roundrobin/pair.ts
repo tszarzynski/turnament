@@ -19,34 +19,30 @@ export const shiftArray = <T>(arr: T[], offset: number) => {
 };
 
 /**
- * Folds array into pairs
+ * Folds array into pairs of opposite elements. Ignores middle element if array has odd length.
  */
 export const toPairs = (arr: number[]): Pairing[] => {
-
   // determine the middle of the array
-  const half = Math.ceil(arr.length / 2);
+  const half = Math.floor(arr.length / 2);
   const firstHalf = arr.slice(0, half);
   const secondHalf = arr.slice(half).reverse();
 
   // fold intro pairs
-  return firstHalf.map((id, idx) => [id, secondHalf[idx] || BYE_ID]);
+  return firstHalf.map((id, idx) => [id, secondHalf[idx]]);
 };
 
 export function pairPlayers(players: Player[], numRoundsPlayed: number) {
-
   const playersToPair = players.map(player => player.ID);
 
-  // add dummy BYE player if number of players id odd
+  // add dummy BYE player if number of players is odd
   if (isOdd(playersToPair.length)) {
-    playersToPair.push(BYE_ID)
+    playersToPair.push(BYE_ID);
   }
 
-  const shifted = shiftArray(
-    playersToPair,
-    numRoundsPlayed
-  );
+  // shifts elements to create new order for next round pairings
+  const shifted = shiftArray(playersToPair, numRoundsPlayed);
 
   const pairings = toPairs(shifted);
 
-  return pairings
+  return pairings;
 }

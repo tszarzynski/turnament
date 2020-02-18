@@ -13,7 +13,9 @@ export const scheduler: Scheduler = {
     );
     // filter out inactive players
     const playersToPair = playersWithStats.filter(player => player.active);
+    //paier players
     const pairings = pairPlayers(playersToPair);
+    // return new round
     return makeRound(pairings, roundID);
   },
   roundsNeeded: roundsNeeded(1),

@@ -5,7 +5,7 @@ import { nominateWeakestPlayerForBye } from '../../bye';
 import { makeWeightedGraph } from './graph';
 import { calcMWMForGraph, transformMWMToPairings } from './mwm';
 
-export function pairPlayers(players: PlayerWithStats[]) {
+export function pairPlayers(players: PlayerWithStats[]): Pairing[] {
   // check if we have a player with BYE nomination
   const nominatedID = nominateWeakestPlayerForBye(players);
   // remove nominated player from the list
@@ -18,6 +18,6 @@ export function pairPlayers(players: PlayerWithStats[]) {
   )(playersToPair);
 
   return nominatedID !== BYE_ID
-    ? ([...pairings, [nominatedID, BYE_ID]] as Pairing[])
+    ? [...pairings, [nominatedID, BYE_ID] as Pairing]
     : pairings;
 }

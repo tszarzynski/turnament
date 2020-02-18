@@ -1,19 +1,18 @@
-import { Player, PlayerWithResults, Pairing } from '../../types';
-import { makePlayersWithResults } from '../../players';
-import { isOdd, nextPowOf2, isPowOf2 } from '../../utils';
 import { BYE_ID } from '../../consts';
+import { Pairing, PlayerWithResults } from '../../types';
+import { isPowOf2, nextPowOf2 } from '../../utils';
 
 /**
- * Folds array into pairs. Trim arrays with odd length.
+ * Folds array into pairs of neighbouring elements. Ignores last element if array has odd length.
  */
-export const toPairs = (arr: number[]): Pairing[] => {
-  // fold intro pairs
-  return arr.reduce<Pairing[]>(function(acc, value, index, array) {
-    if (index % 2 === 0 && index + 1 < array.length)
-      acc.push(array.slice(index, index + 2) as Pairing);
-    return acc;
-  }, []);
-};
+export const toPairs = (arr: number[]): Pairing[] =>
+  arr.reduce<Pairing[]>(
+    (acc, _, index, array) =>
+      index % 2 === 0 && index + 1 < array.length
+        ? [...acc, [array[index], array[index + 1]]]
+        : acc,
+    []
+  );
 
 export function pairPlayers(
   players: PlayerWithResults[],
