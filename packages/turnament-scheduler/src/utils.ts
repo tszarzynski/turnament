@@ -15,6 +15,14 @@ export function countOccurences(arr: number[]) {
  * Returns last element from array
  * @param arr
  */
+export function first<T>(arr: T[]) {
+  return arr[0];
+}
+
+/**
+ * Returns last element from array
+ * @param arr
+ */
 export function last<T>(arr: T[]) {
   return arr[arr.length - 1];
 }
@@ -43,4 +51,12 @@ export function isEven(n: number) {
 
 export function calcNumRoundsFromResults(results: Match[]) {
   return new Set(results.map(results => results.roundID)).size;
+}
+
+export function nextPowOf2(n: number) {
+  return Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
+}
+
+export function isPowOf2(n: number) {
+  return (n != 0) && ((n & (n - 1)) == 0);
 }

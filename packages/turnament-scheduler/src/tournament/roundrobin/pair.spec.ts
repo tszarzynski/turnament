@@ -20,41 +20,29 @@ test('toPairs should return correct pairings for odd number of elements', () => 
   ]);
 });
 
-test('pairPlayers should return correct pairings', () => {
+test('pairPlayers should return correct pairings for odd number of players', () => {
   const player1 = {
     ID: 1,
     name: 'Player 1',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [],
+
   };
   const player2 = {
     ID: 2,
     name: 'Player 2',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [],
+
   };
   const player3 = {
     ID: 3,
     name: 'Player 3',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [],
+
   };
 
-  expect(pairPlayers([player1, player2, player3])).toStrictEqual([
-    [1, 3],
-    [2, -1],
+  expect(pairPlayers([player1, player2, player3], 0)).toStrictEqual([
+    [1, -1],
+    [2, 3],
   ]);
 });
 
@@ -63,34 +51,48 @@ test('pairPlayers should return correct pairings', () => {
     ID: 1,
     name: 'Player 1',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [3],
+
   };
   const player2 = {
     ID: 2,
     name: 'Player 2',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [-1],
+
   };
   const player3 = {
     ID: 3,
     name: 'Player 3',
     active: true,
-    gamesWon: 0,
-    matchesWon: 0,
-    matchesLost: 0,
-    omv: 0,
-    opponents: [1],
+
   };
 
-  expect(pairPlayers([player1, player2, player3])).toStrictEqual([
+  expect(pairPlayers([player1, player2, player3], 1)).toStrictEqual([
+    [1, 3],
+    [-1, 2],
+  ]);
+});
+
+test('pairPlayers should return correct pairings', () => {
+  const player1 = {
+    ID: 1,
+    name: 'Player 1',
+    active: true,
+
+  };
+  const player2 = {
+    ID: 2,
+    name: 'Player 2',
+    active: true,
+
+  };
+  const player3 = {
+    ID: 3,
+    name: 'Player 3',
+    active: true,
+
+  };
+
+  expect(pairPlayers([player1, player2, player3], 2)).toStrictEqual([
     [1, 2],
     [3, -1],
   ]);

@@ -1,5 +1,6 @@
-import { PlayerWithResults, Pairing, Match } from '../../types';
 import { BYE_ID } from '../../consts';
+import { Pairing, Player } from '../../types';
+import { isOdd } from '../../utils';
 
 /**
  * Shift players
@@ -21,6 +22,7 @@ export const shiftArray = <T>(arr: T[], offset: number) => {
  * Folds array into pairs
  */
 export const toPairs = (arr: number[]): Pairing[] => {
+
   // determine the middle of the array
   const half = Math.ceil(arr.length / 2);
   const firstHalf = arr.slice(0, half);
@@ -30,11 +32,21 @@ export const toPairs = (arr: number[]): Pairing[] => {
   return firstHalf.map((id, idx) => [id, secondHalf[idx] || BYE_ID]);
 };
 
-export function pairPlayers(players: PlayerWithResults[]) {
-  const shiftBy = Math.min(...players.map(players => players.opponents.length));
+export function pairPlayers(players: Player[], numRoundsPlayed: number) {
+
+  const playersToPair = players.map(player => player.ID);
+
+  // add dummy BYE player if number of players id odd
+  if (isOdd(playersToPair.length)) {
+    playersToPair.push(BYE_ID)
+  }
+
   const shifted = shiftArray(
-    players.map(player => player.ID),
-    shiftBy
+    playersToPair,
+    numRoundsPlayed
   );
-  return toPairs(shifted);
+
+  const pairings = toPairs(shifted);
+
+  return pairings
 }
