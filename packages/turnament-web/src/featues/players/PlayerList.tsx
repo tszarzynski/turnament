@@ -3,6 +3,7 @@ import React from "react";
 import PlayerForm from "./PlayerForm";
 import PlayerListItem from "./PlayerListItem";
 import { Player } from "turnament-scheduler";
+import { useTransition, animated } from "react-spring"
 
 interface IProps {
   players: Player[];
@@ -15,16 +16,25 @@ export default function PlayerList({
   addPlayer,
   removePlayer
 }: IProps) {
+
+  const transitions = useTransition(players, player => player.ID, {
+    from: { transform: 'translate3d(0,-40px,0)' },
+    enter: { transform: 'translate3d(0,0px,0)' },
+    leave: { transform: 'translate3d(0,-40px,0)' },
+  })
+
+
+
   return (
     <div>
       <List>
-        {players.map((player, index) => (
-          <PlayerListItem
-            key={index}
-            player={player}
-            removePlayer={removePlayer}
-          />
-        ))}
+        {transitions.map(({ item, props, key }) =>
+          <animated.div key={key} style={props}>
+            <PlayerListItem
+              player={item}
+              removePlayer={removePlayer}
+            />
+          </animated.div>)}
       </List>
       <PlayerForm addPlayer={addPlayer} />
     </div>

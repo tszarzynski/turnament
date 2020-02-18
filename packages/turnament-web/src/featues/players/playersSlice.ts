@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Player } from "turnament-scheduler";
 import { RootState } from "../../app/reducers";
+import { AppThunk } from "../../app/store";
+import { readdRound } from "../round/roundsSlice";
 
 interface PlayersState {
   players: Record<number, Player>;
@@ -41,8 +43,20 @@ const playersSlice = createSlice({
   }
 });
 
+
+export const disablePlayer = ({ playerID }: { playerID: number }): AppThunk => (dispatch, getState) => {
+  dispatch(deactivatePlayer({ playerID }))
+  const players = selectPlayersListAsArray(getState());
+  dispatch(readdRound({ players }))
+}
+
+/**
+ * Selectors
+ */
+
 export const selectPlayersListAsArray = (state: RootState) =>
   Object.values(state.players.players);
+
 
 export const {
   addPlayer,

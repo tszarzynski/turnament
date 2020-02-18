@@ -4,7 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
-import { deactivatePlayer, resetPlayers } from "../players/playersSlice";
+import { disablePlayer, resetPlayers } from "../players/playersSlice";
 import { resetRounds, selectRankedPlayers } from "../round/roundsSlice";
 import RankingList from "./RankingList";
 
@@ -42,7 +42,7 @@ export default function RankingListPage() {
           <RankingList
             players={players}
             deactivatePlayer={(playerID: number) => {
-              dispatch(deactivatePlayer({ playerID }));
+              dispatch(disablePlayer({ playerID }));
             }}
           />
 

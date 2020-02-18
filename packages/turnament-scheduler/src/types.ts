@@ -18,9 +18,9 @@ export interface Stats {
   omv: number;
 }
 
-export interface PlayerWithResults extends Player, Results {}
+export interface PlayerWithResults extends Player, Results { }
 
-export interface PlayerWithStats extends Player, Results, Stats {}
+export interface PlayerWithStats extends Player, Results, Stats { }
 
 export interface PlayerWithBye extends Player {
   bye: number;
@@ -44,11 +44,15 @@ export type Pairing = [PlayerID, PlayerID];
  */
 export type GraphEdge = [number, number, number];
 
-export type SchedulerType = 'SWISS' | 'ROUND_ROBIN';
+export type SchedulerType = 'SWISS' | 'ROUND_ROBIN' | 'ELIMINATION' | 'AMALFI';
 
 export interface Scheduler {
   makeRound: (players: Player[], results: Match[], roundID: number) => Match[];
   roundsNeeded: (numPlayers: number) => number;
   type: SchedulerType;
   name?: string;
+}
+
+export interface Eliminator {
+  eliminate: (players: Player[], results: Match[]) => Player[]
 }

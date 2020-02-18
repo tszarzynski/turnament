@@ -12,13 +12,13 @@ import { selectPlayersListAsArray } from "../players/playersSlice";
 interface RoundsState {
   schedulerType: SchedulerType | undefined;
   rounds: Record<string, Match>;
-  currentRound: number;
+  currentRoundNum: number;
 }
 
 let initialState: RoundsState = {
   schedulerType: undefined,
   rounds: {},
-  currentRound: 0
+  currentRoundNum: 0
 };
 
 const roundsSlice = createSlice({
@@ -38,7 +38,7 @@ const roundsSlice = createSlice({
 
       if (!state.schedulerType) return;
 
-      const roundID = ++state.currentRound;
+      const roundID = ++state.currentRoundNum;
 
       const scheduler = getSchedulerByType(state.schedulerType);
       const newRound = scheduler.makeRound(
@@ -55,6 +55,29 @@ const roundsSlice = createSlice({
         }, {} as Record<string, Match>)
       };
     },
+    readdRound(state, { payload }: PayloadAction<{ players: Player[] }>) {
+      const { players } = payload;
+
+      if (!state.schedulerType) return;
+
+      const roundID = state.currentRoundNum;
+      const roundsWithoutCurrent = Object.values(state.rounds).filter(round => round.roundID !== roundID);
+
+      const scheduler = getSchedulerByType(state.schedulerType);
+      const newRound = scheduler.makeRound(
+        players,
+        Object.values(state.rounds),
+        roundID
+      );
+
+      console.log(newRound)
+
+      state.rounds =
+        [...roundsWithoutCurrent, ...newRound].reduce((acc, match) => {
+          acc[match.ID] = match;
+          return acc;
+        }, {} as Record<string, Match>)
+    },
     updateMatch(state, { payload }: PayloadAction<{ matchToUpdate: Match }>) {
       const { matchToUpdate } = payload;
 
@@ -65,6 +88,11 @@ const roundsSlice = createSlice({
     }
   }
 });
+
+
+/**
+ * Selectors
+ */
 
 export const selectSchedulerType = (state: RootState) =>
   state.rounds.schedulerType;
@@ -77,10 +105,10 @@ export const selectRankedPlayers = (state: RootState) =>
 
 export const selectCurrentRound = (state: RootState): Match[] =>
   selectRoundsListAsArray(state).filter(
-    match => match.roundID === state.rounds.currentRound && !match.hasBye
+    match => match.roundID === state.rounds.currentRoundNum && !match.hasBye
   );
 export const selectCurrentRoundNumber = (state: RootState): number =>
-  state.rounds.currentRound;
+  state.rounds.currentRoundNum;
 
 export const selectIsRoundCompleted = (state: RootState): boolean =>
   selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
@@ -88,6 +116,7 @@ export const selectIsRoundCompleted = (state: RootState): boolean =>
 export const {
   setSchedulerType,
   addRound,
+  readdRound,
   updateMatch,
   resetRounds
 } = roundsSlice.actions;

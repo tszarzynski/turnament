@@ -19,7 +19,6 @@ export default function RoundList({ players, round }: IProps) {
       <TableHead>
         <TableRow>
           <TableCell align="right">Player 1</TableCell>
-
           <TableCell align="left">Player 2</TableCell>
           <TableCell align="right"></TableCell>
         </TableRow>
