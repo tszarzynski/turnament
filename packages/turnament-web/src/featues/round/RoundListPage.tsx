@@ -37,8 +37,6 @@ export default function RoundListPage() {
   const isRoundCompleted = useSelector(selectIsRoundCompleted);
   const dispatch = useDispatch();
 
-  if (!rounds.length) return null;
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

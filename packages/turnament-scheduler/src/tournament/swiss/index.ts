@@ -1,10 +1,12 @@
 import { makePlayersWithResults, makePlayersWithStats } from '../../players';
 import { makeRound } from '../../round';
-import { Match, Player, Tournament } from '../../types';
+import { Match, Player, Scheduler } from '../../types';
 import { pairPlayers } from './pair';
 import { roundsNeeded } from './rounds';
 
-export const tournament: Tournament = {
+export const scheduler: Scheduler = {
+  name: 'Swiss',
+  type: 'SWISS',
   makeRound: (players: Player[], results: Match[], roundID: number) => {
     const playersWithStats = makePlayersWithStats(
       makePlayersWithResults(players, results)
