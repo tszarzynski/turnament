@@ -4,10 +4,15 @@ import {
   getSchedulerByType,
   Match,
   Player,
-  SchedulerType
+  SchedulerType,
+  isEliminator
 } from "turnament-scheduler";
 import { RootState } from "../../app/reducers";
-import { selectPlayersListAsArray } from "../players/playersSlice";
+import {
+  selectPlayersListAsArray,
+  deactivatePlayer
+} from "../players/playersSlice";
+import { AppThunk } from "../../app/store";
 
 interface RoundsState {
   schedulerType: SchedulerType | undefined;
@@ -41,11 +46,13 @@ const roundsSlice = createSlice({
       const roundID = ++state.currentRoundNum;
 
       const scheduler = getSchedulerByType(state.schedulerType);
-      const newRound = scheduler.makeRound(
-        players,
-        Object.values(state.rounds),
-        roundID
-      );
+      const rounds = Object.values(state.rounds);
+
+      const newRound = scheduler.makeRound(players, rounds, roundID);
+
+      if (isEliminator(scheduler)) {
+        scheduler.eliminate(players, rounds);
+      }
 
       state.rounds = {
         ...state.rounds,
@@ -61,7 +68,9 @@ const roundsSlice = createSlice({
       if (!state.schedulerType) return;
 
       const roundID = state.currentRoundNum;
-      const roundsWithoutCurrent = Object.values(state.rounds).filter(round => round.roundID !== roundID);
+      const roundsWithoutCurrent = Object.values(state.rounds).filter(
+        round => round.roundID !== roundID
+      );
 
       const scheduler = getSchedulerByType(state.schedulerType);
       const newRound = scheduler.makeRound(
@@ -70,13 +79,15 @@ const roundsSlice = createSlice({
         roundID
       );
 
-      console.log(newRound)
+      console.log(newRound);
 
-      state.rounds =
-        [...roundsWithoutCurrent, ...newRound].reduce((acc, match) => {
+      state.rounds = [...roundsWithoutCurrent, ...newRound].reduce(
+        (acc, match) => {
           acc[match.ID] = match;
           return acc;
-        }, {} as Record<string, Match>)
+        },
+        {} as Record<string, Match>
+      );
     },
     updateMatch(state, { payload }: PayloadAction<{ matchToUpdate: Match }>) {
       const { matchToUpdate } = payload;
@@ -88,7 +99,6 @@ const roundsSlice = createSlice({
     }
   }
 });
-
 
 /**
  * Selectors
@@ -112,6 +122,32 @@ export const selectCurrentRoundNumber = (state: RootState): number =>
 
 export const selectIsRoundCompleted = (state: RootState): boolean =>
   selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
+
+/**
+ * Thunks
+ */
+
+export const nextRound = ({ players }: { players: Player[] }): AppThunk => (
+  dispatch,
+  getState
+) => {
+  const schedulerType = selectSchedulerType(getState());
+
+  if (schedulerType) {
+    const scheduler = getSchedulerByType(schedulerType);
+    const rounds = selectRoundsListAsArray(getState());
+
+    if (isEliminator(scheduler)) {
+      const playersToEliminate = scheduler.eliminate(players, rounds);
+
+      playersToEliminate.forEach(player =>
+        dispatch(deactivatePlayer({ playerID: player.ID }))
+      );
+    }
+  }
+
+  dispatch(addRound({ players }));
+};
 
 export const {
   setSchedulerType,

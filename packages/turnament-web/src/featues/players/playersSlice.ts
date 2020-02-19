@@ -43,12 +43,18 @@ const playersSlice = createSlice({
   }
 });
 
+/**
+ * Thunks
+ */
 
-export const disablePlayer = ({ playerID }: { playerID: number }): AppThunk => (dispatch, getState) => {
-  dispatch(deactivatePlayer({ playerID }))
+export const disablePlayer = ({ playerID }: { playerID: number }): AppThunk => (
+  dispatch,
+  getState
+) => {
+  dispatch(deactivatePlayer({ playerID }));
   const players = selectPlayersListAsArray(getState());
-  dispatch(readdRound({ players }))
-}
+  dispatch(readdRound({ players }));
+};
 
 /**
  * Selectors
@@ -56,7 +62,6 @@ export const disablePlayer = ({ playerID }: { playerID: number }): AppThunk => (
 
 export const selectPlayersListAsArray = (state: RootState) =>
   Object.values(state.players.players);
-
 
 export const {
   addPlayer,

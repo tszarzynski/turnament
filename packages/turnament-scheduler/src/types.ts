@@ -18,9 +18,9 @@ export interface Stats {
   omv: number;
 }
 
-export interface PlayerWithResults extends Player, Results { }
+export interface PlayerWithResults extends Player, Results {}
 
-export interface PlayerWithStats extends Player, Results, Stats { }
+export interface PlayerWithStats extends Player, Results, Stats {}
 
 export interface PlayerWithBye extends Player {
   bye: number;
@@ -54,5 +54,11 @@ export interface Scheduler {
 }
 
 export interface Eliminator {
-  eliminate: (players: Player[], results: Match[]) => Player[]
+  eliminate: (players: Player[], results: Match[]) => Player[];
+}
+
+export function isEliminator(
+  scheduler: Scheduler | Eliminator
+): scheduler is Eliminator {
+  return (scheduler as Eliminator).eliminate !== undefined;
 }

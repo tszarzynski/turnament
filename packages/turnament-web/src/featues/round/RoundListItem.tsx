@@ -1,9 +1,14 @@
-import { Button, TableCell, TableRow, TextField, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  TableCell,
+  TableRow,
+  TextField,
+  makeStyles
+} from "@material-ui/core";
 import { Match } from "turnament-scheduler";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateMatch } from "./roundsSlice";
-
 
 const useStyles = makeStyles(theme => ({
   winner: {
@@ -40,7 +45,7 @@ export default function RoundListeItem({ match, names }: IProps) {
               defaultValue={match.result[0]}
               required
               type="number"
-              id="player-score-1"
+              id={`player-${match.pairing[0]}-score`}
               autoFocus
               onChange={e => setResult1(parseInt(e.target.value))}
             />
@@ -51,7 +56,7 @@ export default function RoundListeItem({ match, names }: IProps) {
               defaultValue={match.result[1]}
               required
               type="number"
-              id="player-score-2"
+              id={`player-${match.pairing[1]}-score`}
               onChange={e => setResult2(parseInt(e.target.value))}
             />
           </TableCell>
@@ -60,19 +65,25 @@ export default function RoundListeItem({ match, names }: IProps) {
           </TableCell>
         </>
       ) : (
-          <>
-            <TableCell align="right" className={match.result[0] > match.result[1] ? classes.winner : ''}>
-              {names[0] + " (" + match.result[0] + ")"}
-            </TableCell>
+        <>
+          <TableCell
+            align="right"
+            className={match.result[0] > match.result[1] ? classes.winner : ""}
+          >
+            {names[0] + " (" + match.result[0] + ")"}
+          </TableCell>
 
-            <TableCell align="left" className={match.result[1] > match.result[0] ? classes.winner : ''}>
-              {"(" + match.result[1] + ") " + names[1]}
-            </TableCell>
-            <TableCell align="right">
-              <Button onClick={() => setEditing(true)}>Update</Button>
-            </TableCell>
-          </>
-        )}
+          <TableCell
+            align="left"
+            className={match.result[1] > match.result[0] ? classes.winner : ""}
+          >
+            {"(" + match.result[1] + ") " + names[1]}
+          </TableCell>
+          <TableCell align="right">
+            <Button onClick={() => setEditing(true)}>Update</Button>
+          </TableCell>
+        </>
+      )}
     </TableRow>
   );
 }

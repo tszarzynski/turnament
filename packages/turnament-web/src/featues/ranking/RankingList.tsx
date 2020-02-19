@@ -30,7 +30,7 @@ export default function RankingList({ players, deactivatePlayer }: IProps) {
             <TableBody>
                 {players.map((player, index) => (
                     <RankingListItem
-                        key={index}
+                        key={player.ID}
                         rank={index + 1}
                         player={player}
                         deactivatePlayer={deactivatePlayer}

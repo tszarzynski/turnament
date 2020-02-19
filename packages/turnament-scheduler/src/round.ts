@@ -13,7 +13,7 @@ export const makeMatch = (
     roundID,
     ID,
     pairing,
-    result: [0, hasBye ? -1 : 0],
+    result: [0, 0],
     hasBye,
   };
 };

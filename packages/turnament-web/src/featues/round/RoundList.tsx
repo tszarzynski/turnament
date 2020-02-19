@@ -25,7 +25,7 @@ export default function RoundList({ players, round }: IProps) {
       </TableHead>
       <TableBody>
         {round.map((match, index) => (
-          <RoundListeItem key={index} match={match} names={names[index]} />
+          <RoundListeItem key={match.ID} match={match} names={names[index]} />
         ))}
       </TableBody>
     </Table>

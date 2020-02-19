@@ -9,7 +9,8 @@ import {
   addRound,
   selectCurrentRound,
   selectCurrentRoundNumber,
-  selectIsRoundCompleted
+  selectIsRoundCompleted,
+  nextRound
 } from "./roundsSlice";
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +53,7 @@ export default function RoundListPage() {
             variant="contained"
             color="secondary"
             disabled={!isRoundCompleted || players.length < 2}
-            onClick={() => dispatch(addRound({ players }))}
+            onClick={() => dispatch(nextRound({ players }))}
           >
             Next Round
           </Button>

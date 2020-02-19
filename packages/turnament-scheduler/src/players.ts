@@ -24,7 +24,7 @@ export const makePlayersWithResults = (
         const hasWon = match.result[idxPlayer] > match.result[idxOpponent];
         return {
           gamesWon: acc.gamesWon + match.result[idxPlayer],
-          matchesWon: acc.matchesWon + (hasWon ? 1 : 0),
+          matchesWon: acc.matchesWon + (hasWon || match.hasBye ? 1 : 0),
           matchesLost: acc.matchesLost + (!hasWon ? 1 : 0),
           opponents: [...acc.opponents, match.pairing[idxOpponent]],
         };
