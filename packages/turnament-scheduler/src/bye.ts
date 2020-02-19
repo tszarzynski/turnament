@@ -13,22 +13,32 @@ const countByes = (opponents: number[]) =>
 const playersWithByes = (players: PlayerWithResults[]) =>
   players.map(player => ({ ...player, bye: countByes(player.opponents) }));
 
-
 /**
  * Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.
  * @param players list of players
  */
 export const nominateWeakestPlayerForBye = (players: PlayerWithStats[]) =>
   hasOddNumOfPlayers(players)
-    ? pipe(rankPlayers, playersWithByes, sortWith<PlayerWithBye>([desc('bye')]), last, prop('ID'))(players)
+    ? pipe(
+        rankPlayers,
+        playersWithByes,
+        sortWith<PlayerWithBye>([desc('bye')]),
+        last,
+        prop('ID')
+      )(players)
     : BYE_ID;
 
-
 /**
-* Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.
-* @param players list of players
-*/
+ * Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.
+ * @param players list of players
+ */
 export const nominateStrongestPlayerForBye = (players: PlayerWithStats[]) =>
   hasOddNumOfPlayers(players)
-    ? pipe(rankPlayers, playersWithByes, sortWith<PlayerWithBye>([asc('bye')]), first, prop('ID'))(players)
+    ? pipe(
+        rankPlayers,
+        playersWithByes,
+        sortWith<PlayerWithBye>([asc('bye')]),
+        first,
+        prop('ID')
+      )(players)
     : BYE_ID;

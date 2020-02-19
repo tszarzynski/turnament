@@ -15,7 +15,7 @@ export const scheduler: Scheduler & Eliminator = {
     // calculate number of rounds played so far
     const numRoundsPlayed = calcNumRoundsFromResults(results);
     // make pairs
-    let pairings = pairPlayers(playersToPair, numRoundsPlayed);
+    const pairings = pairPlayers(playersToPair, numRoundsPlayed);
     // return new round
     return makeRound(pairings, roundID);
   },

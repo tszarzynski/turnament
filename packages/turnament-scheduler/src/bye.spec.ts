@@ -1,4 +1,7 @@
-import { nominateWeakestPlayerForBye, nominateStrongestPlayerForBye } from './bye';
+import {
+  nominateWeakestPlayerForBye,
+  nominateStrongestPlayerForBye,
+} from './bye';
 import { PlayerWithStats } from './types';
 
 test('nominateWeakestPlayerForBye should return -1 for even number of players', () => {

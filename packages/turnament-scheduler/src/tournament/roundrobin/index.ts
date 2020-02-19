@@ -11,7 +11,7 @@ export const scheduler: Scheduler = {
     // filter out inactive players
     const playersToPair = players.filter(player => player.active);
     // calculate number of rounds played so far
-    const numRoundsPlayed = calcNumRoundsFromResults(results)
+    const numRoundsPlayed = calcNumRoundsFromResults(results);
 
     const pairings = pairPlayers(playersToPair, numRoundsPlayed);
 

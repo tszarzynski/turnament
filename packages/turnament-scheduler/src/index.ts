@@ -17,6 +17,8 @@ export function getSchedulerByType(type: SchedulerType) {
       return EliminationScheduler;
     case 'AMALFI':
       return AmalfiScheduler;
+    default:
+      return RoundRobinScheduler;
   }
 }
 

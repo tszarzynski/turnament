@@ -1,4 +1,4 @@
-import { isEven } from "../../utils";
+import { isEven } from '../../utils';
 
 /**
  * Returns number of rounds necessary to finish tournament
@@ -6,9 +6,9 @@ import { isEven } from "../../utils";
  */
 export function roundsNeeded(numPlayers: number) {
   if (isEven(numPlayers)) {
-    return numPlayers - 1
+    return numPlayers - 1;
   } else {
-    return numPlayers
+    return numPlayers;
   }
 }
 

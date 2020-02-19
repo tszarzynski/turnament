@@ -9,22 +9,21 @@ import { rankPlayers } from '../../rank';
  * Folds array into pairs
  */
 export const toPairs = (arr: number[], offset: number): Pairing[] => {
-
   let arrToFold, bye;
 
   if (isOdd(arr.length)) {
-    bye = arr[0]
+    bye = arr[0];
     arrToFold = arr.slice(1);
   } else {
     arrToFold = arr;
   }
 
-  let pairs: Pairing[] = []
+  const pairs: Pairing[] = [];
   for (let i = 0; i < arrToFold.length - offset; i++) {
-    pairs.push([arrToFold[i], arrToFold[i + offset]])
+    pairs.push([arrToFold[i], arrToFold[i + offset]]);
   }
 
-  return bye ? [[bye, BYE_ID], ...pairs] : pairs
+  return bye ? [[bye, BYE_ID], ...pairs] : pairs;
 };
 
 /**
@@ -41,19 +40,24 @@ export const scheduler: Scheduler = {
   name: 'Amalfi',
   type: 'AMALFI',
   makeRound: (players: Player[], results: Match[], roundID: number) => {
-    const playersWithStats = makePlayersWithStats(makePlayersWithResults(players, results));
+    const playersWithStats = makePlayersWithStats(
+      makePlayersWithResults(players, results)
+    );
     // filter out inactive players
     const playersToPair = playersWithStats.filter(player => player.active);
     const playerToPairRanked = rankPlayers(playersToPair);
 
-    const numPlayedRounds = Math.min(...playerToPairRanked.map(players => players.opponents.length));
+    const numPlayedRounds = Math.min(
+      ...playerToPairRanked.map(players => players.opponents.length)
+    );
     const numRounds = roundsNeeded(1)(playerToPairRanked.length);
 
-    let pairings = toPairs(playerToPairRanked.map(player => player.ID), numRounds - numPlayedRounds)
+    const pairings = toPairs(
+      playerToPairRanked.map(player => player.ID),
+      numRounds - numPlayedRounds
+    );
 
     return makeRound(pairings, roundID);
-
   },
-  roundsNeeded: roundsNeeded(1)
-
+  roundsNeeded: roundsNeeded(1),
 };

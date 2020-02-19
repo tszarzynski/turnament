@@ -58,5 +58,5 @@ export function nextPowOf2(n: number) {
 }
 
 export function isPowOf2(n: number) {
-  return (n != 0) && ((n & (n - 1)) == 0);
+  return n !== 0 && (n & (n - 1)) === 0;
 }

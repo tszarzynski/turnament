@@ -3,7 +3,10 @@
  * @param numPlayers
  */
 export function roundsNeeded(numPlayers: number) {
-  return Math.ceil(Math.log2(numPlayers)) + Math.ceil(Math.log2(Math.log2(numPlayers)))
+  return (
+    Math.ceil(Math.log2(numPlayers)) +
+    Math.ceil(Math.log2(Math.log2(numPlayers)))
+  );
 }
 
 /**
@@ -11,5 +14,5 @@ export function roundsNeeded(numPlayers: number) {
  * @param numPlayers
  */
 export function matchesNeeded(numPlayers: number) {
-  return (numPlayers * 2) - 2;
+  return numPlayers * 2 - 2;
 }
