@@ -1,5 +1,5 @@
 import { TextField, Button, Theme } from "@material-ui/core";
-import React, { FormEvent, useState, ChangeEvent } from "react";
+import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
 import { makeStyles, createStyles } from "@material-ui/styles";
 
 interface IProps {
@@ -40,8 +40,11 @@ export default function PlayerForm({ addPlayer }: IProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setValue(inputValue);
-    setDisabled(prev => inputValue.length === 0);
   };
+
+  useEffect(() => {
+    setDisabled(prev => value.length === 0);
+  }, [value]);
 
   return (
     <div className={classes.paper}>
