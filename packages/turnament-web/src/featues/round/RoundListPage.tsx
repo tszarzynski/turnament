@@ -6,11 +6,10 @@ import PageHeader from "../../components/PageHeader";
 import { selectPlayersListAsArray } from "../players/playersSlice";
 import RoundList from "./RoundList";
 import {
-  addRound,
+  nextRound,
   selectCurrentRound,
   selectCurrentRoundNumber,
-  selectIsRoundCompleted,
-  nextRound
+  selectIsRoundCompleted
 } from "./roundsSlice";
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +52,7 @@ export default function RoundListPage() {
             variant="contained"
             color="secondary"
             disabled={!isRoundCompleted || players.length < 2}
-            onClick={() => dispatch(nextRound({ players }))}
+            onClick={() => dispatch(nextRound())}
           >
             Next Round
           </Button>

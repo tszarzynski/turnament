@@ -1,8 +1,7 @@
 import { List, makeStyles } from "@material-ui/core";
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { animated, interpolate, useSprings } from "react-spring";
 import { useDrag } from "react-use-gesture";
-import { Player } from "turnament-scheduler";
 import PlayerForm from "./PlayerForm";
 import PlayerListItem from "./PlayerListItem";
 
@@ -13,9 +12,10 @@ const fn = (
   originalIndex: number,
   curIndex: number,
   y: number,
-  originalHeight: number
-) => (index: number) =>
-  down && index === originalIndex
+  originalHeight: number,
+  immediate: boolean = false
+) => (index: number) => {
+  return down && index === originalIndex
     ? {
         y: curIndex * originalHeight + y,
         scale: 1.1,
@@ -27,17 +27,15 @@ const fn = (
         y: order.indexOf(index) * originalHeight,
         scale: 1,
         zIndex: 0,
-        shadow: 1,
-        immediate: (n: string) => false
+        shadow: 0,
+        immediate: (n: string) => immediate || false
       };
-
+};
 const clamp = (n: number, lower: number, upper: number) =>
   Math.min(Math.max(n, lower), upper);
 const move = (arr: number[], from: number, to: number) => {
   const newArr = arr.slice();
-
   newArr.splice(to, 0, newArr.splice(from, 1)[0]);
-
   return newArr;
 };
 
@@ -54,73 +52,75 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface IProps {
-  players: Player[];
+  items: string[];
+  order: number[];
   addPlayer: (name: string) => void;
   removePlayer: (id: number) => void;
+  reorderList: (order: number[]) => void;
 }
 
 export default function PlayerList({
-  players,
+  items = [],
+  order = [],
   addPlayer,
-  removePlayer
+  removePlayer,
+  reorderList
 }: IProps) {
   const classes = useStyles();
-  const order = useRef<number[]>([]);
+  const orderRef = useRef<number[]>([]);
   const itemsRef = useRef<HTMLElement[]>([]);
-  const [items, setItems] = useState<Player[]>(players);
   const [listHeight, setListHeight] = useState<number>(0);
-
-  useEffect(() => {
-    setItems(players);
-
-    const idxs = players.map((_, index) => index);
-
-    order.current = [...order.current, ...idxs.slice(order.current.length)];
-    console.log(order.current);
-    itemsRef.current = new Array(players.length);
-  }, [players]);
-
+  const [itemHeight, setItemHeight] = useState<number>(0);
   const [springs, setSprings] = useSprings(
     items.length,
-    fn(order.current, false, 0, 0, 0, 0)
+    fn(orderRef.current, false, 0, 0, 0, itemHeight)
   );
 
-  useLayoutEffect(() => {
-    if (itemsRef.current.length) {
-      setSprings(
-        // @ts-ignore
-        fn(order.current, false, 0, 0, 0, itemsRef.current[0].offsetHeight)
-      );
+  useEffect(() => {
+    orderRef.current = order;
+  }, [order]);
 
-      setListHeight(itemsRef.current[0].offsetHeight * itemsRef.current.length);
+  useEffect(() => {
+    itemsRef.current = new Array(order.length);
+  }, [order]);
+
+  useLayoutEffect(() => {
+    if (itemsRef.current.length > 0) {
+      setItemHeight(itemsRef.current[0].offsetHeight);
+      setListHeight(itemsRef.current[0].offsetHeight * order.length);
     }
-  }, [itemsRef, setSprings]);
+  }, [order]);
+
+  useEffect(() => {
+    //@ts-ignore
+    setSprings(fn(orderRef.current, false, 0, 0, 0, itemHeight, true));
+  }, [itemHeight, setSprings, order]);
 
   const bind = useDrag(({ args: [originalIndex], down, movement: [, y] }) => {
-    const target = itemsRef.current[originalIndex];
-    const targetHeight = target.offsetHeight;
-    const curIndex = order.current.indexOf(originalIndex);
+    const curIndex = orderRef.current.indexOf(originalIndex);
     const curRow = clamp(
-      Math.round((curIndex * targetHeight + y) / targetHeight),
+      Math.round((curIndex * itemHeight + y) / itemHeight),
       0,
-      items.length - 1
+      order.length - 1
     );
-    const newOrder = move(order.current, curIndex, curRow);
-
-    const newFn = fn(newOrder, down, originalIndex, curIndex, y, targetHeight);
+    const newOrder = move(orderRef.current, curIndex, curRow);
+    const newFn = fn(newOrder, down, originalIndex, curIndex, y, itemHeight);
     // @ts-ignore
     setSprings(newFn); // Feed springs new style data, they'll animate the view without causing a single render
-    if (!down) order.current = newOrder;
-  });
 
+    if (!down) {
+      orderRef.current = newOrder;
+      reorderList(newOrder);
+    }
+  });
   return (
     <div>
       <List className={classes.list} style={{ height: listHeight }}>
-        {springs.map(({ zIndex, shadow, y, scale }, i) => (
+        {springs.map(({ zIndex, shadow, y, scale }, idx) => (
           <animated.div
-            ref={el => (itemsRef.current[i] = el!)}
-            {...bind(i)}
-            key={i}
+            ref={el => (itemsRef.current[idx] = el!)}
+            {...bind(idx)}
+            key={idx}
             className={classes.listItem}
             style={{
               zIndex,
@@ -133,7 +133,11 @@ export default function PlayerList({
               )
             }}
             children={
-              <PlayerListItem player={items[i]} removePlayer={removePlayer} />
+              <PlayerListItem
+                name={items[idx]}
+                index={order.indexOf(idx)}
+                removePlayer={removePlayer}
+              />
             }
           />
         ))}

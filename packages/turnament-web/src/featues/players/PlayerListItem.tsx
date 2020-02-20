@@ -6,22 +6,22 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
-import { Player } from "turnament-scheduler";
 
 interface IProps {
-  player: Player;
+  name: string;
+  index: number;
   removePlayer: (id: number) => void;
 }
 
-export default function PlayerListItem({ player, removePlayer }: IProps) {
+function PlayerListItem({ name, index, removePlayer }: IProps) {
   return (
     <ListItem>
-      <ListItemText primary={player.name} />
+      <ListItemText primary={name} />
       <ListItemSecondaryAction>
         <IconButton
           edge="end"
           aria-label="delete"
-          onClick={() => removePlayer(player.ID)}
+          onClick={() => removePlayer(index)}
         >
           <DeleteIcon />
         </IconButton>
@@ -29,3 +29,5 @@ export default function PlayerListItem({ player, removePlayer }: IProps) {
     </ListItem>
   );
 }
+
+export default React.memo(PlayerListItem);

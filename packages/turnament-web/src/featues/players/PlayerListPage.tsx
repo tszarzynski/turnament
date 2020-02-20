@@ -6,17 +6,14 @@ import {
   makeStyles
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/AccountCircle";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
-import { addRound } from "../round/roundsSlice";
+import { nextRound } from "../round/roundsSlice";
+import { useOrderedList } from "./hooks";
 import PlayerList from "./PlayerList";
-import {
-  addPlayer,
-  removePlayer,
-  selectPlayersListAsArray
-} from "./playersSlice";
+import { addPlayers, selectPlayersListAsArray } from "./playersSlice";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,9 +36,21 @@ export default function PlayerListPage() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const players = useSelector(selectPlayersListAsArray);
+  const {
+    items,
+    order,
+    set,
+    add,
+    remove,
+    reorder,
+    orderedItems
+  } = useOrderedList<string>();
+
+  useEffect(() => set(players.map(player => player.name!)), [players, set]);
 
   const handleNext = () => {
-    dispatch(addRound({ players }));
+    dispatch(addPlayers({ names: orderedItems }));
+    dispatch(nextRound());
 
     routes.tournament.push();
   };
@@ -55,12 +64,14 @@ export default function PlayerListPage() {
         </PageHeader>
         <div className={classes.form}>
           <PlayerList
-            players={players}
+            items={items}
+            order={order}
+            reorderList={(order: number[]) => reorder(order)}
             removePlayer={(playerID: number) => {
-              dispatch(removePlayer({ playerID }));
+              remove(playerID);
             }}
             addPlayer={(name: string) => {
-              dispatch(addPlayer({ name }));
+              add(name);
             }}
           />
           <Divider variant="middle" />
@@ -68,7 +79,7 @@ export default function PlayerListPage() {
             fullWidth
             variant="contained"
             color="secondary"
-            disabled={players.length < 2}
+            disabled={items.length < 2}
             onClick={handleNext}
           >
             Start Tournament

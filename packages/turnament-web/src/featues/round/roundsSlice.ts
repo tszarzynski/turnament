@@ -127,17 +127,15 @@ export const selectIsRoundCompleted = (state: RootState): boolean =>
  * Thunks
  */
 
-export const nextRound = ({ players }: { players: Player[] }): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const nextRound = (): AppThunk => (dispatch, getState) => {
   const schedulerType = selectSchedulerType(getState());
+  const players = selectPlayersListAsArray(getState());
 
   if (schedulerType) {
     const scheduler = getSchedulerByType(schedulerType);
-    const rounds = selectRoundsListAsArray(getState());
 
     if (isEliminator(scheduler)) {
+      const rounds = selectRoundsListAsArray(getState());
       const playersToEliminate = scheduler.eliminate(players, rounds);
 
       playersToEliminate.forEach(player =>
