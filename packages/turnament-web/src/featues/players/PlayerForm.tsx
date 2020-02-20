@@ -1,5 +1,5 @@
 import { TextField, Button, Theme } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, ChangeEvent } from "react";
 import { makeStyles, createStyles } from "@material-ui/styles";
 
 interface IProps {
@@ -28,12 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function PlayerForm({ addPlayer }: IProps) {
   const classes = useStyles();
   const [value, setValue] = useState("");
+  const [disabled, setDisabled] = useState(value.length === 0);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!value) return;
     addPlayer(value);
     setValue("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setValue(inputValue);
+    setDisabled(prev => inputValue.length === 0);
   };
 
   return (
@@ -45,10 +52,10 @@ export default function PlayerForm({ addPlayer }: IProps) {
           margin="normal"
           variant="outlined"
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={handleChange}
         />
         <Button
-          disabled={value.length === 0}
+          disabled={disabled}
           type="submit"
           fullWidth
           variant="contained"
