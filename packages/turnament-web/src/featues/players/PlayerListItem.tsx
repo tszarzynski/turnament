@@ -2,10 +2,12 @@ import {
   IconButton,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
+  ListItemIcon
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
+import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 
 interface IProps {
   name: string;
@@ -16,6 +18,9 @@ interface IProps {
 function PlayerListItem({ name, index, removePlayer }: IProps) {
   return (
     <ListItem>
+      <ListItemIcon>
+        <DragIndicatorIcon />
+      </ListItemIcon>
       <ListItemText primary={name} />
       <ListItemSecondaryAction>
         <IconButton

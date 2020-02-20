@@ -3,10 +3,12 @@ import {
   Container,
   CssBaseline,
   Divider,
-  makeStyles
+  makeStyles,
+  FormControlLabel,
+  Checkbox
 } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/AccountCircle";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
@@ -45,6 +47,7 @@ export default function PlayerListPage() {
     reorder,
     orderedItems
   } = useOrderedList<string>();
+  const [manualSeeding, setManualSeeding] = useState(false);
 
   useEffect(() => set(players.map(player => player.name!)), [players, set]);
 
@@ -53,6 +56,10 @@ export default function PlayerListPage() {
     dispatch(nextRound());
 
     routes.tournament.push();
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setManualSeeding(event.target.checked);
   };
 
   return (
@@ -73,6 +80,16 @@ export default function PlayerListPage() {
             addPlayer={(name: string) => {
               add(name);
             }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={manualSeeding}
+                onChange={handleChange}
+                value="manualSeeding"
+              />
+            }
+            label="Manual seeding"
           />
           <Divider variant="middle" />
           <Button

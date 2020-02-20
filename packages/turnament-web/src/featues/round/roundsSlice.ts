@@ -79,8 +79,6 @@ const roundsSlice = createSlice({
         roundID
       );
 
-      console.log(newRound);
-
       state.rounds = [...roundsWithoutCurrent, ...newRound].reduce(
         (acc, match) => {
           acc[match.ID] = match;
