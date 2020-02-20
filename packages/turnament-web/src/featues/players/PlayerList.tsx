@@ -135,7 +135,7 @@ export default function PlayerList({
             children={
               <PlayerListItem
                 name={items[idx]}
-                index={order.indexOf(idx)}
+                index={idx}
                 removePlayer={removePlayer}
               />
             }
