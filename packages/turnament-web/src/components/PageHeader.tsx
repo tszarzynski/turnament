@@ -16,7 +16,7 @@ interface Props {
 export default function PageHeader({ children, labelText }: Props) {
   const classes = useStyles();
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" my={4}>
+    <Box display="flex" flexDirection="column" alignItems="center" py={4}>
       <Avatar className={classes.avatar}>{children}</Avatar>
       <Typography component="h1" variant="h5">
         {labelText}
