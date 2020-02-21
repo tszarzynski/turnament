@@ -1,10 +1,13 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Route } from "type-route";
 import { routes } from "../app/router";
-import PlayerListPage from "../featues/players/PlayerListPage";
-import SetupPage from "../featues/setup/SetupPage";
-import RankingListPage from "../featues/ranking/RankingListPage";
-import RoundListPage from "../featues/round/RoundListPage";
+
+const PlayerListPage = lazy(() => import("../featues/players/PlayerListPage"));
+const SetupPage = lazy(() => import("../featues/setup/SetupPage"));
+const RankingListPage = lazy(() =>
+  import("../featues/ranking/RankingListPage")
+);
+const RoundListPage = lazy(() => import("../featues/round/RoundListPage"));
 
 type Props = {
   route: Route<typeof routes>;

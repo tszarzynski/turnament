@@ -1,9 +1,9 @@
 import { Container } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import { getCurrentRoute, listen } from "./app/router";
 import { Page } from "./components/Page";
+import Loader from "./components/Loader";
 
 const App: React.FC = () => {
   const [route, setRoute] = useState(getCurrentRoute());
@@ -11,8 +11,10 @@ const App: React.FC = () => {
   useEffect(() => listen(setRoute), [route]);
 
   return (
-    <Container component="main" maxWidth="sm">
-      <Page route={route} />
+    <Container component="main" maxWidth="sm" style={{ minHeight: "100vh" }}>
+      <Suspense fallback={<Loader></Loader>}>
+        <Page route={route} />
+      </Suspense>
     </Container>
   );
 };
