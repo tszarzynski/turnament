@@ -10,12 +10,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "flex-start",
-
     flexWrap: "wrap"
-  },
-  page: {
-    position: "absolute",
-    willChange: "transform, opacity"
   }
 }));
 
@@ -26,7 +21,7 @@ const App: React.FC = () => {
   useEffect(() => listen(setRoute), [route]);
 
   return (
-    <Container component="main" maxWidth="xl" className={classes.paper}>
+    <Container component="main" maxWidth="sm" className={classes.paper}>
       <Page route={route} />
     </Container>
   );

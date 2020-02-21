@@ -121,6 +121,10 @@ export const selectCurrentRoundNumber = (state: RootState): number =>
 export const selectIsRoundCompleted = (state: RootState): boolean =>
   selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
 
+// export const selectAllRoundIDs = (state: RootState) => [
+//   ...new Set<number>(selectRoundsListAsArray(state).map(match => match.roundID))
+// ];
+
 /**
  * Thunks
  */

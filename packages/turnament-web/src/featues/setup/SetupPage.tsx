@@ -1,7 +1,6 @@
 import {
+  Box,
   Button,
-  Container,
-  CssBaseline,
   Divider,
   FormControl,
   FormControlLabel,
@@ -71,8 +70,7 @@ export default function SetupPage() {
   ));
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Box component="main" width={1}>
       <div className={classes.paper}>
         <PageHeader labelText="Setup">
           <TitleIcon />
@@ -100,6 +98,6 @@ export default function SetupPage() {
           </Button>
         </div>
       </div>
-    </Container>
+    </Box>
   );
 }

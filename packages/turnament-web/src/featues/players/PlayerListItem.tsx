@@ -8,19 +8,28 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import { useSpring, animated } from "react-spring";
 
 interface IProps {
   name: string;
   index: number;
+  draggable: boolean;
   removePlayer: (id: number) => void;
 }
 
-function PlayerListItem({ name, index, removePlayer }: IProps) {
+function PlayerListItem({ name, index, draggable, removePlayer }: IProps) {
+  const dragIndicatorSpringProps = useSpring({
+    opacity: draggable ? 1 : 0,
+    width: draggable ? "auto" : 0
+  });
+
   return (
     <ListItem>
-      <ListItemIcon>
-        <DragIndicatorIcon />
-      </ListItemIcon>
+      <animated.div style={dragIndicatorSpringProps}>
+        <ListItemIcon>
+          <DragIndicatorIcon />
+        </ListItemIcon>
+      </animated.div>
       <ListItemText primary={name} />
       <ListItemSecondaryAction>
         <IconButton

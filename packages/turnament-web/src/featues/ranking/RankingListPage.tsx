@@ -1,4 +1,4 @@
-import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
+import { Box, Button, makeStyles } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/EmojiEvents";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,8 +31,7 @@ export default function RankingListPage() {
   const players = useSelector(selectRankedPlayers);
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Box component="main" width={1}>
       <div className={classes.paper}>
         <PageHeader labelText="Ranking">
           <TitleIcon />
@@ -60,6 +59,6 @@ export default function RankingListPage() {
           </Button>
         </div>
       </div>
-    </Container>
+    </Box>
   );
 }

@@ -1,7 +1,24 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import {
+  makeStyles,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from "@material-ui/core";
 import React from "react";
-import RoundListeItem from "./RoundListItem";
 import { Match, Player } from "turnament-scheduler";
+import RoundListeItem from "./RoundListItem";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular
+  }
+}));
 
 interface IProps {
   players: Player[];
@@ -9,6 +26,7 @@ interface IProps {
 }
 
 export default function RoundList({ players, round }: IProps) {
+  const classes = useStyles();
   const getPlayer = (pr: number): Player => players.find(p => p.ID === pr)!;
   const names = round.map(({ pairing }: Match): [string, string] => {
     return [getPlayer(pairing[0]).name!, getPlayer(pairing[1]).name!];

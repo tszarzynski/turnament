@@ -1,4 +1,4 @@
-import { Button, Container, CssBaseline, makeStyles } from "@material-ui/core";
+import { Box, Button, makeStyles } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/List";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,8 +38,7 @@ export default function RoundListPage() {
   const dispatch = useDispatch();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Box component="main" width={1}>
       <div className={classes.paper}>
         <PageHeader labelText={"Round " + roundNumber}>
           <TitleIcon />
@@ -58,6 +57,6 @@ export default function RoundListPage() {
           </Button>
         </div>
       </div>
-    </Container>
+    </Box>
   );
 }

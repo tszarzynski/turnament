@@ -2,7 +2,7 @@ import { List, makeStyles } from "@material-ui/core";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { animated, interpolate, useSprings } from "react-spring";
 import { useDrag } from "react-use-gesture";
-import PlayerForm from "./PlayerForm";
+import PlayerAddForm from "./PlayerAddForm";
 import PlayerListItem from "./PlayerListItem";
 
 // Returns fitting styles for dragged/idle items
@@ -20,7 +20,7 @@ const fn = (
         y: curIndex * originalHeight + y,
         scale: 1.1,
         zIndex: 1,
-        shadow: 15,
+        shadow: 3,
         immediate: (n: string) => n === "y" || n === "zIndex"
       }
     : {
@@ -57,6 +57,7 @@ interface IProps {
   addPlayer: (name: string) => void;
   removePlayer: (id: number) => void;
   reorderList: (order: number[]) => void;
+  draggable: boolean;
 }
 
 export default function PlayerList({
@@ -64,7 +65,8 @@ export default function PlayerList({
   order = [],
   addPlayer,
   removePlayer,
-  reorderList
+  reorderList,
+  draggable
 }: IProps) {
   const classes = useStyles();
   const orderRef = useRef<number[]>([]);
@@ -85,7 +87,7 @@ export default function PlayerList({
   }, [order]);
 
   useLayoutEffect(() => {
-    if (itemsRef.current.length > 0) {
+    if (itemsRef.current[0]) {
       setItemHeight(itemsRef.current[0].offsetHeight);
       setListHeight(itemsRef.current[0].offsetHeight * order.length);
     }
@@ -93,10 +95,11 @@ export default function PlayerList({
 
   useEffect(() => {
     //@ts-ignore
-    setSprings(fn(orderRef.current, false, 0, 0, 0, itemHeight, true));
-  }, [itemHeight, setSprings, order]);
+    setSprings(fn(orderRef.current, false, 0, 0, 0, itemHeight, draggable));
+  }, [itemHeight, setSprings, order, draggable]);
 
   const bind = useDrag(({ args: [originalIndex], down, movement: [, y] }) => {
+    if (!draggable) return;
     const curIndex = orderRef.current.indexOf(originalIndex);
     const curRow = clamp(
       Math.round((curIndex * itemHeight + y) / itemHeight),
@@ -114,7 +117,7 @@ export default function PlayerList({
     }
   });
   return (
-    <div>
+    <>
       <List className={classes.list} style={{ height: listHeight }}>
         {springs.map(({ zIndex, shadow, y, scale }, idx) => (
           <animated.div
@@ -136,13 +139,14 @@ export default function PlayerList({
               <PlayerListItem
                 name={items[idx]}
                 index={idx}
+                draggable={draggable}
                 removePlayer={removePlayer}
               />
             }
           />
         ))}
       </List>
-      <PlayerForm addPlayer={addPlayer} />
-    </div>
+      <PlayerAddForm addPlayer={addPlayer} />
+    </>
   );
 }
