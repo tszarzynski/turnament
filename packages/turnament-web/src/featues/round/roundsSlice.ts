@@ -79,8 +79,6 @@ const roundsSlice = createSlice({
         roundID
       );
 
-      console.log(newRound);
-
       state.rounds = [...roundsWithoutCurrent, ...newRound].reduce(
         (acc, match) => {
           acc[match.ID] = match;
@@ -123,21 +121,23 @@ export const selectCurrentRoundNumber = (state: RootState): number =>
 export const selectIsRoundCompleted = (state: RootState): boolean =>
   selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
 
+// export const selectAllRoundIDs = (state: RootState) => [
+//   ...new Set<number>(selectRoundsListAsArray(state).map(match => match.roundID))
+// ];
+
 /**
  * Thunks
  */
 
-export const nextRound = ({ players }: { players: Player[] }): AppThunk => (
-  dispatch,
-  getState
-) => {
+export const nextRound = (): AppThunk => (dispatch, getState) => {
   const schedulerType = selectSchedulerType(getState());
+  const players = selectPlayersListAsArray(getState());
 
   if (schedulerType) {
     const scheduler = getSchedulerByType(schedulerType);
-    const rounds = selectRoundsListAsArray(getState());
 
     if (isEliminator(scheduler)) {
+      const rounds = selectRoundsListAsArray(getState());
       const playersToEliminate = scheduler.eliminate(players, rounds);
 
       playersToEliminate.forEach(player =>

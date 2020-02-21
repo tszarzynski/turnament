@@ -1,7 +1,13 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from "@material-ui/core";
 import React from "react";
-import RoundListeItem from "./RoundListItem";
 import { Match, Player } from "turnament-scheduler";
+import RoundListeItem from "./RoundListItem";
 
 interface IProps {
   players: Player[];

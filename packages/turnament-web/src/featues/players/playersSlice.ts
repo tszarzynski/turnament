@@ -27,6 +27,18 @@ const playersSlice = createSlice({
         active: true
       };
     },
+    addPlayers(state, { payload }: PayloadAction<{ names: string[] }>) {
+      const { names } = payload;
+
+      names.forEach(name => {
+        let ID = ++state.nextPlayerID;
+        state.players[ID] = {
+          ID,
+          name,
+          active: true
+        };
+      });
+    },
     removePlayer(state, { payload }: PayloadAction<{ playerID: number }>) {
       const { playerID } = payload;
 
@@ -65,6 +77,7 @@ export const selectPlayersListAsArray = (state: RootState) =>
 
 export const {
   addPlayer,
+  addPlayers,
   removePlayer,
   deactivatePlayer,
   resetPlayers

@@ -10,7 +10,7 @@ type Props = {
   route: Route<typeof routes>;
 };
 
-export function Page({route}: Props) {
+export function Page({ route }: Props) {
   switch (route.name) {
     case routes.setup.name:
       return <SetupPage />;
@@ -21,8 +21,8 @@ export function Page({route}: Props) {
     case routes.tournament.name:
       return (
         <>
-          <RankingListPage />
           <RoundListPage />
+          <RankingListPage />
         </>
       );
     default:

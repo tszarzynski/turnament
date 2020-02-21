@@ -7,6 +7,7 @@ import App from "./App";
 import store from "./app/store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import { CssBaseline } from "@material-ui/core";
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +23,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
+      <CssBaseline />
       <App />
     </Provider>
   </ThemeProvider>,

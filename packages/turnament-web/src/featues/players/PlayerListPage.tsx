@@ -1,80 +1,93 @@
-import {
-  Button,
-  Container,
-  CssBaseline,
-  Divider,
-  makeStyles
-} from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import TitleIcon from "@material-ui/icons/AccountCircle";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
-import { addRound } from "../round/roundsSlice";
+import { nextRound } from "../round/roundsSlice";
+import { useOrderedList } from "./hooks";
 import PlayerList from "./PlayerList";
-import {
-  addPlayer,
-  removePlayer,
-  selectPlayersListAsArray
-} from "./playersSlice";
+import PlayerListSettings from "./PlayerListSettings";
+import { addPlayers, selectPlayersListAsArray } from "./playersSlice";
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+function shuffleArray(array: number[]) {
+  const newArray = array.slice();
+
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
-}));
+
+  return newArray;
+}
 
 export default function PlayerListPage() {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const players = useSelector(selectPlayersListAsArray);
+  const {
+    items,
+    order,
+    set,
+    add,
+    remove,
+    reorder,
+    orderedItems
+  } = useOrderedList<string>();
+  const [manualSeeding, setManualSeeding] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => set(players.map(player => player.name!)), [players, set]);
 
   const handleNext = () => {
-    dispatch(addRound({ players }));
-
+    dispatch(addPlayers({ names: orderedItems }));
+    dispatch(nextRound());
     routes.tournament.push();
   };
 
+  const handleRandomize = () => {
+    reorder(shuffleArray(order));
+  };
+
+  useEffect(() => {
+    setDisabled(prev => items.length < 2);
+  }, [items]);
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <PageHeader labelText="Players">
-          <TitleIcon />
-        </PageHeader>
-        <div className={classes.form}>
-          <PlayerList
-            players={players}
-            removePlayer={(playerID: number) => {
-              dispatch(removePlayer({ playerID }));
-            }}
-            addPlayer={(name: string) => {
-              dispatch(addPlayer({ name }));
-            }}
-          />
-          <Divider variant="middle" />
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            disabled={players.length < 2}
-            onClick={handleNext}
-          >
-            Start Tournament
-          </Button>
-        </div>
-      </div>
-    </Container>
+    <Box component="main" width="1">
+      <PageHeader labelText="Players">
+        <TitleIcon />
+      </PageHeader>
+      <Box my={4}>
+        <PlayerList
+          items={items}
+          order={order}
+          draggable={manualSeeding}
+          reorderList={(order: number[]) => reorder(order)}
+          removePlayer={(playerID: number) => {
+            remove(playerID);
+          }}
+          addPlayer={(name: string) => {
+            add(name);
+          }}
+        />
+      </Box>
+      <PlayerListSettings
+        disabled={disabled}
+        manualSeeding={manualSeeding}
+        setManualSeeding={setManualSeeding}
+        randomize={handleRandomize}
+      ></PlayerListSettings>
+      <Box my={2}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="secondary"
+          disabled={disabled}
+          onClick={handleNext}
+        >
+          Start Tournament
+        </Button>
+      </Box>
+    </Box>
   );
 }
