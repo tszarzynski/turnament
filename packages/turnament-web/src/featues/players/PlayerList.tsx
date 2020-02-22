@@ -42,7 +42,8 @@ const move = (arr: number[], from: number, to: number) => {
 const useStyles = makeStyles(theme => ({
   list: {
     position: "relative",
-    userSelect: "none"
+    userSelect: "none",
+    overscrollBehavior: "contain"
   },
   listItem: {
     position: "absolute",

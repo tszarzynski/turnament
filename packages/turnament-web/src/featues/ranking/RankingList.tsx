@@ -1,42 +1,43 @@
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  makeStyles
 } from "@material-ui/core";
 import { PlayerWithStats } from "turnament-scheduler";
 import React from "react";
 import RankingListItem from "./RankingListItem";
+import { StyledTableCell } from "./styled";
 
-interface IProps {
-    players: PlayerWithStats[];
-    deactivatePlayer: (id: number) => void;
+interface Props {
+  players: PlayerWithStats[];
+  deactivatePlayer: (id: number) => void;
 }
 
-export default function RankingList({ players, deactivatePlayer }: IProps) {
-    return (
-        <Table aria-label="simple table">
-            <TableHead>
-                <TableRow>
-                    <TableCell>Rank</TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Wins</TableCell>
-                    <TableCell align="right">Points</TableCell>
-                    <TableCell align="right">OMV</TableCell>
-                    <TableCell align="right"></TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {players.map((player, index) => (
-                    <RankingListItem
-                        key={player.ID}
-                        rank={index + 1}
-                        player={player}
-                        deactivatePlayer={deactivatePlayer}
-                    />
-                ))}
-            </TableBody>
-        </Table>
-    );
+export default function RankingList({ players, deactivatePlayer }: Props) {
+  return (
+    <Table aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <StyledTableCell>#</StyledTableCell>
+          <StyledTableCell align="right">Name</StyledTableCell>
+          <StyledTableCell align="right">Wins</StyledTableCell>
+          <StyledTableCell align="right">Pts</StyledTableCell>
+          <StyledTableCell align="right">OMV</StyledTableCell>
+          <StyledTableCell align="right"></StyledTableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {players.map((player, index) => (
+          <RankingListItem
+            key={player.ID}
+            rank={index + 1}
+            player={player}
+            deactivatePlayer={deactivatePlayer}
+          />
+        ))}
+      </TableBody>
+    </Table>
+  );
 }
