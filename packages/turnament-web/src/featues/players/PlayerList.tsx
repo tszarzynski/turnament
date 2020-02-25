@@ -1,8 +1,7 @@
 import { List, makeStyles } from "@material-ui/core";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { animated, interpolate, useSprings } from "react-spring";
-import { useDrag } from "react-use-gesture";
-import PlayerAddForm from "./PlayerAddForm";
+import { DragProps } from "./PlayerListItem";
 import PlayerListItem from "./PlayerListItem";
 
 // Returns fitting styles for dragged/idle items
@@ -31,13 +30,6 @@ const fn = (
         immediate: (n: string) => immediate || false
       };
 };
-const clamp = (n: number, lower: number, upper: number) =>
-  Math.min(Math.max(n, lower), upper);
-const move = (arr: number[], from: number, to: number) => {
-  const newArr = arr.slice();
-  newArr.splice(to, 0, newArr.splice(from, 1)[0]);
-  return newArr;
-};
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -49,13 +41,13 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     width: "100%",
     transformOrigin: "50% 50% 0px"
+    // touchAction: "none"
   }
 }));
 
 interface IProps {
   items: string[];
   order: number[];
-  addPlayer: (name: string) => void;
   removePlayer: (id: number) => void;
   reorderList: (order: number[]) => void;
   draggable: boolean;
@@ -64,7 +56,6 @@ interface IProps {
 export default function PlayerList({
   items = [],
   order = [],
-  addPlayer,
   removePlayer,
   reorderList,
   draggable
@@ -72,6 +63,7 @@ export default function PlayerList({
   const classes = useStyles();
   const orderRef = useRef<number[]>([]);
   const itemsRef = useRef<HTMLElement[]>([]);
+  const dragsRef = useRef<HTMLElement[]>([]);
   const [listHeight, setListHeight] = useState<number>(0);
   const [itemHeight, setItemHeight] = useState<number>(0);
   const [springs, setSprings] = useSprings(
@@ -85,6 +77,7 @@ export default function PlayerList({
 
   useEffect(() => {
     itemsRef.current = new Array(order.length);
+    dragsRef.current = new Array(order.length);
   }, [order]);
 
   useLayoutEffect(() => {
@@ -99,31 +92,32 @@ export default function PlayerList({
     setSprings(fn(orderRef.current, false, 0, 0, 0, itemHeight, draggable));
   }, [itemHeight, setSprings, order, draggable]);
 
-  const bind = useDrag(({ args: [originalIndex], down, movement: [, y] }) => {
-    if (!draggable) return;
-    const curIndex = orderRef.current.indexOf(originalIndex);
-    const curRow = clamp(
-      Math.round((curIndex * itemHeight + y) / itemHeight),
-      0,
-      order.length - 1
+  const updateDrag = (dragProps: DragProps | undefined) => {
+    if (!dragProps) return;
+
+    const newFn = fn(
+      dragProps.order,
+      dragProps.down,
+      dragProps.originalIndex,
+      dragProps.curIndex,
+      dragProps.y,
+      dragProps.itemHeight
     );
-    const newOrder = move(orderRef.current, curIndex, curRow);
-    const newFn = fn(newOrder, down, originalIndex, curIndex, y, itemHeight);
     // @ts-ignore
     setSprings(newFn); // Feed springs new style data, they'll animate the view without causing a single render
 
-    if (!down) {
-      orderRef.current = newOrder;
-      reorderList(newOrder);
+    if (!dragProps.down) {
+      orderRef.current = dragProps.order;
+      reorderList(dragProps.order);
     }
-  });
+  };
+
   return (
     <>
       <List className={classes.list} style={{ height: listHeight }}>
         {springs.map(({ zIndex, shadow, y, scale }, idx) => (
           <animated.div
             ref={el => (itemsRef.current[idx] = el!)}
-            {...bind(idx)}
             key={idx}
             className={classes.listItem}
             style={{
@@ -139,15 +133,16 @@ export default function PlayerList({
             children={
               <PlayerListItem
                 name={items[idx]}
-                index={idx}
+                originalIndex={idx}
                 draggable={draggable}
                 removePlayer={removePlayer}
+                updateDrag={updateDrag}
+                orderRef={orderRef}
               />
             }
           />
         ))}
       </List>
-      <PlayerAddForm addPlayer={addPlayer} />
     </>
   );
 }
