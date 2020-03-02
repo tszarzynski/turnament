@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
 import { nextRound } from "../round/roundsSlice";
+import { DraggableList } from "./DraggableList";
 import { useOrderedList } from "./hooks";
-import PlayerList from "./PlayerList";
-import PlayerListSettings from "./PlayerListSettings";
 import PlayerAddForm from "./PlayerAddForm";
+import PlayerListSettings from "./PlayerListSettings";
 import { addPlayers, selectPlayersListAsArray } from "./playersSlice";
 
 function shuffleArray(array: number[]) {
@@ -65,7 +65,7 @@ export default function PlayerListPage() {
         <TitleIcon />
       </PageHeader>
       <Box my={4} overflow="scroll" flex="1">
-        <PlayerList
+        <DraggableList
           items={items}
           order={order}
           draggable={manualSeeding}

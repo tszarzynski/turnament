@@ -1,7 +1,6 @@
 import { List, makeStyles } from "@material-ui/core";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { animated, interpolate, useSprings } from "react-spring";
-import { DragProps } from "./PlayerListItem";
+import { useSprings } from "react-spring";
 import PlayerListItem from "./PlayerListItem";
 
 // Returns fitting styles for dragged/idle items
@@ -92,57 +91,12 @@ export default function PlayerList({
     setSprings(fn(orderRef.current, false, 0, 0, 0, itemHeight, draggable));
   }, [itemHeight, setSprings, order, draggable]);
 
-  const updateDrag = (dragProps: DragProps | undefined) => {
-    if (!dragProps) return;
-
-    const newFn = fn(
-      dragProps.order,
-      dragProps.down,
-      dragProps.originalIndex,
-      dragProps.curIndex,
-      dragProps.y,
-      dragProps.itemHeight
-    );
-    // @ts-ignore
-    setSprings(newFn); // Feed springs new style data, they'll animate the view without causing a single render
-
-    if (!dragProps.down) {
-      orderRef.current = dragProps.order;
-      reorderList(dragProps.order);
-    }
-  };
-
   return (
     <>
-      <List className={classes.list} style={{ height: listHeight }}>
-        {springs.map(({ zIndex, shadow, y, scale }, idx) => (
-          <animated.div
-            ref={el => (itemsRef.current[idx] = el!)}
-            key={idx}
-            className={classes.listItem}
-            style={{
-              zIndex,
-              boxShadow: shadow.interpolate(
-                s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`
-              ),
-              transform: interpolate(
-                [y, scale],
-                (y, s) => `translate3d(0,${y}px,0) scale(${s})`
-              )
-            }}
-            children={
-              <PlayerListItem
-                name={items[idx]}
-                originalIndex={idx}
-                draggable={draggable}
-                removePlayer={removePlayer}
-                updateDrag={updateDrag}
-                orderRef={orderRef}
-              />
-            }
-          />
-        ))}
-      </List>
+      {/* <List className={classes.list} style={{ height: listHeight }}>
+        children={<PlayerListItem name={items[idx]} index={idx} />}
+        /> ))}
+      </List> */}
     </>
   );
 }
