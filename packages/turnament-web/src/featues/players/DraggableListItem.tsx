@@ -4,7 +4,7 @@ import { motion, useDragControls, useMotionValue } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 // Spring configs
-const onTop = { zIndex: 1, scale: 1.1 };
+const onTop = { zIndex: 1, scale: 1.04 };
 const flat = {
   zIndex: 0,
   transition: { delay: 0.3 },

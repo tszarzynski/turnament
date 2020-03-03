@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
     list: {
       position: "relative",
       userSelect: "none",
+      overflowX: "hidden",
       overscrollBehavior: "contain"
     },
   }));
