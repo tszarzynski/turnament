@@ -30,6 +30,10 @@ const playersSlice = createSlice({
     addPlayers(state, { payload }: PayloadAction<{ names: string[] }>) {
       const { names } = payload;
 
+      // remove all players
+      state.players = {};
+
+      //add new players
       names.forEach(name => {
         let ID = ++state.nextPlayerID;
         state.players[ID] = {

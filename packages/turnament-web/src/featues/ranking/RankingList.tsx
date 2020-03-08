@@ -1,12 +1,6 @@
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  makeStyles
-} from "@material-ui/core";
-import { PlayerWithStats } from "turnament-scheduler";
+import { Table, TableBody, TableHead, TableRow } from "@material-ui/core";
 import React from "react";
+import { PlayerWithStats } from "turnament-scheduler";
 import RankingListItem from "./RankingListItem";
 import { StyledTableCell } from "./styled";
 

@@ -53,6 +53,7 @@ const createReducer = <T>() => (
       return initialState;
     case "reorder": {
       const { order } = action.payload;
+      console.log(order)
 
       return { ...state, order };
     }

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
 import { nextRound } from "../round/roundsSlice";
+import { DraggableList } from "./DraggableList";
 import { useOrderedList } from "./hooks";
-import PlayerList from "./PlayerList";
+import PlayerAddForm from "./PlayerAddForm";
 import PlayerListSettings from "./PlayerListSettings";
 import { addPlayers, selectPlayersListAsArray } from "./playersSlice";
 
@@ -53,12 +54,18 @@ export default function PlayerListPage() {
   }, [items]);
 
   return (
-    <Box component="main" width="1">
+    <Box
+      component="main"
+      width="1"
+      maxHeight="100vh"
+      display="flex"
+      flexDirection="column"
+    >
       <PageHeader labelText="Players">
         <TitleIcon />
       </PageHeader>
-      <Box my={4}>
-        <PlayerList
+      <Box my={4} overflow="scroll" flex="1">
+        <DraggableList
           items={items}
           order={order}
           draggable={manualSeeding}
@@ -66,11 +73,13 @@ export default function PlayerListPage() {
           removePlayer={(playerID: number) => {
             remove(playerID);
           }}
-          addPlayer={(name: string) => {
-            add(name);
-          }}
         />
       </Box>
+      <PlayerAddForm
+        addPlayer={(name: string) => {
+          add(name);
+        }}
+      />
       <PlayerListSettings
         disabled={disabled}
         manualSeeding={manualSeeding}
