@@ -3,11 +3,13 @@
   "author": "Tomasz Szarzynski",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/turnament-web",
-    "packages/turnament-scheduler",
-    "packages/turnament-components"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/turnament-web",
+      "packages/turnament-scheduler",
+      "packages/turnament-components"
+    ]
+  },
   "dependencies": {
     "monorepo-run": "^0.4.2"
   },
