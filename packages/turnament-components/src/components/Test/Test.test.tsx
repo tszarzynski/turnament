@@ -5,7 +5,7 @@ import Test from './Test';
 describe('Test', () => {
    it('renders without error', () => {
       const { asFragment } = render(
-         <Test/>
+         <Test name="Test"/>
        )
       expect(asFragment()).toMatchSnapshot()
    });
