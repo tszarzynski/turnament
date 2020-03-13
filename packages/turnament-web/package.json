@@ -19,7 +19,7 @@
     "react-use-gesture": "^7.0.4",
     "redux-persist": "^6.0.0",
     "turnament-scheduler": "0.1.0",
-    "turnament-components": "1.0.0",
+    "turnament-components": "0.1.0",
     "type-route": "^0.3.6",
     "typescript": "3.7.2"
   },
