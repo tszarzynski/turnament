@@ -4,10 +4,10 @@ import { PlayerWithStats } from "turnament-scheduler";
 import RankingListItem from "./RankingListItem";
 import { StyledTableCell } from "./styled";
 
-interface Props {
+type Props = {
   players: PlayerWithStats[];
   deactivatePlayer: (id: number) => void;
-}
+};
 
 export default function RankingList({ players, deactivatePlayer }: Props) {
   return (

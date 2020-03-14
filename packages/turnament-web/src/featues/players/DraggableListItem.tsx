@@ -12,11 +12,9 @@ const flat = {
 };
 
 const dragableVariants = {
-    dragable: {width: 'auto', opacity: 1},
-    notDragable: {width: 0, opacity: 0}
-}
-
-
+  dragable: { width: "auto", opacity: 1 },
+  notDragable: { width: 0, opacity: 0 }
+};
 
 export interface Position {
   top: number;
@@ -99,7 +97,11 @@ export const DraggableListItem = ({
       }}
     >
       <ListItem>
-        <motion.div initial="notDragable" animate={draggable ? "dragable" : "notDragable"} variants={dragableVariants}>
+        <motion.div
+          initial="notDragable"
+          animate={draggable ? "dragable" : "notDragable"}
+          variants={dragableVariants}
+        >
           <ListItemIcon onPointerDown={startDrag}>
             <DragIndicatorIcon />
           </ListItemIcon>

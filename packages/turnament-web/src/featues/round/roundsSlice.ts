@@ -108,6 +108,11 @@ export const selectSchedulerType = (state: RootState) =>
 export const selectRoundsListAsArray = (state: RootState) =>
   Object.values(state.rounds.rounds);
 
+export const selectAllRoundsNumbers = (state: RootState) =>
+  Array.from(
+    new Set<number>(selectRoundsListAsArray(state).map(match => match.roundID))
+  ).sort((a, b) => b - a);
+
 export const selectRankedPlayers = (state: RootState) =>
   getRanking(selectPlayersListAsArray(state), selectRoundsListAsArray(state));
 

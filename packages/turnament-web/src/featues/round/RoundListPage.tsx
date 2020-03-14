@@ -9,14 +9,21 @@ import {
   nextRound,
   selectCurrentRound,
   selectCurrentRoundNumber,
-  selectIsRoundCompleted
+  selectIsRoundCompleted,
+  selectAllRoundsNumbers
 } from "./roundsSlice";
+import { GenericList } from "../../components/GenericList";
+import Round from "./Round";
+
+export class RoundsList extends GenericList<number> {}
 
 export default function RoundListPage() {
   const players = useSelector(selectPlayersListAsArray);
   const rounds = useSelector(selectCurrentRound);
   const roundNumber = useSelector(selectCurrentRoundNumber);
   const isRoundCompleted = useSelector(selectIsRoundCompleted);
+  const allRoundsNumbers = useSelector(selectAllRoundsNumbers);
+
   const dispatch = useDispatch();
 
   return (
@@ -24,8 +31,12 @@ export default function RoundListPage() {
       <PageHeader labelText={"Round " + roundNumber}>
         <TitleIcon />
       </PageHeader>
+      <RoundsList
+        items={allRoundsNumbers}
+        itemRenderer={item => <Round key={item} roundID={item} />}
+      />
 
-      <RoundList players={players} round={rounds} />
+      {/* <RoundList players={players} round={rounds} /> */}
       <Box my={2}>
         <Button
           fullWidth
