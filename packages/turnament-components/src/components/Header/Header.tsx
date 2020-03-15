@@ -1,8 +1,8 @@
-import { AppBar, Theme, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1

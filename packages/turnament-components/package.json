@@ -1,0 +1,53 @@
+{
+  "name": "turnament-components",
+  "version": "0.1.0",
+  "module": "build/index.js",
+  "types": "build/typings/index.d.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/styles": "^4.9.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-typescript": "^4.0.0",
+    "@storybook/addon-actions": "^5.3.14",
+    "@storybook/addon-docs": "^5.3.14",
+    "@storybook/addon-links": "^5.3.14",
+    "@storybook/addons": "^5.3.14",
+    "@storybook/preset-create-react-app": "^2.0.0",
+    "@storybook/preset-typescript": "^2.1.0",
+    "@storybook/react": "^5.3.14",
+    "@svgr/rollup": "^2.4.1",
+    "@teamsupercell/typings-for-css-modules-loader": "^2.1.0",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^10.0.1",
+    "acorn-jsx": "^5.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "plop": "^2.6.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-scripts": "^3.4.0",
+    "rollup": "^2.0.6",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-url": "^1.4.0"
+  },
+  "scripts": {
+    "storybook": "start-storybook -p 9009",
+    "build-storybook": "build-storybook",
+    "plop": "plop",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/styles": "^4.9.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "files": [
+    "build"
+  ]
+}

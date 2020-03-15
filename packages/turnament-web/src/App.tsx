@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import { getCurrentRoute, listen } from "./app/router";
 import { Page } from "./components/Page";
-import Loader from "./components/Loader";
+import { Loader } from "turnament-components";
 
 const App: React.FC = () => {
   const [route, setRoute] = useState(getCurrentRoute());

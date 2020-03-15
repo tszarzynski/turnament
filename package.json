@@ -3,17 +3,26 @@
   "author": "Tomasz Szarzynski",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/turnament-web",
-    "packages/turnament-scheduler"
-  ],
-  "dependencies": {
-    "monorepo-run": "^0.4.2"
+  "workspaces": {
+    "packages": [
+      "packages/turnament-scheduler",
+      "packages/turnament-components",
+      "packages/turnament-web"
+    ],
+    "nohoist": [
+      "**/webpack"
+    ]
   },
   "scripts": {
-    "test": "mono-run test",
+    "test": "yarn workspaces run test",
     "test:watch": "mono-run test:watch --ui",
-    "start": "mono-run start --ui",
-    "build": "mono-run build"
+    "build": "yarn workspaces run build",
+    "start:all": "mono-run start --ui",
+    "start:web": "yarn workspace turnament-web start",
+    "start:scheduler": "yarn workspace turnament-scheduler start",
+    "start:components": "yarn workspace turnament-components start"
+  },
+  "dependencies": {
+    "monorepo-run": "https://github.com/tszarzynski/monorepo-run.git"
   }
 }
