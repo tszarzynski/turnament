@@ -23,5 +23,14 @@ module.exports = {
   env: {
     es6: true,
     node: true
+  },
+  settings: {
+    react: {
+      version: "detect"
+    }
+  },
+  globals: {
+    module: "readonly",
+    global: "readonly"
   }
 };

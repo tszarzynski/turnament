@@ -15,7 +15,7 @@ export default {
     sourcemap: true
   },
   plugins: [
-    external(),
+    external({ includeDependencies: true }),
     postcss({
       modules: true
     }),
@@ -24,12 +24,6 @@ export default {
     resolve(),
     typescript({
       exclude: ["**/*.test.tsx", "**/*.stories.tsx"]
-    }),
-    commonjs({
-      include: "node_modules/**",
-      namedExports: {
-        "node_modules/react-is/index.js": ["isFragment", "ForwardRef"]
-      }
     })
   ]
 };
