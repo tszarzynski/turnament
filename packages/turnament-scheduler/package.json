@@ -20,7 +20,8 @@
     "fix": "gts fix",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
-    "posttest": "yarn run check"
+    "posttest": "yarn run check",
+    "lint": "yarn run check"
   },
   "devDependencies": {
     "@types/edmonds-blossom": "^1.0.0",

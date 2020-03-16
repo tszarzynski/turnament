@@ -38,7 +38,8 @@
     "plop": "plop",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "test": "jest"
+    "test": "jest",
+    "lint": "yarn eslint . --ext .ts,.tsx --ignore-path ../../.eslintignore"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.9.5",

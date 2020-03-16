@@ -20,9 +20,30 @@
     "start:all": "mono-run start --ui",
     "start:web": "yarn workspace turnament-web start",
     "start:scheduler": "yarn workspace turnament-scheduler start",
-    "start:components": "yarn workspace turnament-components start"
+    "start:components": "yarn workspace turnament-components start",
+    "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint --fix",
+    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --list-different \"./**/*.{ts,js,json,md}\""
   },
-  "dependencies": {
-    "monorepo-run": "https://github.com/tszarzynski/monorepo-run.git"
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "monorepo-run": "https://github.com/tszarzynski/monorepo-run.git",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "format:check"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{ts,js,json,md}": "prettier --write"
   }
 }

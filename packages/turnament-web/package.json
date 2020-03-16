@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --passWithNoTests",
     "test:watch": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "yarn eslint . --ext .ts,.tsx --ignore-path ../../.eslintignore"
   },
   "eslintConfig": {
     "extends": "react-app"
