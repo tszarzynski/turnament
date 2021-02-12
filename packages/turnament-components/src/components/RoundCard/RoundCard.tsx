@@ -1,6 +1,6 @@
-import React from "react";
-import { Match, Player, PlayerID } from "turnament-scheduler";
-import MatchCard from "../MatchCard";
+import React from 'react';
+import { Match, Player, PlayerID } from 'turnament-scheduler';
+import MatchCard from '../MatchCard';
 
 type RoundCardProps = {
   roundID: number;
@@ -10,16 +10,20 @@ type RoundCardProps = {
 };
 
 const RoundCard: React.FC<RoundCardProps> = ({ matches, onScoreChange }) => {
-
   const names = matches.map(({ pairing }: Match): [string, string] => [
-    pairing[0] !== -1 ? String(pairing[0]) : "BYE",
-    pairing[1] !== -1 ? String(pairing[1]) : "BYE"
+    pairing[0] !== -1 ? String(pairing[0]) : 'BYE',
+    pairing[1] !== -1 ? String(pairing[1]) : 'BYE',
   ]);
 
   return (
     <div>
-      {matches.map((match,i) => (
-        <MatchCard key={match.ID} match={match} names={names[i]} onScoreChange={onScoreChange} />
+      {matches.map((match, i) => (
+        <MatchCard
+          key={match.ID}
+          match={match}
+          names={names[i]}
+          onScoreChange={onScoreChange}
+        />
       ))}
     </div>
   );

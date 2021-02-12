@@ -1,16 +1,16 @@
-import typescript from "@rollup/plugin-typescript";
-import external from "rollup-plugin-peer-deps-external";
+import typescript from '@rollup/plugin-typescript';
+import external from 'rollup-plugin-peer-deps-external';
 // import postcss from "rollup-plugin-postcss";
 // import resolve from "rollup-plugin-node-resolve";
 // import url from "rollup-plugin-url";
 // import svgr from "@svgr/rollup";
 
 export default {
-  input: "src/index.ts",
+  input: 'src/index.ts',
   output: {
-    dir: "./build",
-    format: "es",
-    exports: "named",
+    dir: './build',
+    format: 'es',
+    exports: 'named',
     sourcemap: true,
   },
   plugins: [
@@ -22,7 +22,7 @@ export default {
     // svgr(),
     // resolve(),
     typescript({
-      exclude: ["**/*.test.tsx", "**/*.stories.tsx"],
+      exclude: ['**/*.test.tsx', '**/*.stories.tsx'],
     }),
   ],
 };

@@ -50,7 +50,7 @@ export function isEven(n: number) {
 }
 
 export function calcNumRoundsFromResults(results: Match[]) {
-  return new Set(results.map(results => results.roundID)).size;
+  return new Set(results.map((results) => results.roundID)).size;
 }
 
 export function nextPowOf2(n: number) {

@@ -9,7 +9,7 @@ export const scheduler: Scheduler = {
   type: 'ROUND_ROBIN',
   makeRound: (players: Player[], results: Match[], roundID: number) => {
     // filter out inactive players
-    const playersToPair = players.filter(player => player.active);
+    const playersToPair = players.filter((player) => player.active);
     // calculate number of rounds played so far
     const numRoundsPlayed = calcNumRoundsFromResults(results);
 

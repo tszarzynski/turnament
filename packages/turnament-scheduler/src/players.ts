@@ -11,15 +11,15 @@ export const makePlayersWithResults = (
   players: Player[],
   rounds: Match[]
 ): PlayerWithResults[] =>
-  players.map(player => {
+  players.map((player) => {
     // find all matches played by player
-    const playerMatches = rounds.filter(match =>
+    const playerMatches = rounds.filter((match) =>
       match.pairing.includes(player.ID)
     );
     // extract results
     const results: Results = playerMatches.reduce(
       (acc: Results, match: Match) => {
-        const idxPlayer = match.pairing.findIndex(p => player.ID === p)!;
+        const idxPlayer = match.pairing.findIndex((p) => player.ID === p)!;
         const idxOpponent = match.pairing.length - 1 - idxPlayer;
         const hasWon = match.result[idxPlayer] > match.result[idxOpponent];
         return {
@@ -46,7 +46,7 @@ export const makePlayersWithResults = (
 export const makePlayersWithStats = (
   players: PlayerWithResults[]
 ): PlayerWithStats[] =>
-  players.map(player => ({
+  players.map((player) => ({
     ...player,
     omv: calcOMV(players, player),
   }));

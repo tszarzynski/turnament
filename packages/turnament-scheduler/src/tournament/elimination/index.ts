@@ -11,7 +11,7 @@ export const scheduler: Scheduler & Eliminator = {
   makeRound: (players: Player[], results: Match[], roundID: number) => {
     const playersWithResults = makePlayersWithResults(players, results);
     // filter out inactive players
-    const playersToPair = playersWithResults.filter(player => player.active);
+    const playersToPair = playersWithResults.filter((player) => player.active);
     // calculate number of rounds played so far
     const numRoundsPlayed = calcNumRoundsFromResults(results);
     // make pairs
@@ -24,9 +24,9 @@ export const scheduler: Scheduler & Eliminator = {
     const playersWithResults = makePlayersWithResults(players, results);
     // filter out inactive players
     const playerToEliminate = playersWithResults.filter(
-      player => player.active
+      (player) => player.active
     );
 
-    return playerToEliminate.filter(player => player.matchesLost > 1);
+    return playerToEliminate.filter((player) => player.matchesLost > 1);
   },
 };

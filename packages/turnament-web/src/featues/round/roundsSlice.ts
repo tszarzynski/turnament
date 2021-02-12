@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   getRanking,
   getSchedulerByType,
@@ -6,13 +6,13 @@ import {
   Player,
   SchedulerType,
   isEliminator,
-} from "turnament-scheduler";
-import { RootState } from "../../app/reducers";
+} from 'turnament-scheduler';
+import { RootState } from '../../app/reducers';
 import {
   selectPlayersListAsArray,
   deactivatePlayer,
-} from "../players/playersSlice";
-import { AppThunk } from "../../app/store";
+} from '../players/playersSlice';
+import { AppThunk } from '../../app/store';
 
 interface RoundsState {
   schedulerType: SchedulerType | undefined;
@@ -27,7 +27,7 @@ let initialState: RoundsState = {
 };
 
 const roundsSlice = createSlice({
-  name: "rounds",
+  name: 'rounds',
   initialState,
   reducers: {
     setSchedulerType(

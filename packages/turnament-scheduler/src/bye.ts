@@ -9,9 +9,9 @@ import { last, prop, isOdd, first } from './utils';
 const hasOddNumOfPlayers = (players: PlayerWithResults[]) =>
   isOdd(players.length);
 const countByes = (opponents: number[]) =>
-  opponents.filter(id => id === BYE_ID).length;
+  opponents.filter((id) => id === BYE_ID).length;
 const playersWithByes = (players: PlayerWithResults[]) =>
-  players.map(player => ({ ...player, bye: countByes(player.opponents) }));
+  players.map((player) => ({ ...player, bye: countByes(player.opponents) }));
 
 /**
  * Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.

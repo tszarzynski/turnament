@@ -1,16 +1,16 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { createStyles, makeStyles } from "@material-ui/styles";
-import React from "react";
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/styles';
+import React from 'react';
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     menuButton: {},
     title: {
-      flexGrow: 1
-    }
+      flexGrow: 1,
+    },
   })
 );
 

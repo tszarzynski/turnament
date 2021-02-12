@@ -12,7 +12,7 @@ export const scheduler: Scheduler = {
       makePlayersWithResults(players, results)
     );
     // filter out inactive players
-    const playersToPair = playersWithStats.filter(player => player.active);
+    const playersToPair = playersWithStats.filter((player) => player.active);
     //paier players
     const pairings = pairPlayers(playersToPair);
     // return new round

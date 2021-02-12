@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Player, PlayerID } from "turnament-scheduler";
-import { RootState } from "../../app/reducers";
-import { AppThunk } from "../../app/store";
-import { readdRound } from "../round/roundsSlice";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Player, PlayerID } from 'turnament-scheduler';
+import { RootState } from '../../app/reducers';
+import { AppThunk } from '../../app/store';
+import { readdRound } from '../round/roundsSlice';
 
 interface PlayersState {
   players: Record<PlayerID, Player>;
@@ -15,7 +15,7 @@ const initialState: PlayersState = {
 };
 
 const playersSlice = createSlice({
-  name: "players",
+  name: 'players',
   initialState,
   reducers: {
     addPlayer(state, { payload }: PayloadAction<{ name: string }>) {

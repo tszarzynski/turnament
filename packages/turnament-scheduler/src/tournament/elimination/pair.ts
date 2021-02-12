@@ -33,13 +33,13 @@ export function pairPlayers(
 
   // filter out players witn no loses for upper bracket, map to IDs only
   const playersInUpperBracket = playersToPair
-    .filter(player => player.matchesLost === 0)
-    .map(player => player.ID);
+    .filter((player) => player.matchesLost === 0)
+    .map((player) => player.ID);
   //filter out players with one one lose for lower bracket, sort by number of games playes, map to IDs only
   const playersInLowerBracket = playersToPair
-    .filter(player => player.matchesLost === 1)
+    .filter((player) => player.matchesLost === 1)
     .sort((a, b) => a.opponents.length - b.opponents.length)
-    .map(player => player.ID);
+    .map((player) => player.ID);
 
   const upperBracketPairs =
     playersInUpperBracket.length > 1 ? toPairs(playersInUpperBracket) : [];
@@ -60,7 +60,7 @@ export function pairPlayers(
     pairings = [[playersInUpperBracket[0], playersInLowerBracket[0]]];
   } else {
     pairings = [
-      ...playersWithByes.map(player => [player.ID, BYE_ID] as Pairing),
+      ...playersWithByes.map((player) => [player.ID, BYE_ID] as Pairing),
       ...upperBracketPairs,
       ...lowerBracketPairs,
     ];

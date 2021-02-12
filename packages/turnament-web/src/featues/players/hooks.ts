@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from "react";
+import { useReducer, useCallback } from 'react';
 
 type State<T> = {
   items: T[];
@@ -7,11 +7,11 @@ type State<T> = {
 };
 
 type Action<T> =
-  | { type: "add"; payload: { valueToAdd: T } }
-  | { type: "remove"; payload: { indexToRemove: number } }
-  | { type: "set"; payload: { values: T[] } }
-  | { type: "reset" }
-  | { type: "reorder"; payload: { order: number[] } };
+  | { type: 'add'; payload: { valueToAdd: T } }
+  | { type: 'remove'; payload: { indexToRemove: number } }
+  | { type: 'set'; payload: { values: T[] } }
+  | { type: 'reset' }
+  | { type: 'reorder'; payload: { order: number[] } };
 
 const initialState = { items: [], order: [], nextID: -1 };
 
@@ -20,7 +20,7 @@ const createReducer = <T>() => (
   action: Action<T>
 ): State<T> => {
   switch (action.type) {
-    case "add": {
+    case 'add': {
       const { valueToAdd } = action.payload;
       const nextID = state.nextID + 1;
 
@@ -31,7 +31,7 @@ const createReducer = <T>() => (
         order: [...state.order, nextID],
       };
     }
-    case "remove": {
+    case 'remove': {
       const { indexToRemove } = action.payload;
       const nextID = state.nextID - 1;
       const items = state.items.filter((_, index) => index !== indexToRemove);
@@ -41,7 +41,7 @@ const createReducer = <T>() => (
 
       return { ...state, nextID, items, order };
     }
-    case "set": {
+    case 'set': {
       const { values } = action.payload;
       return {
         items: values,
@@ -49,9 +49,9 @@ const createReducer = <T>() => (
         nextID: values.length - 1,
       };
     }
-    case "reset":
+    case 'reset':
       return initialState;
-    case "reorder": {
+    case 'reorder': {
       const { order } = action.payload;
 
       return { ...state, order };
@@ -64,18 +64,18 @@ export function useOrderedList<T>() {
   const [{ items, order }, dispatch] = useReducer(reducer, initialState);
 
   const add = (valueToAdd: T) =>
-    dispatch({ type: "add", payload: { valueToAdd } });
+    dispatch({ type: 'add', payload: { valueToAdd } });
 
   const remove = (indexToRemove: number) =>
-    dispatch({ type: "remove", payload: { indexToRemove } });
+    dispatch({ type: 'remove', payload: { indexToRemove } });
 
   const set = useCallback(
-    (values: T[]) => dispatch({ type: "set", payload: { values } }),
+    (values: T[]) => dispatch({ type: 'set', payload: { values } }),
     [dispatch]
   );
 
   const reorder = (order: number[]) =>
-    dispatch({ type: "reorder", payload: { order } });
+    dispatch({ type: 'reorder', payload: { order } });
 
   const orderedItems = () => order.map((o) => items[o]).map((item) => item);
 

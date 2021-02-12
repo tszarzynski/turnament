@@ -10,7 +10,7 @@ export const transformMWMToPairings = (players: Player[]) => (mwm: number[]) =>
         node !== -1 ? players[node].ID : -1,
       ] as Pairing;
 
-      return pair.some(id => paired.indexOf(id) !== -1)
+      return pair.some((id) => paired.indexOf(id) !== -1)
         ? acc
         : { pairs: [...pairs, pair], paired: [...paired, ...pair] };
     },

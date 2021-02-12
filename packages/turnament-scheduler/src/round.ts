@@ -19,4 +19,4 @@ export const makeMatch = (
 };
 
 export const makeRound = (pairings: Pairing[], roundID: number) =>
-  pairings.map(pairing => makeMatch(roundID, pairing));
+  pairings.map((pairing) => makeMatch(roundID, pairing));

@@ -6,44 +6,44 @@ import {
   Divider,
   InputBase,
   makeStyles,
-  Typography
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import React, { useState } from "react";
-import { Match } from "turnament-scheduler";
+  Typography,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import React, { useState } from 'react';
+import { Match } from 'turnament-scheduler';
 
 type StyleProps = {
   isArchived: boolean;
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: ({ isArchived }: StyleProps) => ({
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     background: isArchived
       ? theme.palette.primary.light
       : theme.palette.primary.main,
     paddingLeft: theme.spacing(4),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   }),
   row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  scoreBox: { display: "flex", flexDirection: "row" },
+  scoreBox: { display: 'flex', flexDirection: 'row' },
   score: {
-    background: "white",
-    color: "black",
+    background: 'white',
+    color: 'black',
     width: theme.spacing(8),
-    height: theme.spacing(8)
+    height: theme.spacing(8),
   },
   scoreInput: {
-    textAlign: "center",
-    padding: 0
-  }
+    textAlign: 'center',
+    padding: 0,
+  },
 }));
 
 type PlayerScoreProps = {
@@ -52,8 +52,8 @@ type PlayerScoreProps = {
   onChange: (newScore: number) => void;
 };
 
-const PlayerScore = ({ name, score, onChange }: PlayerScoreProps) => {
-  const classes = useStyles();
+const PlayerScore = ({ name, score, onChange, ...rest }: PlayerScoreProps) => {
+  const classes = useStyles(rest);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   return (
@@ -72,15 +72,15 @@ const PlayerScore = ({ name, score, onChange }: PlayerScoreProps) => {
             type="text"
             value={score}
             inputProps={{
-              type: "text",
-              inputMode: "numeric",
-              pattern: "[0-9.]+"
+              type: 'text',
+              inputMode: 'numeric',
+              pattern: '[0-9.]+',
             }}
-            onFocus={e => {
+            onFocus={(e) => {
               e.target.select();
               setIsEditing(true);
             }}
-            onChange={e => onChange(parseInt(e.target.value))}
+            onChange={(e) => onChange(parseInt(e.target.value))}
           />
           {isEditing && (
             <Button onClick={() => onChange(score + 1)}>
@@ -104,7 +104,7 @@ const MatchCard = ({
   names,
   match,
   onScoreChange,
-  isArchived = true
+  isArchived = true,
 }: MatchCardProps) => {
   const classes = useStyles({ isArchived });
 
@@ -116,7 +116,7 @@ const MatchCard = ({
         onChange={(newScore: number) => {
           const matchToUpdate: Match = {
             ...match,
-            result: [newScore, match.result[1]]
+            result: [newScore, match.result[1]],
           };
           onScoreChange && onScoreChange(matchToUpdate);
         }}
@@ -128,7 +128,7 @@ const MatchCard = ({
         onChange={(newScore: number) => {
           const matchToUpdate: Match = {
             ...match,
-            result: [match.result[0], newScore]
+            result: [match.result[0], newScore],
           };
           onScoreChange && onScoreChange(matchToUpdate);
         }}

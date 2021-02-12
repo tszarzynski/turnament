@@ -7,7 +7,7 @@ import { countOccurences } from '../../utils';
  * @param players
  */
 export const calcHighestScore = (players: PlayerWithResults[]) =>
-  Math.max(...players.map(p => p.gamesWon));
+  Math.max(...players.map((p) => p.gamesWon));
 
 /**
  * Returns graph nodes

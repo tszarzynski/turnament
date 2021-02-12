@@ -9,7 +9,7 @@ export function pairPlayers(players: PlayerWithStats[]): Pairing[] {
   // check if we have a player with BYE nomination
   const nominatedID = nominateWeakestPlayerForBye(players);
   // remove nominated player from the list
-  const playersToPair = players.filter(p => p.ID !== nominatedID);
+  const playersToPair = players.filter((p) => p.ID !== nominatedID);
 
   const pairings = pipe(
     makeWeightedGraph,

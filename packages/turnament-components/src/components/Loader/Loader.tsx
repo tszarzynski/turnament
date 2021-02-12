@@ -1,7 +1,7 @@
-import React from "react";
-import { CircularProgress, Box } from "@material-ui/core";
+import React from 'react';
+import { CircularProgress, Box } from '@material-ui/core';
 
-export default function Loader() {
+const Loader: React.FC = () => {
   return (
     <Box
       display="flex"
@@ -13,4 +13,6 @@ export default function Loader() {
       <CircularProgress />
     </Box>
   );
-}
+};
+
+export default Loader;

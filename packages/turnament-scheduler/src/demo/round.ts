@@ -16,7 +16,7 @@ export function playRound(players: PlayerWithStats[]): PlayerWithStats[] {
       roundResults = roundResults.concat(playMatch(pair, players));
     }
   });
-  const roundResultsWithStats = roundResults.map(pl => ({
+  const roundResultsWithStats = roundResults.map((pl) => ({
     ...pl,
     omv: calcOMV(roundResults, pl),
   })) as PlayerWithStats[];
@@ -33,19 +33,19 @@ function updatePlayer(
 
 function playMatch([pr1, pr2]: Pairing, players: PlayerWithResults[]) {
   console.log('Playing: ' + pr1 + ' vs ' + pr2);
-  const pl1 = players.find(p => p.ID === pr1)!;
-  const pl2 = players.find(p => p.ID === pr2)!;
+  const pl1 = players.find((p) => p.ID === pr1)!;
+  const pl2 = players.find((p) => p.ID === pr2)!;
 
   const matchResult = Array.from({ length: 3 }, () =>
     Math.random() > 0.5 ? pl1.ID : pl2.ID
   );
 
-  const pl1GamesWon = matchResult.filter(r => r === pl1.ID).length;
-  const pl2GamesWon = matchResult.filter(r => r === pl2.ID).length;
+  const pl1GamesWon = matchResult.filter((r) => r === pl1.ID).length;
+  const pl2GamesWon = matchResult.filter((r) => r === pl2.ID).length;
 
   return [
     updatePlayer(pl1, {
-      gamesWon: pl1.gamesWon + matchResult.filter(r => r === pl1.ID).length,
+      gamesWon: pl1.gamesWon + matchResult.filter((r) => r === pl1.ID).length,
       matchesWon:
         pl1GamesWon > pl2GamesWon ? pl1.matchesWon + 1 : pl1.matchesWon,
       matchesLost:
@@ -54,7 +54,7 @@ function playMatch([pr1, pr2]: Pairing, players: PlayerWithResults[]) {
       opponents: [...pl1.opponents, pl2.ID],
     }),
     updatePlayer(pl2, {
-      gamesWon: pl2.gamesWon + matchResult.filter(r => r === pl2.ID).length,
+      gamesWon: pl2.gamesWon + matchResult.filter((r) => r === pl2.ID).length,
       matchesWon:
         pl1GamesWon < pl2GamesWon ? pl2.matchesWon + 1 : pl2.matchesWon,
       matchesLost:
@@ -69,7 +69,7 @@ function checkIfBye([pr1, pr2]: Pairing) {
 }
 function playBye([pr1, pr2]: Pairing, players: PlayerWithStats[]) {
   console.log('Playing BYE');
-  const pl = players.find(p => p.ID === pr1 || p.ID === pr2)!;
+  const pl = players.find((p) => p.ID === pr1 || p.ID === pr2)!;
   return [
     updatePlayer(pl, {
       matchesWon: pl.matchesWon + 1,

@@ -32,7 +32,7 @@ export const toPairs = (arr: number[]): Pairing[] => {
 };
 
 export function pairPlayers(players: Player[], numRoundsPlayed: number) {
-  const playersToPair = players.map(player => player.ID);
+  const playersToPair = players.map((player) => player.ID);
 
   // add dummy BYE player if number of players is odd
   if (isOdd(playersToPair.length)) {

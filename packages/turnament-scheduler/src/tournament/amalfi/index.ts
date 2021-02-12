@@ -44,16 +44,16 @@ export const scheduler: Scheduler = {
       makePlayersWithResults(players, results)
     );
     // filter out inactive players
-    const playersToPair = playersWithStats.filter(player => player.active);
+    const playersToPair = playersWithStats.filter((player) => player.active);
     const playerToPairRanked = rankPlayers(playersToPair);
 
     const numPlayedRounds = Math.min(
-      ...playerToPairRanked.map(players => players.opponents.length)
+      ...playerToPairRanked.map((players) => players.opponents.length)
     );
     const numRounds = roundsNeeded(1)(playerToPairRanked.length);
 
     const pairings = toPairs(
-      playerToPairRanked.map(player => player.ID),
+      playerToPairRanked.map((player) => player.ID),
       numRounds - numPlayedRounds
     );
 
