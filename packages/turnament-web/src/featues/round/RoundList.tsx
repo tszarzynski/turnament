@@ -1,13 +1,9 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from "@material-ui/core";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { MatchCard } from "turnament-components";
 import { Match, Player } from "turnament-scheduler";
-import RoundListeItem from "./RoundListItem";
+import { updateMatch } from "./roundsSlice";
+import { List } from "@material-ui/core";
 
 interface IProps {
   players: Player[];
@@ -15,25 +11,27 @@ interface IProps {
 }
 
 export default function RoundList({ players, round }: IProps) {
+  const dispatch = useDispatch();
   const getPlayer = (pr: number): Player => players.find(p => p.ID === pr)!;
-  const names = round.map(({ pairing }: Match): [string, string] => {
-    return [getPlayer(pairing[0]).name!, getPlayer(pairing[1]).name!];
-  });
+  const names = round.map(({ pairing, hasBye }: Match): [string, string] => [
+    pairing[0] !== -1 ? getPlayer(pairing[0]).name! : "BYE",
+    pairing[1] !== -1 ? getPlayer(pairing[1]).name! : "BYE"
+  ]);
+
+  const handleScoreChange = (matchToUpdate: Match) => {
+    dispatch(updateMatch({ matchToUpdate }));
+  };
 
   return (
-    <Table aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          <TableCell align="right">Player 1</TableCell>
-          <TableCell align="left">Player 2</TableCell>
-          <TableCell align="right"></TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {round.map((match, index) => (
-          <RoundListeItem key={match.ID} match={match} names={names[index]} />
-        ))}
-      </TableBody>
-    </Table>
+    <List>
+      {round.map((match, index) => (
+        <MatchCard
+          key={match.ID}
+          match={match}
+          names={names[index]}
+          onScoreChange={handleScoreChange}
+        />
+      ))}
+    </List>
   );
 }

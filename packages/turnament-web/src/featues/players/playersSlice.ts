@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Player } from "turnament-scheduler";
+import { Player, PlayerID } from "turnament-scheduler";
 import { RootState } from "../../app/reducers";
 import { AppThunk } from "../../app/store";
 import { readdRound } from "../round/roundsSlice";
 
 interface PlayersState {
-  players: Record<number, Player>;
+  players: Record<PlayerID, Player>;
   nextPlayerID: number;
 }
 
-let initialState: PlayersState = {
+const initialState: PlayersState = {
   players: {},
-  nextPlayerID: 0
+  nextPlayerID: 0,
 };
 
 const playersSlice = createSlice({
@@ -24,7 +24,7 @@ const playersSlice = createSlice({
       state.players[ID] = {
         ID,
         name,
-        active: true
+        active: true,
       };
     },
     addPlayers(state, { payload }: PayloadAction<{ names: string[] }>) {
@@ -34,12 +34,12 @@ const playersSlice = createSlice({
       state.players = {};
 
       //add new players
-      names.forEach(name => {
+      names.forEach((name) => {
         let ID = ++state.nextPlayerID;
         state.players[ID] = {
           ID,
           name,
-          active: true
+          active: true,
         };
       });
     },
@@ -55,8 +55,8 @@ const playersSlice = createSlice({
     },
     resetPlayers() {
       return initialState;
-    }
-  }
+    },
+  },
 });
 
 /**
@@ -76,6 +76,8 @@ export const disablePlayer = ({ playerID }: { playerID: number }): AppThunk => (
  * Selectors
  */
 
+export const selectPlayers = (state: RootState) => state.players.players;
+
 export const selectPlayersListAsArray = (state: RootState) =>
   Object.values(state.players.players);
 
@@ -84,6 +86,6 @@ export const {
   addPlayers,
   removePlayer,
   deactivatePlayer,
-  resetPlayers
+  resetPlayers,
 } = playersSlice.actions;
 export default playersSlice.reducer;

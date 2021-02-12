@@ -7,14 +7,15 @@ import { selectPlayersListAsArray } from "../players/playersSlice";
 import RoundList from "./RoundList";
 import {
   nextRound,
-  selectCurrentRound,
   selectCurrentRoundNumber,
-  selectIsRoundCompleted
+  selectIsRoundCompleted,
+  selectMatchesAsArray,
 } from "./roundsSlice";
 
 export default function RoundListPage() {
   const players = useSelector(selectPlayersListAsArray);
-  const rounds = useSelector(selectCurrentRound);
+  const rounds = useSelector(selectMatchesAsArray);
+  // const allRoundsNums = useSelector(selectAllRoundIDs);
   const roundNumber = useSelector(selectCurrentRoundNumber);
   const isRoundCompleted = useSelector(selectIsRoundCompleted);
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function RoundListPage() {
           fullWidth
           variant="contained"
           color="secondary"
-          disabled={!isRoundCompleted || players.length < 2}
+          disabled={!isRoundCompleted}
           onClick={() => dispatch(nextRound())}
         >
           Next Round

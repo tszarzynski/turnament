@@ -1,21 +1,18 @@
 import { Container } from "@material-ui/core";
-import React, { Suspense, useEffect, useState } from "react";
-import "./App.css";
-import { getCurrentRoute, listen } from "./app/router";
-import { Page } from "./components/Page";
+import React, { Suspense } from "react";
 import { Loader } from "turnament-components";
+import { RouteProvider } from "./app/router";
+import { Page } from "./components/Page";
 
 const App: React.FC = () => {
-  const [route, setRoute] = useState(getCurrentRoute());
-
-  useEffect(() => listen(setRoute), [route]);
-
   return (
+    <RouteProvider>
     <Container component="main" maxWidth="sm" style={{ minHeight: "100vh" }}>
       <Suspense fallback={<Loader></Loader>}>
-        <Page route={route} />
+        <Page  />
       </Suspense>
     </Container>
+    </RouteProvider>
   );
 };
 

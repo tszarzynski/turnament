@@ -3,10 +3,9 @@ import { clamp, distance } from "@popmotion/popcorn";
 import React, { useRef } from "react";
 import { move } from "../../utils/arrayUtils";
 import { DraggableListItem, Position } from "./DraggableListItem";
-import PlayerListItem from "./PlayerListItem";
 
 // Prevent rapid reverse swapping
-const buffer = 5;
+const DRAG_BUFFER = 5;
 
 export const findIndex = (
   i: number,
@@ -23,55 +22,51 @@ export const findIndex = (
     if (nextItem === undefined) return i;
 
     const swapOffset =
-      distance(bottom, nextItem.top + nextItem.height / 2) + buffer;
+      distance(bottom, nextItem.top + nextItem.height / 2) + DRAG_BUFFER;
     if (yOffset > swapOffset) target = i + 1;
 
     // If moving up
-  } else if (yOffset < 0) {
+  } else if (yOffset < top) {
     const prevItem = positions[i - 1];
     if (prevItem === undefined) return i;
 
     const prevBottom = prevItem.top + prevItem.height;
-    const swapOffset = distance(top, prevBottom - prevItem.height / 2) + buffer;
+    const swapOffset =
+      distance(top, prevBottom - prevItem.height / 2) + DRAG_BUFFER;
+
     if (yOffset < -swapOffset) target = i - 1;
   }
 
   return clamp(0, positions.length, target);
 };
 
-const useStyles = makeStyles(theme => ({
-    list: {
-      position: "relative",
-      userSelect: "none",
-      overflowX: "hidden",
-      overscrollBehavior: "contain"
-    },
-  }));
+const useStyles = makeStyles(() => ({
+  list: {
+    position: "relative",
+    userSelect: "none",
+    overflowX: "hidden",
+    overscrollBehavior: "contain",
+  },
+}));
 
 export interface Props {
-  items: string[];
   order: number[];
-
   reorderList: (order: number[]) => void;
   draggable: boolean;
-  removePlayer: (id: number) => void;
+  rowRenderer: (orderIndex: number, index: number) => React.ReactNode;
 }
 
-
-
 export const DraggableList = ({
-  items,
   order,
+  rowRenderer,
   reorderList,
   draggable,
-  removePlayer
 }: Props) => {
   const classes = useStyles();
   // We need to collect an array of height and position data for all of this component's
   // `Item` children, so we can later us that in calculations to decide when a dragging
   // `Item` should swap places with its siblings.
   const positions = useRef<Position[]>([]).current;
-
   const setPosition = (i: number, offset: Position) => (positions[i] = offset);
 
   // Find the ideal index for a dragging item based on its position in the array, and its
@@ -84,19 +79,15 @@ export const DraggableList = ({
 
   return (
     <List className={classes.list}>
-      {order.map((orderIndex, i) => (
+      {order.map((orderIndex, index) => (
         <DraggableListItem
           key={orderIndex}
-          index={i}
+          index={index}
           draggable={draggable}
           setPosition={setPosition}
           moveItem={moveItem}
         >
-          <PlayerListItem
-            name={items[orderIndex]}
-            index={orderIndex}
-            removePlayer={removePlayer}
-          ></PlayerListItem>
+          {rowRenderer(orderIndex, index)}
         </DraggableListItem>
       ))}
     </List>

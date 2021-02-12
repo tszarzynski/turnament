@@ -33,7 +33,7 @@ export default function RankingListPage() {
           onClick={() => {
             dispatch(resetPlayers());
             dispatch(resetRounds());
-            routes.setup.push();
+            routes.setup().push();
           }}
         >
           Finish Tournament

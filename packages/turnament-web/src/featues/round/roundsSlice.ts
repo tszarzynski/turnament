@@ -5,25 +5,25 @@ import {
   Match,
   Player,
   SchedulerType,
-  isEliminator
+  isEliminator,
 } from "turnament-scheduler";
 import { RootState } from "../../app/reducers";
 import {
   selectPlayersListAsArray,
-  deactivatePlayer
+  deactivatePlayer,
 } from "../players/playersSlice";
 import { AppThunk } from "../../app/store";
 
 interface RoundsState {
   schedulerType: SchedulerType | undefined;
-  rounds: Record<string, Match>;
+  matches: Record<string, Match>;
   currentRoundNum: number;
 }
 
 let initialState: RoundsState = {
   schedulerType: undefined,
-  rounds: {},
-  currentRoundNum: 0
+  matches: {},
+  currentRoundNum: 0,
 };
 
 const roundsSlice = createSlice({
@@ -46,7 +46,7 @@ const roundsSlice = createSlice({
       const roundID = ++state.currentRoundNum;
 
       const scheduler = getSchedulerByType(state.schedulerType);
-      const rounds = Object.values(state.rounds);
+      const rounds = Object.values(state.matches);
 
       const newRound = scheduler.makeRound(players, rounds, roundID);
 
@@ -54,12 +54,12 @@ const roundsSlice = createSlice({
         scheduler.eliminate(players, rounds);
       }
 
-      state.rounds = {
-        ...state.rounds,
+      state.matches = {
+        ...state.matches,
         ...newRound.reduce((acc, match) => {
           acc[match.ID] = match;
           return acc;
-        }, {} as Record<string, Match>)
+        }, {} as Record<string, Match>),
       };
     },
     readdRound(state, { payload }: PayloadAction<{ players: Player[] }>) {
@@ -68,18 +68,18 @@ const roundsSlice = createSlice({
       if (!state.schedulerType) return;
 
       const roundID = state.currentRoundNum;
-      const roundsWithoutCurrent = Object.values(state.rounds).filter(
-        round => round.roundID !== roundID
+      const roundsWithoutCurrent = Object.values(state.matches).filter(
+        (round) => round.roundID !== roundID
       );
 
       const scheduler = getSchedulerByType(state.schedulerType);
       const newRound = scheduler.makeRound(
         players,
-        Object.values(state.rounds),
+        Object.values(state.matches),
         roundID
       );
 
-      state.rounds = [...roundsWithoutCurrent, ...newRound].reduce(
+      state.matches = [...roundsWithoutCurrent, ...newRound].reduce(
         (acc, match) => {
           acc[match.ID] = match;
           return acc;
@@ -90,12 +90,12 @@ const roundsSlice = createSlice({
     updateMatch(state, { payload }: PayloadAction<{ matchToUpdate: Match }>) {
       const { matchToUpdate } = payload;
 
-      state.rounds[matchToUpdate.ID] = matchToUpdate;
+      state.matches[matchToUpdate.ID] = matchToUpdate;
     },
     resetRounds() {
       return initialState;
-    }
-  }
+    },
+  },
 });
 
 /**
@@ -105,15 +105,15 @@ const roundsSlice = createSlice({
 export const selectSchedulerType = (state: RootState) =>
   state.rounds.schedulerType;
 
-export const selectRoundsListAsArray = (state: RootState) =>
-  Object.values(state.rounds.rounds);
+export const selectMatchesAsArray = (state: RootState) =>
+  Object.values(state.rounds.matches);
 
 export const selectRankedPlayers = (state: RootState) =>
-  getRanking(selectPlayersListAsArray(state), selectRoundsListAsArray(state));
+  getRanking(selectPlayersListAsArray(state), selectMatchesAsArray(state));
 
 export const selectCurrentRound = (state: RootState): Match[] =>
-  selectRoundsListAsArray(state).filter(
-    match => match.roundID === state.rounds.currentRoundNum && !match.hasBye
+  selectMatchesAsArray(state).filter(
+    (match) => match.roundID === state.rounds.currentRoundNum && !match.hasBye
   );
 export const selectCurrentRoundNumber = (state: RootState): number =>
   state.rounds.currentRoundNum;
@@ -121,9 +121,13 @@ export const selectCurrentRoundNumber = (state: RootState): number =>
 export const selectIsRoundCompleted = (state: RootState): boolean =>
   selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
 
-// export const selectAllRoundIDs = (state: RootState) => [
-//   ...new Set<number>(selectRoundsListAsArray(state).map(match => match.roundID))
-// ];
+export const selectAllRoundIDs = (state: RootState) =>
+  Array.from(
+    new Set<number>(selectMatchesAsArray(state).map((match) => match.roundID))
+  );
+
+export const selectMatchesByRoundID = (state: RootState, roundID: number) =>
+  selectMatchesAsArray(state).filter((match) => match.roundID === roundID);
 
 /**
  * Thunks
@@ -137,10 +141,10 @@ export const nextRound = (): AppThunk => (dispatch, getState) => {
     const scheduler = getSchedulerByType(schedulerType);
 
     if (isEliminator(scheduler)) {
-      const rounds = selectRoundsListAsArray(getState());
+      const rounds = selectMatchesAsArray(getState());
       const playersToEliminate = scheduler.eliminate(players, rounds);
 
-      playersToEliminate.forEach(player =>
+      playersToEliminate.forEach((player) =>
         dispatch(deactivatePlayer({ playerID: player.ID }))
       );
     }
@@ -154,6 +158,6 @@ export const {
   addRound,
   readdRound,
   updateMatch,
-  resetRounds
+  resetRounds,
 } = roundsSlice.actions;
 export default roundsSlice.reducer;

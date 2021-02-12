@@ -4,33 +4,35 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     ecmaFeatures: {
-      jsx: false
+      jsx: false,
     },
     tsconfigRootDir: __dirname,
-    project: ["./packages/*/tsconfig.json"]
+    project: ["./packages/*/tsconfig.json"],
   },
   plugins: ["@typescript-eslint", "react"],
   extends: [
-    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
   ],
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/prop-types": "off",
   },
   env: {
     es6: true,
-    node: true
+    node: true,
   },
   settings: {
     react: {
-      version: "detect"
-    }
+      version: "detect",
+    },
   },
   globals: {
     module: "readonly",
-    global: "readonly"
-  }
+    global: "readonly",
+  },
 };

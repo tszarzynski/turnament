@@ -1,17 +1,15 @@
+import { Box } from "@material-ui/core";
 import React from "react";
-import { Route } from "type-route";
-import { routes, tournamentGroup } from "../app/router";
+import { routes, useRoute } from "../app/router";
 import RankingListPage from "../featues/ranking/RankingListPage";
 import RoundListPage from "../featues/round/RoundListPage";
 import TournamentNavigation from "./TournamentNavigation";
-import { Box } from "@material-ui/core";
 
-type Props = {
-  route: Route<typeof tournamentGroup>;
-};
 
-export default function TournamentPage({ route }: Props) {
+
+export default function TournamentPage() {
   let pageContents = <RoundListPage />;
+  const route = useRoute();
 
   if (route.name === routes.tournamentRanking.name) {
     pageContents = <RankingListPage />;
@@ -24,7 +22,7 @@ export default function TournamentPage({ route }: Props) {
   return (
     <Box pb={8}>
       {pageContents}
-      <TournamentNavigation route={route} />
+      <TournamentNavigation />
     </Box>
   );
 }

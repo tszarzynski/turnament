@@ -28,7 +28,7 @@ const createReducer = <T>() => (
         ...state,
         nextID,
         items: [...state.items, valueToAdd],
-        order: [...state.order, nextID]
+        order: [...state.order, nextID],
       };
     }
     case "remove": {
@@ -36,8 +36,8 @@ const createReducer = <T>() => (
       const nextID = state.nextID - 1;
       const items = state.items.filter((_, index) => index !== indexToRemove);
       const order = state.order
-        .filter(o => o !== indexToRemove)
-        .map(o => (o > indexToRemove ? o - 1 : o));
+        .filter((o) => o !== indexToRemove)
+        .map((o) => (o > indexToRemove ? o - 1 : o));
 
       return { ...state, nextID, items, order };
     }
@@ -46,14 +46,13 @@ const createReducer = <T>() => (
       return {
         items: values,
         order: values.map((_, index) => index),
-        nextID: values.length - 1
+        nextID: values.length - 1,
       };
     }
     case "reset":
       return initialState;
     case "reorder": {
       const { order } = action.payload;
-      console.log(order);
 
       return { ...state, order };
     }
@@ -78,7 +77,7 @@ export function useOrderedList<T>() {
   const reorder = (order: number[]) =>
     dispatch({ type: "reorder", payload: { order } });
 
-  const orderedItems = () => order.map(o => items[o]).map(item => item);
+  const orderedItems = () => order.map((o) => items[o]).map((item) => item);
 
   return {
     items,
@@ -87,6 +86,6 @@ export function useOrderedList<T>() {
     remove,
     set,
     reorder,
-    orderedItems: orderedItems()
+    orderedItems: orderedItems(),
   };
 }

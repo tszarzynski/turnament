@@ -6,8 +6,7 @@ import {
 import RankingIcon from "@material-ui/icons/EmojiEvents";
 import RoundsIcon from "@material-ui/icons/List";
 import React, { useEffect } from "react";
-import { Route } from "type-route";
-import { routes, tournamentGroup } from "../app/router";
+import { routes, useRoute } from "../app/router";
 
 const useStyles = makeStyles({
   root: {
@@ -19,23 +18,22 @@ const useStyles = makeStyles({
   }
 });
 
-type Props = {
-  route: Route<typeof tournamentGroup>;
-};
 
-export default function TournamentNavigation({ route }: Props) {
+
+export default function TournamentNavigation() {
   const classes = useStyles();
+  const route = useRoute();
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<{}>,
     newValue: number
   ) => {
     setValue(newValue);
 
-    if (newValue === 0) routes.tournamentRounds.push();
-    if (newValue === 1) routes.tournamentRanking.push();
+    if (newValue === 0) routes.tournamentRounds().push();
+    if (newValue === 1) routes.tournamentRanking().push();
   };
 
   useEffect(() => {

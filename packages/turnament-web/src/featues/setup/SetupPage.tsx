@@ -33,7 +33,7 @@ export default function SetupPage() {
   const handleNext = () => {
     dispatch(setSchedulerType({ schedulerType: state.schedulerType }));
 
-    routes.players.push();
+    routes.players().push();
   };
 
   const options = getSchedulerTypesAsList().map(option => (

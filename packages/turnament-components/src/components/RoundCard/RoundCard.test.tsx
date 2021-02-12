@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react'
-import Test from './Test';
+import RoundCard from './RoundCard';
 
-describe('Test', () => {
+describe('RoundCard', () => {
    it('renders without error', () => {
       const { asFragment } = render(
-         <Test name="Test"/>
+         <RoundCard/>
        )
       expect(asFragment()).toMatchSnapshot()
    });

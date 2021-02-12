@@ -1,4 +1,4 @@
-type PlayerID = number;
+export type PlayerID = number;
 
 export interface Player {
   ID: PlayerID;
@@ -44,7 +44,7 @@ export type Pairing = [PlayerID, PlayerID];
  */
 export type GraphEdge = [number, number, number];
 
-export type SchedulerType = 'SWISS' | 'ROUND_ROBIN' | 'ELIMINATION' | 'AMALFI';
+export type SchedulerType = "SWISS" | "ROUND_ROBIN" | "ELIMINATION" | "AMALFI";
 
 export interface Scheduler {
   makeRound: (players: Player[], results: Match[], roundID: number) => Match[];
