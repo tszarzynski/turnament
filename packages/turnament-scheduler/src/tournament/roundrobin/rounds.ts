@@ -1,21 +1,13 @@
-import { isEven } from '../../utils';
+import { isEven } from "../../utils";
 
 /**
  * Returns number of rounds necessary to finish tournament
- * @param numPlayers
  */
-export function roundsNeeded(numPlayers: number) {
-  if (isEven(numPlayers)) {
-    return numPlayers - 1;
-  } else {
-    return numPlayers;
-  }
-}
+export const roundsNeeded = (numPlayers: number): number =>
+	isEven(numPlayers) ? numPlayers - 1 : numPlayers;
 
 /**
  * Returns number of matches necessary to finish tournament
- * @param numPlayers
  */
-export function matchesNeeded(numPlayers: number) {
-  return (numPlayers * (numPlayers - 1)) / 2;
-}
+export const matchesNeeded = (numPlayers: number): number =>
+	(numPlayers * (numPlayers - 1)) / 2;

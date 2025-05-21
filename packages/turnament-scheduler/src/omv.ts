@@ -1,12 +1,12 @@
-import { PlayerWithResults } from './types';
+import type { PlayerWithResults } from "./types";
 
 /**
  * Check if players played each other
  * @param player
  */
-const isOpponent = (player: PlayerWithResults) => (
-  possibleOpponent: PlayerWithResults
-) => possibleOpponent.opponents.includes(player.ID);
+const isOpponent =
+	(player: PlayerWithResults) => (possibleOpponent: PlayerWithResults) =>
+		possibleOpponent.opponents.includes(player.ID);
 
 /**
  * Return the list of player's opponents
@@ -14,8 +14,8 @@ const isOpponent = (player: PlayerWithResults) => (
  * @param player
  */
 const listPlayerOpponents = (
-  allPlayers: PlayerWithResults[],
-  player: PlayerWithResults
+	allPlayers: PlayerWithResults[],
+	player: PlayerWithResults,
 ) => allPlayers.filter(isOpponent(player));
 
 /**
@@ -23,7 +23,7 @@ const listPlayerOpponents = (
  * @param opponent
  */
 const calcWinLoseRatio = (player: PlayerWithResults) =>
-  player.matchesWon / (player.matchesWon + player.matchesLost);
+	player.matchesWon / (player.matchesWon + player.matchesLost);
 
 /**
  * Calculate OMV for a given player
@@ -31,10 +31,10 @@ const calcWinLoseRatio = (player: PlayerWithResults) =>
  * @param player player to calculate OMV for
  */
 export const calcOMV = (
-  allPlayers: PlayerWithResults[],
-  player: PlayerWithResults
-) =>
-  listPlayerOpponents(allPlayers, player).reduce(
-    (avg, opponent, _, arr) => avg + calcWinLoseRatio(opponent) / arr.length,
-    0
-  );
+	allPlayers: PlayerWithResults[],
+	player: PlayerWithResults,
+): number =>
+	listPlayerOpponents(allPlayers, player).reduce(
+		(avg, opponent, _, arr) => avg + calcWinLoseRatio(opponent) / arr.length,
+		0,
+	);

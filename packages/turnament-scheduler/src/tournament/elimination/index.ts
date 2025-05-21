@@ -1,32 +1,32 @@
-import { makePlayersWithResults } from '../../players';
-import { makeRound } from '../../round';
-import { Eliminator, Match, Player, Scheduler } from '../../types';
-import { calcNumRoundsFromResults } from '../../utils';
-import { pairPlayers } from './pair';
-import { roundsNeeded } from './rounds';
+import { pipeline } from "ts-pipe-compose";
+import { filterActivePlayers, makePlayersWithResults } from "../../players";
+import { makeRound } from "../../round";
+import type { Eliminator, Match, Player, Scheduler } from "../../types";
+import { calcNumRoundsFromResults } from "../../utils";
+import { pairPlayers } from "./pair";
+import { roundsNeeded } from "./rounds";
 
 export const scheduler: Scheduler & Eliminator = {
-  name: 'Elimination',
-  type: 'ELIMINATION',
-  makeRound: (players: Player[], results: Match[], roundID: number) => {
-    const playersWithResults = makePlayersWithResults(players, results);
-    // filter out inactive players
-    const playersToPair = playersWithResults.filter((player) => player.active);
-    // calculate number of rounds played so far
-    const numRoundsPlayed = calcNumRoundsFromResults(results);
-    // make pairs
-    const pairings = pairPlayers(playersToPair, numRoundsPlayed);
-    // return new round
-    return makeRound(pairings, roundID);
-  },
-  roundsNeeded,
-  eliminate: (players: Player[], results: Match[]) => {
-    const playersWithResults = makePlayersWithResults(players, results);
-    // filter out inactive players
-    const playerToEliminate = playersWithResults.filter(
-      (player) => player.active
-    );
+	name: "Elimination",
+	type: "ELIMINATION",
+	makeRound: (players: Player[], results: Match[], roundID: number) => {
+		return makeRound(
+			pipeline(
+				makePlayersWithResults,
+				filterActivePlayers, // filter out inactive players
+				pairPlayers(calcNumRoundsFromResults(results)),
+			)(players, results),
+			roundID,
+		);
+	},
+	roundsNeeded,
+	eliminate: (players: Player[], results: Match[]) => {
+		const playersWithResults = makePlayersWithResults(players, results);
+		// filter out inactive players
+		const playerToEliminate = playersWithResults.filter(
+			(player) => player.active,
+		);
 
-    return playerToEliminate.filter((player) => player.matchesLost > 1);
-  },
+		return playerToEliminate.filter((player) => player.matchesLost > 1);
+	},
 };

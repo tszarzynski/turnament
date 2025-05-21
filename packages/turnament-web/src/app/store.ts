@@ -1,22 +1,25 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import rootReducer, { RootState } from './reducers';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
+import {
+	type PlayersSlice,
+	createPlayerSlice,
+} from "../features/players/playersSlice";
+import {
+	type RoundsSlice,
+	createRoundsSlice,
+} from "../features/round/roundsSlice";
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+export type RootState = PlayersSlice & RoundsSlice;
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-const store = configureStore({
-  reducer: persistedReducer,
-});
-
-persistStore(store);
-
-export type AppDispatch = typeof store.dispatch;
-export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
-
-export default store;
+export const useBaseStore = create<RootState>()(
+	persist(
+		immer((...args) => ({
+			...createPlayerSlice(...args),
+			...createRoundsSlice(...args),
+		})),
+		{
+			name: "turnament-store",
+		},
+	),
+);

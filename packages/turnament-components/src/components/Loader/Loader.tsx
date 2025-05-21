@@ -1,18 +1,15 @@
-import React from 'react';
-import { CircularProgress, Box } from '@material-ui/core';
+import IconLoading from "../IconLoading";
 
-const Loader: React.FC = () => {
-  return (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      width={1}
-      minHeight="100vh"
-    >
-      <CircularProgress />
-    </Box>
-  );
+const Loader = () => {
+	return (
+		<div className="flex justify-center items-center w-full min-h-screen text-primary">
+			<div className="border-1">
+				<div className="animate-spin">
+					<IconLoading />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Loader;

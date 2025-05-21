@@ -2,5 +2,15 @@
   "files.exclude": {
     "**/node_modules": true
   },
-  "cSpell.words": ["turnament"]
+  "cSpell.words": [
+    "amalfi",
+    "edmonds",
+    "turnament"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

@@ -1,58 +1,45 @@
 {
-  "name": "turnament-components",
-  "version": "0.1.0",
-  "module": "build/index.js",
-  "types": "build/typings/index.d.ts",
-  "license": "MIT",
-  "devDependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/styles": "^4.11.3",
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "11.1.1",
-    "@rollup/plugin-url": "6.0.0",
-    "@rollup/plugin-typescript": "^8.1.1",
-    "@storybook/addon-actions": "^6.1.17",
-    "@storybook/addon-essentials": "6.1.17",
-    "@storybook/addon-backgrounds": "^6.1.17",
-    "@storybook/addon-links": "^6.1.17",
-    "@storybook/addon-viewport": "^6.1.17",
-    "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.17",
-    "@svgr/rollup": "^5.5.0",
-    "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
-    "acorn-jsx": "^5.2.0",
-    "identity-obj-proxy": "^3.0.0",
-    "plop": "^2.6.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.2",
-    "rollup": "^2.28.2",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
-    "rollup-plugin-postcss": "^3.1.8",
-    "storybook-addon-material-ui": "^0.9.0-alpha.21"
-  },
-  "scripts": {
-    "start:storybook": "start-storybook -p 9009",
-    "build:storybook": "build-storybook",
-    "plop": "plop",
-    "build": "rollup -c",
-    "start": "rollup -c -w",
-    "test": "jest",
-    "lint": "yarn eslint . --ext .ts,.tsx --ignore-path ../../.eslintignore"
-  },
-  "peerDependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/styles": "^4.11.3",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "turnament-scheduler": "0.1.0"
-  },
-  "files": [
-    "build"
-  ]
+	"name": "turnament-components",
+	"version": "0.1.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./src/index.ts"
+		},
+		"./tailwind.css": {
+			"import": "./src/tailwind.css"
+		}
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@storybook/addon-essentials": "8.6.14",
+		"@storybook/addon-themes": "8.6.14",
+		"@storybook/addon-viewport": "8.6.14",
+		"@storybook/react": "8.6.14",
+		"@storybook/react-vite": "8.6.14",
+		"plop": "4.0.1",
+		"storybook": "8.6.14",
+		"typescript": "catalog:",
+		"vite": "catalog:"
+	},
+	"scripts": {
+		"start:storybook": "storybook dev -p 9009",
+		"build:storybook": "storybook build",
+		"dev": "pnpm start:storybook",
+		"plop": "plop",
+		"lint": "pnpx @biomejs/biome check --fix"
+	},
+	"peerDependencies": {
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"@tailwindcss/vite": "catalog:",
+		"tailwindcss": "catalog:"
+	},
+	"files": [
+		"dist"
+	],
+	"dependencies": {
+		"react-use": "catalog:"
+	}
 }

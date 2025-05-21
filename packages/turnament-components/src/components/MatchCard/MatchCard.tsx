@@ -1,140 +1,155 @@
-import {
-  Box,
-  Button,
-  Card,
-  ClickAwayListener,
-  Divider,
-  InputBase,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import React, { useState } from 'react';
-import { Match } from 'turnament-scheduler';
-
-type StyleProps = {
-  isArchived: boolean;
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: ({ isArchived }: StyleProps) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    background: isArchived
-      ? theme.palette.primary.light
-      : theme.palette.primary.main,
-    paddingLeft: theme.spacing(4),
-    marginBottom: theme.spacing(2),
-  }),
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  scoreBox: { display: 'flex', flexDirection: 'row' },
-  score: {
-    background: 'white',
-    color: 'black',
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-  },
-  scoreInput: {
-    textAlign: 'center',
-    padding: 0,
-  },
-}));
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
+import { useClickAway } from "react-use";
+import type { Match } from "turnament-scheduler";
+import IconButton from "../IconButton";
+import IconRemove from "../IconRemove";
+import IconAdd from "../IconAdd";
 
 type PlayerScoreProps = {
-  name: string;
-  score: number;
-  onChange: (newScore: number) => void;
+	name: string;
+	score: number;
+	onChange?: (newScore: number) => void;
+	onIsEditingChange?: (isEditing: boolean) => void;
+	disabled?: boolean;
+	highlight?: boolean;
 };
 
-const PlayerScore = ({ name, score, onChange, ...rest }: PlayerScoreProps) => {
-  const classes = useStyles(rest);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+const PlayerScore: React.FC<PlayerScoreProps> = ({
+	name,
+	score,
+	onChange,
+	disabled,
+}) => {
+	const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  return (
-    <Box className={classes.row}>
-      <Typography variant="body1">{name}</Typography>
-      <ClickAwayListener onClickAway={() => setIsEditing(false)}>
-        <Box className={classes.scoreBox}>
-          {isEditing && (
-            <Button onClick={() => onChange(score - 1)}>
-              <RemoveIcon />
-            </Button>
-          )}
-          <InputBase
-            classes={{ input: classes.scoreInput }}
-            className={classes.score}
-            type="text"
-            value={score}
-            inputProps={{
-              type: 'text',
-              inputMode: 'numeric',
-              pattern: '[0-9.]+',
-            }}
-            onFocus={(e) => {
-              e.target.select();
-              setIsEditing(true);
-            }}
-            onChange={(e) => onChange(parseInt(e.target.value))}
-          />
-          {isEditing && (
-            <Button onClick={() => onChange(score + 1)}>
-              <AddIcon />
-            </Button>
-          )}
-        </Box>
-      </ClickAwayListener>
-    </Box>
-  );
+	const ref = useRef(null);
+	useClickAway(ref, () => {
+		isEditing && setIsEditing(false);
+	});
+
+	return (
+		<div className="flex flex-row justify-between items-stretch">
+			<h5 className="relative font-bold flex flex-auto items-center pl-3 border border-solid border-secondary text-xl">
+				{name}
+			</h5>
+			<div
+				ref={ref}
+				className="flex flex-row border border-secondary filter-[url(#vintageGrain)]"
+			>
+				{isEditing && (
+					<span className="w-[54px] h-[54px] border-r-1">
+						<IconButton
+							onClick={() => onChange?.(score - 1)}
+							iconSlot={<IconRemove />}
+						/>
+					</span>
+				)}
+				<form
+					autoComplete="off"
+					onSubmit={(e) => {
+						e.preventDefault();
+						isEditing && setIsEditing(false);
+					}}
+				>
+					<input
+						className="w-[54px] h-[54px] text-center text-xl font-bold focus:none"
+						type="text"
+						name="score"
+						value={score}
+						readOnly={true}
+						disabled={disabled}
+						onFocus={() => {
+							setIsEditing(!disabled && true);
+						}}
+						onChange={(e) => onChange?.(Number.parseInt(e.target.value))}
+						autoComplete="off"
+						autoCorrect="off"
+					/>
+				</form>
+				{isEditing && (
+					<span className="w-[54px] h-[54px] border-l-1">
+						<IconButton
+							onClick={() => onChange?.(score + 1)}
+							iconSlot={<IconAdd />}
+						/>
+					</span>
+				)}
+			</div>
+		</div>
+	);
 };
 
 type MatchCardProps = {
-  match: Match;
-  names: [string, string];
-  isArchived?: boolean;
-  onScoreChange: (matchToUpdate: Match) => void;
+	match: Match;
+	names: [string, string];
+	disabled?: boolean;
+	onScoreChange?: (matchToUpdate: Match) => void;
 };
 
-const MatchCard = ({
-  names,
-  match,
-  onScoreChange,
-  isArchived = true,
-}: MatchCardProps) => {
-  const classes = useStyles({ isArchived });
+const MatchCard: React.FC<MatchCardProps> = ({
+	names,
+	match,
+	onScoreChange,
+	disabled = false,
+}) => {
+	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const ref = useRef<HTMLDivElement>(null);
 
-  return (
-    <Card className={classes.root}>
-      <PlayerScore
-        name={names[0]}
-        score={match.result[0]}
-        onChange={(newScore: number) => {
-          const matchToUpdate: Match = {
-            ...match,
-            result: [newScore, match.result[1]],
-          };
-          onScoreChange && onScoreChange(matchToUpdate);
-        }}
-      />
-      <Divider />
-      <PlayerScore
-        name={names[1]}
-        score={match.result[1]}
-        onChange={(newScore: number) => {
-          const matchToUpdate: Match = {
-            ...match,
-            result: [match.result[0], newScore],
-          };
-          onScoreChange && onScoreChange(matchToUpdate);
-        }}
-      />
-    </Card>
-  );
+	const handleIsEditingChange = (isEditing: boolean): void => {
+		setIsEditing(isEditing);
+	};
+
+	useEffect(() => {
+		if (isEditing) {
+			const timeoutId = setTimeout(() => {
+				ref.current?.scrollIntoView({
+					block: "center",
+					behavior: "smooth",
+				});
+			}, 100);
+
+			return () => {
+				clearTimeout(timeoutId);
+			};
+		}
+
+		return () => undefined;
+	}, [isEditing]);
+
+	return (
+		<div ref={ref} className="flex flex-col">
+			<PlayerScore
+				name={names[0]}
+				score={match.result[0]}
+				disabled={disabled}
+				onChange={(newScore: number) => {
+					const matchToUpdate: Match = {
+						...match,
+						result: [newScore, match.result[1]],
+					};
+					onScoreChange?.(matchToUpdate);
+				}}
+				onIsEditingChange={handleIsEditingChange}
+				highlight={match.result[0] > match.result[1]}
+			/>
+
+			<PlayerScore
+				name={names[1]}
+				score={match.result[1]}
+				disabled={disabled}
+				onChange={(newScore: number) => {
+					const matchToUpdate: Match = {
+						...match,
+						result: [match.result[0], newScore],
+					};
+					onScoreChange?.(matchToUpdate);
+				}}
+				onIsEditingChange={handleIsEditingChange}
+				highlight={match.result[1] > match.result[0]}
+			/>
+		</div>
+	);
 };
 
 export default MatchCard;

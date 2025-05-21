@@ -1,25 +1,30 @@
-import React, { lazy } from "react";
-import { routes, tournamentGroup, useRoute } from "../app/router";
+import { lazy } from "react";
+import { routes, useRoute } from "../app/router";
 
-const PlayerListPage = lazy(() => import("../featues/players/PlayerListPage"));
-const SetupPage = lazy(() => import("../featues/setup/SetupPage"));
-const TournamentPage = lazy(() => import("./TournamentPage"));
-
-
+const PlayerListPage = lazy(() => import("../features/players/PlayerListPage"));
+const TypePage = lazy(() => import("../features/type/TypePage"));
+const RankingListPage = lazy(
+	() => import("../features/ranking/RankingListPage"),
+);
+const RoundListPage = lazy(() => import("../features/round/RoundListPage"));
 
 export function Page() {
-  const route = useRoute();
-  if (route.name === routes.setup.name) {
-    return <SetupPage />;
-  }
+	const route = useRoute();
+	if (route.name === routes.type.name) {
+		return <TypePage />;
+	}
 
-  if (route.name === routes.players.name) {
-    return <PlayerListPage />;
-  }
+	if (route.name === routes.players.name || route.name === routes.home.name) {
+		return <PlayerListPage />;
+	}
 
-  if (tournamentGroup.has(route)) {
-    return <TournamentPage />;
-  }
+	if (route.name === routes.tournamentRanking.name) {
+		return <RankingListPage />;
+	}
 
-  return <div>Not Found</div>;
+	if (route.name === routes.tournamentRounds.name) {
+		return <RoundListPage />;
+	}
+
+	return <div>Not Found</div>;
 }

@@ -1,62 +1,41 @@
-import { Match } from './types';
+import type { Match } from "./types";
 
 /**
- * Count occurances of elements in Array
- * @param arr Array of numbers
+ * Count occurrences of number in Array
  */
-export function countOccurences(arr: number[]) {
-  return arr.reduce(
-    (acc, val) => acc.set(val, 1 + (acc.get(val) || 0)),
-    new Map<number, number>()
-  );
-}
+export const countOccurrences = (arr: number[]): Map<number, number> =>
+	arr.reduce(
+		(acc, val) => acc.set(val, 1 + (acc.get(val) || 0)),
+		new Map<number, number>(),
+	);
 
 /**
  * Returns last element from array
- * @param arr
  */
-export function first<T>(arr: T[]) {
-  return arr[0];
-}
+export const first = <T>(arr: T[]): T => arr[0];
 
 /**
  * Returns last element from array
- * @param arr
  */
-export function last<T>(arr: T[]) {
-  return arr[arr.length - 1];
-}
+export const last = <T>(arr: T[]): T => arr[arr.length - 1];
 
-export function prop<T, P extends keyof T>(propName: P): (obj: T) => T[P] {
-  return (obj: T) => {
-    return obj[propName];
-  };
-}
+export const prop =
+	<T, P extends keyof T>(propName: P): ((obj: T) => T[P]) =>
+	(obj: T) =>
+		obj[propName];
 
-/**
- * Check if number is odd
- * @param n Number
- */
-export function isOdd(n: number) {
-  return n % 2 !== 0;
-}
+/** Check if number is odd */
+export const isOdd = (n: number): boolean => n % 2 !== 0;
 
-/**
- * Check if number is even
- * @param n Number
- */
-export function isEven(n: number) {
-  return !isOdd(n);
-}
+/** Check if number is even */
+export const isEven = (n: number): boolean => !isOdd(n);
 
-export function calcNumRoundsFromResults(results: Match[]) {
-  return new Set(results.map((results) => results.roundID)).size;
-}
+export const calcNumRoundsFromResults = (results: Match[]): number =>
+	new Set(results.map((results) => results.roundID)).size;
 
-export function nextPowOf2(n: number) {
-  return Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
-}
+/** Returns the nearest power of 2 */
+export const nextPowOf2 = (n: number): number =>
+	2 ** Math.ceil(Math.log(n) / Math.log(2));
 
-export function isPowOf2(n: number) {
-  return n !== 0 && (n & (n - 1)) === 0;
-}
+/** Checks if number is power of 2 */
+export const isPowOf2 = (n: number): boolean => n !== 0 && (n & (n - 1)) === 0;
