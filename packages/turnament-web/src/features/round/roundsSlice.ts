@@ -9,6 +9,7 @@ import {
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
 import type { PlayersSlice } from "../players/playersSlice";
+import { uniq } from "es-toolkit";
 
 interface State {
 	schedulerType: SchedulerType | undefined;
@@ -127,10 +128,13 @@ export const selectCurrentRound = (state: RootState): Match[] =>
 		(match) => match.roundID === state.currentRoundNum && !match.hasBye,
 	);
 
-export const selectArchivedRound = (state: RootState): Match[] =>
+export const selectPreviousRounds = (state: RootState): Match[] =>
 	state.matches
 		.filter((match) => match.roundID !== state.currentRoundNum && !match.hasBye)
 		.reverse();
+
+export const selectPreviousRoundsNum = (state: RootState) =>
+	uniq(selectPreviousRounds(state).map((m) => m.roundID));
 
 export const selectIsRoundCompleted = (state: RootState): boolean =>
 	selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);

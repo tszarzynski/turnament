@@ -1,12 +1,10 @@
 import { lazy } from "react";
 import { routes, useRoute } from "../app/router";
 
-const PlayerListPage = lazy(() => import("../features/players/PlayerListPage"));
+const PlayerListPage = lazy(() => import("../features/players/PlayersPage"));
 const TypePage = lazy(() => import("../features/type/TypePage"));
-const RankingListPage = lazy(
-	() => import("../features/ranking/RankingListPage"),
-);
-const RoundListPage = lazy(() => import("../features/round/RoundListPage"));
+const RankingPage = lazy(() => import("../features/ranking/RankingPage"));
+const RoundPage = lazy(() => import("../features/round/RoundsPage"));
 
 export function Page() {
 	const route = useRoute();
@@ -19,11 +17,11 @@ export function Page() {
 	}
 
 	if (route.name === routes.tournamentRanking.name) {
-		return <RankingListPage />;
+		return <RankingPage />;
 	}
 
 	if (route.name === routes.tournamentRounds.name) {
-		return <RoundListPage />;
+		return <RoundPage />;
 	}
 
 	return <div>Not Found</div>;

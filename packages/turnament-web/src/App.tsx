@@ -6,11 +6,9 @@ import { Page } from "./components/Page";
 const App: React.FC = () => {
 	return (
 		<RouteProvider>
-			<main className="max-w-sm min-h-screen m-auto filter-grainy">
-				<Suspense fallback={<Loader />}>
-					<Page />
-				</Suspense>
-			</main>
+			<Suspense fallback={<Loader />}>
+				<Page />
+			</Suspense>
 		</RouteProvider>
 	);
 };

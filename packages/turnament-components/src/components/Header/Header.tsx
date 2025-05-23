@@ -1,57 +1,65 @@
+import Hr from "../Hr";
+
 type Props = {
 	children: React.ReactNode;
-	turnamentType: string;
-	playersNum: number;
-	minRounds: number;
+	turnamentType?: string;
+	playersNum?: number;
+	minRounds?: number;
 };
+
+function valueOrPlaceholder(value?: string | number) {
+	return value || "/";
+}
 
 const Header = ({ children, turnamentType, playersNum, minRounds }: Props) => {
 	return (
-		<header className="static p-0.5 border-t-2 border-secondary ">
-			<div className="text-secondary uppercase text-center text-2xl">
+		<div className="static border-secondary border-t-2 p-0.5">
+			<div className="py-4 text-center font-bold text-4xl text-secondary uppercase leading-none">
 				{children}
 			</div>
-			<hr className="border-secondary mb-0.5" />
+			<Hr />
 			<table className="w-full ">
 				<thead>
 					<tr>
 						<th
 							className={
-								"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
+								"border border-secondary px-4 py-2 font-bold text-secondary text-xs uppercase "
 							}
 						>
 							Type
 						</th>
 						<th
 							className={
-								"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
+								"border border-secondary px-4 py-2 font-bold text-secondary text-xs uppercase"
 							}
 						>
 							#Players
 						</th>
 						<th
 							className={
-								"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
+								"border border-secondary px-4 py-2 font-bold text-secondary text-xs uppercase"
 							}
 						>
-							Min Rounds
+							#Min Rounds
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td className="border border-secondary text-center">
-							{turnamentType}
+							{valueOrPlaceholder(turnamentType)}
 						</td>
 						<td className="border border-secondary text-center">
-							{playersNum}
+							{valueOrPlaceholder(playersNum)}
 						</td>
 
-						<td className="border border-secondary text-center">{minRounds}</td>
+						<td className="border border-secondary text-center">
+							{valueOrPlaceholder(minRounds)}
+						</td>
 					</tr>
 				</tbody>
 			</table>
-		</header>
+		</div>
 	);
 };
 

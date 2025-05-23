@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ToggleButton > renders without error 1`] = `
+<DocumentFragment>
+  <label
+    class="inline-flex items-center cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 text-primary undefined"
+  >
+    <input
+      checked=""
+      class="sr-only peer"
+      type="checkbox"
+    />
+    <div
+      class="border hover:opacity-50 transition-opacity    text-primary"
+    >
+      <svg
+        aria-label="Reorder icon"
+        class=" w-10 h-10"
+        fill="none"
+        height="24"
+        role="img"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          stroke="none"
+        />
+         
+        <path
+          d="M3 9l4-4l4 4m-4 -4v14"
+        />
+         
+        <path
+          d="M21 15l-4 4l-4-4m4 4v-14"
+        />
+      </svg>
+    </div>
+  </label>
+</DocumentFragment>
+`;

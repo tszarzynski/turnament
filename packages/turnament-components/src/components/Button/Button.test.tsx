@@ -1,12 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react'
-import Button from './Button';
+import { render } from "vitest-browser-react";
+import Button from "./Button";
 
-describe('Button', () => {
-   it('renders without error', () => {
-      const { asFragment } = render(
-         <Button/>
-       )
-      expect(asFragment()).toMatchSnapshot()
-   });
+describe("Button", () => {
+	it("renders without error", () => {
+		const { asFragment } = render(<Button>Click me</Button>);
+		expect(asFragment()).toMatchSnapshot();
+	});
 });

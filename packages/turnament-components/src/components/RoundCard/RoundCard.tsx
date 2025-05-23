@@ -1,55 +1,45 @@
-import { useMemo } from "react";
-import { BYE_ID, type Match, type Player } from "turnament-scheduler";
+import type { Match, Player } from "turnament-scheduler";
+import Hr from "../Hr";
 import MatchCard from "../MatchCard";
+import usePlayerNames from "../usePlayerNames";
 
 type Props = {
 	matches: Match[];
 	players: Player[];
 	onScoreChange: (matchToUpdate: Match) => void;
+	roundNum: number;
 };
 
-const RoundCard = ({ matches, players, onScoreChange }: Props) => {
-	const names = useMemo(() => {
-		const getPlayer = (pr: number) => players.find((p) => p.ID === pr);
-
-		return matches.map(({ pairing }): [string, string] => {
-			const p1 = getPlayer(pairing[0]);
-			const p2 = getPlayer(pairing[1]);
-
-			return [
-				pairing[0] !== BYE_ID && p1 ? p1.name : "BYE",
-				pairing[1] !== BYE_ID && p2 ? p2.name : "BYE",
-			];
-		});
-	}, [matches, players]);
+const RoundCard = ({ matches, players, roundNum, onScoreChange }: Props) => {
+	const names = usePlayerNames(players, matches);
 
 	return (
-		<div className="flex flex-col gap-0.5 border-secondary border-solid border-2 gap-0 p-0.5 filter-[url(#vintageGrain)]">
-			<hr className="border-secondary mb-0.5" />
+		<div className="flex flex-col gap-0.5 border-2 border-secondary p-0.5">
+			<Hr />
 			<div className="flex justify-between">
-				<h3 className="text-2xl text-center text-secondary border border-secondary rounded-full">
-					1
+				<h3 className="h-[54px] w-[54px] rounded-full border-1 border-secondary text-center font-bold text-4xl leading-snug">
+					{roundNum}
 				</h3>
 				<table>
 					<thead>
 						<tr>
 							<th
 								className={
-									"text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+									"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								Players
 							</th>
 							<th
 								className={
-									"text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+									" text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								Matches
 							</th>
 							<th
 								className={
-									"text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+									"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								BYE

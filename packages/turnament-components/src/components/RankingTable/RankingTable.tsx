@@ -1,4 +1,5 @@
 import type { PlayerWithStats } from "turnament-scheduler";
+import Hr from "../Hr";
 
 type Props = {
 	playersWithStats: PlayerWithStats[];
@@ -9,7 +10,7 @@ const columns = ["Rank", "Name", "Wins", "Pts", "OMV"];
 const RankingTable = ({ playersWithStats }: Props) => {
 	return (
 		<div className="w-full border-2 border-secondary p-0.5">
-			<hr className="border-secondary mb-0.5" />
+			<Hr />
 			<table className="min-w-full border-spacing-0.5 border-separate table-auto">
 				<TableHead columns={columns} />
 				<tbody>

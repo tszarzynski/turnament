@@ -35,10 +35,10 @@ const PlayerListItem = ({ name, index, draggable, removePlayer }: Props) => {
 					<IconButton iconSlot={<IconDrag />} />
 				</motion.div>
 			)}
-			<div className="table-cell py-1 px-4 border border-secondary text-secondary text-center w-[54px]">
+			<div className="table-cell w-[54px] border border-secondary px-4 py-1 text-center text-secondary">
 				{index + 1}
 			</div>
-			<div className="table-cell py-1 px-4 border border-secondary font-bold text-lg">
+			<div className="table-cell border border-secondary px-4 py-1 font-bold text-lg">
 				{name}
 			</div>
 			<div className="table-cell w-[54px]">
@@ -47,6 +47,7 @@ const PlayerListItem = ({ name, index, draggable, removePlayer }: Props) => {
 					iconSlot={<IconRemove />}
 					onClick={() => removePlayer(index)}
 					title="Remove player"
+					shape="circle"
 				/>
 			</div>
 		</Reorder.Item>

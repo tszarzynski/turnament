@@ -3,20 +3,24 @@
   "author": "Tomasz Szarzynski",
   "license": "MIT",
   "private": true,
+  "homepage": "https://tszarzynski.github.io/turnament",
   "scripts": {
     "postinstall": "husky install",
     "lint": "turbo lint",
     "dev": "turbo watch dev",
     "test": "turbo test -- --silent",
     "build": "turbo build",
-    "serve": "turbo serve"
+    "serve": "turbo serve",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d build"
   },
-  "dependencies": {
+  "devDependencies": {
     "husky": "^5.0.9",
     "lint-staged": "^10.5.4",
     "turbo": "2.5.3",
     "@biomejs/biome": "1.9.4",
-    "tsup": "8.4.0"
+    "tsup": "8.4.0",
+    "gh-pages": "^6.3.0"
   },
   "husky": {
     "hooks": {

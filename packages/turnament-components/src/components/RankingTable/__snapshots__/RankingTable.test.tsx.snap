@@ -1,0 +1,212 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RankingTable > renders without error 1`] = `
+<DocumentFragment>
+  <div
+    class="w-full border-2 border-secondary p-0.5"
+  >
+    <hr
+      class="mb-0.5 border-secondary"
+    />
+    <table
+      class="min-w-full border-spacing-0.5 border-separate table-auto"
+    >
+      <thead
+        class="border border-secondary"
+      >
+        <tr>
+          <th
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+          >
+            Rank
+          </th>
+          <th
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+          >
+            Name
+          </th>
+          <th
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+          >
+            Wins
+          </th>
+          <th
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+          >
+            Pts
+          </th>
+          <th
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+          >
+            OMV
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            1
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            John Doe
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            7
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            5
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            12.34
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            2
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            Jane Smith
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            9
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            8
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            15.21
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            3
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            Mike Johnson
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            4
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            4
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            10.76
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            4
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            Emily Williams
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            11
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            10
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            17.45
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            5
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            Alex Brown
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            6
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            7
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            13.89
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="py-3 px-4 border border-secondary text-secondary text-center"
+          >
+            6
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary font-bold"
+          >
+            Sarah Davis
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            3
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            3
+          </td>
+          <td
+            class="py-3 px-4 border border-secondary"
+          >
+            9.52
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;

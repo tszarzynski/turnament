@@ -8,8 +8,7 @@ interface State {
 }
 
 interface Actions {
-	addPlayer: (player: Pick<Player, "name">) => void;
-	addPlayers: (players: Pick<Player, "name">[]) => void;
+	setPlayers: (players: Pick<Player, "name">[]) => void;
 	removePlayer: (player: Pick<Player, "ID">) => void;
 	deactivatePlayer: (player: Pick<Player, "ID">) => void;
 	disablePlayer: (player: Pick<Player, "ID">) => void;
@@ -30,26 +29,13 @@ export const createPlayerSlice: StateCreator<
 	PlayersSlice
 > = (set, get) => ({
 	...initialState,
-	addPlayer(player) {
-		const { name } = player;
-		const ID = ++get().nextPlayerID;
+	setPlayers(players) {
 		set((state) => {
-			state.players.push({
-				ID,
+			state.players = players.map(({ name }) => ({
+				ID: ++get().nextPlayerID,
 				name,
 				active: true,
-			});
-		});
-	},
-	addPlayers(players) {
-		set((state) => {
-			state.players.push(
-				...players.map(({ name }) => ({
-					ID: ++get().nextPlayerID,
-					name,
-					active: true,
-				})),
-			);
+			}));
 		});
 	},
 	removePlayer(player) {

@@ -26,3 +26,41 @@ export const Default = () => {
 		/>
 	);
 };
+
+export const Primary = () => {
+	const [match, setMatch] = useState<Match>({
+		ID: "ID",
+		roundID: 1,
+		hasBye: false,
+		pairing: [1, 2],
+		result: [0, 0],
+	});
+
+	return (
+		<MatchCard
+			match={match}
+			names={names}
+			onScoreChange={(matchToUpdate) => setMatch(matchToUpdate)}
+			variant="primary"
+		/>
+	);
+};
+
+export const Disabled = () => {
+	const [match, setMatch] = useState<Match>({
+		ID: "ID",
+		roundID: 1,
+		hasBye: false,
+		pairing: [1, 2],
+		result: [0, 0],
+	});
+
+	return (
+		<MatchCard
+			match={match}
+			names={names}
+			onScoreChange={(matchToUpdate) => setMatch(matchToUpdate)}
+			disabled={true}
+		/>
+	);
+};

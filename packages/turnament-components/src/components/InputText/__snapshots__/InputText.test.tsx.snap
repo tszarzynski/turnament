@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputText > renders without error 1`] = `
+<DocumentFragment>
+  <input
+    autocomplete="off"
+    autocorrect="off"
+    class="focus:none border-1 border-black font-bold text-lg placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-1 border-black undefined"
+    type="text"
+  />
+</DocumentFragment>
+`;

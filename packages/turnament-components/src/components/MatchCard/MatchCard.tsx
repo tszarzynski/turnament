@@ -5,22 +5,25 @@ import type { Match } from "turnament-scheduler";
 import IconButton from "../IconButton";
 import IconRemove from "../IconRemove";
 import IconAdd from "../IconAdd";
+import InputText from "../InputText";
 
 type PlayerScoreProps = {
 	name: string;
 	score: number;
 	onChange?: (newScore: number) => void;
 	onIsEditingChange?: (isEditing: boolean) => void;
+	variant: "primary" | "secondary";
 	disabled?: boolean;
 	highlight?: boolean;
 };
 
-const PlayerScore: React.FC<PlayerScoreProps> = ({
+const PlayerScore = ({
 	name,
 	score,
 	onChange,
 	disabled,
-}) => {
+	variant,
+}: PlayerScoreProps) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 
 	const ref = useRef(null);
@@ -28,20 +31,24 @@ const PlayerScore: React.FC<PlayerScoreProps> = ({
 		isEditing && setIsEditing(false);
 	});
 
+	const variantStyles =
+		variant === "primary" ? "border-primary" : "border-secondary";
+	const disabledStyles = "border-gray-300 text-gray-300";
+
 	return (
-		<div className="flex flex-row justify-between items-stretch">
-			<h5 className="relative font-bold flex flex-auto items-center pl-3 border border-solid border-secondary text-xl">
+		<div className="flex flex-row items-stretch justify-between gap-0.5">
+			<h5
+				className={`flex flex-auto items-center border pl-3 font-bold text-lg ${disabled ? disabledStyles : variantStyles}`}
+			>
 				{name}
 			</h5>
-			<div
-				ref={ref}
-				className="flex flex-row border border-secondary filter-[url(#vintageGrain)]"
-			>
+			<div ref={ref} className="flex flex-row ">
 				{isEditing && (
-					<span className="w-[54px] h-[54px] border-r-1">
+					<span className="h-[54px] w-[54px]">
 						<IconButton
-							onClick={() => onChange?.(score - 1)}
+							onClick={() => onChange?.(score > 0 ? score - 1 : score)}
 							iconSlot={<IconRemove />}
+							shape="circle"
 						/>
 					</span>
 				)}
@@ -52,8 +59,8 @@ const PlayerScore: React.FC<PlayerScoreProps> = ({
 						isEditing && setIsEditing(false);
 					}}
 				>
-					<input
-						className="w-[54px] h-[54px] text-center text-xl font-bold focus:none"
+					<InputText
+						className="h-[54px] w-[54px] text-center"
 						type="text"
 						name="score"
 						value={score}
@@ -63,15 +70,14 @@ const PlayerScore: React.FC<PlayerScoreProps> = ({
 							setIsEditing(!disabled && true);
 						}}
 						onChange={(e) => onChange?.(Number.parseInt(e.target.value))}
-						autoComplete="off"
-						autoCorrect="off"
 					/>
 				</form>
 				{isEditing && (
-					<span className="w-[54px] h-[54px] border-l-1">
+					<span className="ml-3 h-[54px] w-[54px]">
 						<IconButton
 							onClick={() => onChange?.(score + 1)}
 							iconSlot={<IconAdd />}
+							shape="circle"
 						/>
 					</span>
 				)}
@@ -85,14 +91,16 @@ type MatchCardProps = {
 	names: [string, string];
 	disabled?: boolean;
 	onScoreChange?: (matchToUpdate: Match) => void;
+	variant?: "primary" | "secondary";
 };
 
-const MatchCard: React.FC<MatchCardProps> = ({
+const MatchCard = ({
 	names,
 	match,
 	onScoreChange,
 	disabled = false,
-}) => {
+	variant = "secondary",
+}: MatchCardProps) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -119,35 +127,40 @@ const MatchCard: React.FC<MatchCardProps> = ({
 
 	return (
 		<div ref={ref} className="flex flex-col">
-			<PlayerScore
-				name={names[0]}
-				score={match.result[0]}
-				disabled={disabled}
-				onChange={(newScore: number) => {
-					const matchToUpdate: Match = {
-						...match,
-						result: [newScore, match.result[1]],
-					};
-					onScoreChange?.(matchToUpdate);
-				}}
-				onIsEditingChange={handleIsEditingChange}
-				highlight={match.result[0] > match.result[1]}
-			/>
-
-			<PlayerScore
-				name={names[1]}
-				score={match.result[1]}
-				disabled={disabled}
-				onChange={(newScore: number) => {
-					const matchToUpdate: Match = {
-						...match,
-						result: [match.result[0], newScore],
-					};
-					onScoreChange?.(matchToUpdate);
-				}}
-				onIsEditingChange={handleIsEditingChange}
-				highlight={match.result[1] > match.result[0]}
-			/>
+			<div className="focus-within:z-10">
+				<PlayerScore
+					name={names[0]}
+					score={match.result[0]}
+					disabled={disabled}
+					variant={variant}
+					onChange={(newScore: number) => {
+						const matchToUpdate: Match = {
+							...match,
+							result: [newScore, match.result[1]],
+						};
+						onScoreChange?.(matchToUpdate);
+					}}
+					onIsEditingChange={handleIsEditingChange}
+					highlight={match.result[0] > match.result[1]}
+				/>
+			</div>
+			<div className="-mt-[1px] focus-within:z-10">
+				<PlayerScore
+					name={names[1]}
+					score={match.result[1]}
+					disabled={disabled}
+					variant={variant}
+					onChange={(newScore: number) => {
+						const matchToUpdate: Match = {
+							...match,
+							result: [match.result[0], newScore],
+						};
+						onScoreChange?.(matchToUpdate);
+					}}
+					onIsEditingChange={handleIsEditingChange}
+					highlight={match.result[1] > match.result[0]}
+				/>
+			</div>
 		</div>
 	);
 };

@@ -1,4 +1,7 @@
 /* PLOP_INJECT_EXPORT */
+	export { default as IconTabs } from './components/IconTabs';
+	export { default as InputText } from './components/InputText';
+	export { default as Hr } from './components/Hr';
 	export { default as IconLoading } from './components/IconLoading';
 	export { default as ToggleButton } from './components/ToggleButton';
 	export { default as IconShuffle } from './components/IconShuffle';

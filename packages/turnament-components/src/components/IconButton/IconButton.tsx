@@ -23,7 +23,7 @@ const IconButton = ({
 }: Props) => {
 	// Base button styles
 	const baseStyles =
-		"border-1 hover:opacity-50 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2";
+		"border-1 hover:opacity-50 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-1";
 
 	// Variant-specific styles
 	const variantStyles = {

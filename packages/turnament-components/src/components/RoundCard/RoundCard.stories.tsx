@@ -15,15 +15,17 @@ const match: Match = {
 	result: [0, 0],
 };
 
+const players = [
+	{ name: "Name1", active: true, ID: 1 },
+	{ name: "Name2", active: true, ID: 2 },
+];
+
 export const Default = () => {
 	return (
 		<RoundCard
-			matches={[match, match, match, match]}
-			roundID={1}
-			players={[
-				{ name: "Name1", active: true, ID: 1 },
-				{ name: "Name2", active: true, ID: 2 },
-			]}
+			matches={[match, match, match]}
+			roundNum={1}
+			players={players}
 			onScoreChange={() => null}
 		/>
 	);

@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@layer base {
+  html, body {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+
+
 @theme {
   --color-primary: var(--color-red-500);
   /* #B6362B; */
@@ -24,4 +33,12 @@
     </filter>\
 </svg>#vintageGrain');
 }
+
+@utility bg-dashed {
+  border: none;
+  height: 3px;
+  box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3);
+}
+
+
 

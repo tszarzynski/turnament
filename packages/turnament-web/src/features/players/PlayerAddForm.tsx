@@ -1,5 +1,5 @@
 import { type FormEvent, useEffect, useState } from "react";
-import { Button, IconAdd, IconButton } from "turnament-components";
+import { IconAdd, IconButton, InputText } from "turnament-components";
 
 type Props = {
 	addPlayer: (name: string) => void;
@@ -36,8 +36,8 @@ const PlayerAddForm = ({ addPlayer, draggable }: Props) => {
 			<div className="table-cell w-[54px]" />
 
 			<div className="table-cell align-middle">
-				<input
-					className="border-1 border-black w-full uppercase text-lg py-3 px-4 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
+				<InputText
+					className="w-full px-4 py-3 uppercase"
 					type="text"
 					placeholder="Player name"
 					value={name}
