@@ -24,7 +24,7 @@ const TypePage = () => {
 	return (
 		<PageLayout>
 			<PageContent>
-				<PageHeader>Choose Type</PageHeader>
+				<PageHeader>Choose Tournament</PageHeader>
 				<PageBody>
 					<fieldset>
 						<div className="border-2 border-secondary p-0.5">
@@ -51,7 +51,7 @@ const TypePage = () => {
 											value={option.value}
 											checked={schedulerType === option.value}
 											onChange={handleOptionChange}
-											className="h-[42px] w-[42px] mr-3 ml-0.5 bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
+											className="mr-3 ml-0.5 h-[42px] w-[42px] bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
 										/>
 									</div>
 								))}
