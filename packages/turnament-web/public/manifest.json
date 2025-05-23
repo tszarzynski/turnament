@@ -52,7 +52,8 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
+  "scope": "/turnament/",
+  "start_url": "/turnament/",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
