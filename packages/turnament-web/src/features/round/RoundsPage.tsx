@@ -29,10 +29,7 @@ const RoundsPage = () => {
 				>
 					Next Round
 				</Button>
-				<Button
-					onClick={() => routes.tournamentRanking().push()}
-					iconSlot={<IconTabs />}
-				>
+				<Button onClick={() => routes.ranking().push()} iconSlot={<IconTabs />}>
 					Ranking
 				</Button>
 			</PageNavigation>

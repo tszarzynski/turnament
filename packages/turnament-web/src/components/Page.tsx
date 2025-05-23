@@ -16,11 +16,11 @@ export function Page() {
 		return <PlayerListPage />;
 	}
 
-	if (route.name === routes.tournamentRanking.name) {
+	if (route.name === routes.ranking.name) {
 		return <RankingPage />;
 	}
 
-	if (route.name === routes.tournamentRounds.name) {
+	if (route.name === routes.rounds.name) {
 		return <RoundPage />;
 	}
 

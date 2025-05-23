@@ -18,7 +18,7 @@ const TypePage = () => {
 
 	const handleNext = () => {
 		nextRound();
-		routes.tournamentRounds().push();
+		routes.rounds().push();
 	};
 
 	return (

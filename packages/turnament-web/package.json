@@ -6,19 +6,19 @@
   "dependencies": {
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-react-swc": "^3.9.0",
+    "es-toolkit": "1.38.0",
     "framer": "2.4.1",
     "framer-motion": "12.11.3",
     "immer": "^10.1.1",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-use": "catalog:",
     "tailwindcss": "catalog:",
     "turnament-components": "workspace:",
     "turnament-scheduler": "workspace:",
     "type-route": "1.1.0",
     "typescript": "catalog:",
-    "zustand": "^5.0.4",
-    "react-use": "catalog:",
-    "es-toolkit": "1.38.0"
+    "zustand": "^5.0.4"
   },
   "scripts": {
     "dev": "vite --host",
@@ -43,6 +43,7 @@
     "@types/react": "19.1.4",
     "@types/react-dom": "19.1.5",
     "vite": "catalog:",
+    "vite-plugin-pwa": "^1.0.0",
     "vitest": "catalog:"
   }
 }
