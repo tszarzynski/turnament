@@ -73,7 +73,7 @@ const PlayerScore = ({
 					/>
 				</form>
 				{isEditing && (
-					<span className="ml-3 h-[54px] w-[54px]">
+					<span className="ml-0.5 h-[54px] w-[54px]">
 						<IconButton
 							onClick={() => onChange?.(score + 1)}
 							iconSlot={<IconAdd />}

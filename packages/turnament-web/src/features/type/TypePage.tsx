@@ -24,34 +24,38 @@ const TypePage = () => {
 	return (
 		<PageLayout>
 			<PageContent>
-				<PageHeader>Choose Turnament Type</PageHeader>
+				<PageHeader>Choose Type</PageHeader>
 				<PageBody>
 					<fieldset>
-						<legend className="sr-only">Tournament Type</legend>
 						<div className="border-2 border-secondary p-0.5">
 							<Hr />
-							{schedulerOptions.map((option) => (
-								<div
-									key={option.value}
-									className="mb-0.5 flex w-full flex-row items-stretch justify-between border border-secondary"
-								>
-									<label
-										htmlFor={option.value}
-										className="flex flex-1 items-center border-secondary border-r px-4 py-2 font-medium text-lg text-secondary uppercase"
+							<div className="p-0.5">
+								<legend className="flex w-[calc(100%-56px)] items-center border border-secondary px-4 py-2 text-center font-bold text-secondary text-upright uppercase [letter-spacing:-4px]">
+									Type
+								</legend>
+								{schedulerOptions.map((option) => (
+									<div
+										key={option.value}
+										className="mt-0.5 flex w-full flex-row items-stretch justify-between "
 									>
-										{option.name}
-									</label>
-									<input
-										id={option.value}
-										name="tournament-type"
-										type="radio"
-										value={option.value}
-										checked={schedulerType === option.value}
-										onChange={handleOptionChange}
-										className="h-10 w-10 bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
-									/>
-								</div>
-							))}
+										<label
+											htmlFor={option.value}
+											className="flex flex-1 items-center border border-secondary px-4 py-3 font-medium text-lg text-secondary uppercase"
+										>
+											{option.name}
+										</label>
+										<input
+											id={option.value}
+											name="tournament-type"
+											type="radio"
+											value={option.value}
+											checked={schedulerType === option.value}
+											onChange={handleOptionChange}
+											className="h-[42px] w-[42px] mr-3 ml-0.5 bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
+										/>
+									</div>
+								))}
+							</div>
 						</div>
 					</fieldset>
 				</PageBody>

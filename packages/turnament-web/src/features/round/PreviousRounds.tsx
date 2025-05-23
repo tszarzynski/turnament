@@ -25,7 +25,7 @@ const PreviousRounds = () => {
 	return (
 		<div className="py-4">
 			{previousRoundsNum.map((roundID) => (
-				<div key={roundID}>
+				<div key={roundID} className="mb-4">
 					<PreviousRound roundID={roundID} />
 				</div>
 			))}

@@ -1,10 +1,9 @@
 type Props = {
-	variant?: "secondary" | "dashed";
+	variant?: "default" | "dashed";
 };
 
-const Hr = ({ variant = "secondary" }: Props) => {
-	const variantStyles =
-		variant === "secondary" ? "border-secondary" : "bg-dashed";
+const Hr = ({ variant = "default" }: Props) => {
+	const variantStyles = variant === "default" ? "border-inherit" : "bg-dashed";
 
 	return <hr className={`mb-0.5 ${variantStyles}`} />;
 };

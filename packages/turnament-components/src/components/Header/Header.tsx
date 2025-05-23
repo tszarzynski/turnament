@@ -14,7 +14,7 @@ function valueOrPlaceholder(value?: string | number) {
 const Header = ({ children, turnamentType, playersNum, minRounds }: Props) => {
 	return (
 		<div className="static border-secondary border-t-2 p-0.5">
-			<div className="py-4 text-center font-bold text-4xl text-secondary uppercase leading-none">
+			<div className="py-6 text-center font-bold text-4xl text-secondary uppercase leading-none">
 				{children}
 			</div>
 			<Hr />

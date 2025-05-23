@@ -17,29 +17,29 @@ const RoundCard = ({ matches, players, roundNum, onScoreChange }: Props) => {
 		<div className="flex flex-col gap-0.5 border-2 border-secondary p-0.5">
 			<Hr />
 			<div className="flex justify-between">
-				<h3 className="h-[54px] w-[54px] rounded-full border-1 border-secondary text-center font-bold text-4xl leading-snug">
+				<h3 className="h-[54px] aspect-square rounded-full border-1 border-secondary text-center font-bold text-4xl leading-snug">
 					{roundNum}
 				</h3>
-				<table>
+				{/* <table>
 					<thead>
 						<tr>
 							<th
 								className={
-									"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
+									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								Players
 							</th>
 							<th
 								className={
-									" text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
+									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								Matches
 							</th>
 							<th
 								className={
-									"text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
+									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
 								}
 							>
 								BYE
@@ -53,7 +53,7 @@ const RoundCard = ({ matches, players, roundNum, onScoreChange }: Props) => {
 							<td className="border border-secondary text-center">0</td>
 						</tr>
 					</tbody>
-				</table>
+				</table> */}
 			</div>
 			{matches.map((match, i) => (
 				<MatchCard
