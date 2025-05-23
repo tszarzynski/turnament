@@ -12,7 +12,7 @@
     "build": "turbo build",
     "serve": "turbo serve",
     "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d ./packages/turnament-web/dist"
   },
   "devDependencies": {
     "husky": "^5.0.9",
