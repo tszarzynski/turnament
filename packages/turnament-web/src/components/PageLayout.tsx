@@ -11,9 +11,13 @@ export default function PageLayout({ children }: Props) {
 }
 
 export function PageContent({ children }: Props) {
-	return <div className="overflow-y-auto scroll-smooth">{children}</div>;
+	return (
+		<div className="overflow-y-auto scroll-smooth">
+			<div className="bg-vintage-paper h-full">{children}</div>
+		</div>
+	);
 }
 
 export function PageBody({ children }: Props) {
-	return <main className="py-6 px-4">{children}</main>;
+	return <main className="px-4 py-6">{children}</main>;
 }

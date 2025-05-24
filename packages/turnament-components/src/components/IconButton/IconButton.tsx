@@ -23,18 +23,19 @@ const IconButton = ({
 }: Props) => {
 	// Base button styles
 	const baseStyles =
-		"border-1 hover:opacity-50 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-1";
+		"border-1 focus:outline-none focus:ring-2 focus:ring-offset-1";
 
 	// Variant-specific styles
 	const variantStyles = {
-		primary: "cursor-pointer border-primary text-primary focus:ring-red-400",
+		primary:
+			"cursor-pointer border-primary text-primary focus:ring-red-400 hover:bg-white",
 		secondary:
-			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400",
+			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400 hover:bg-white",
 	};
 
 	// Disabled styles override variant styles
 	const disabledStyles =
-		"border-gray-300 text-gray-300 cursor-not-allowed hover:opacity-100";
+		"border-gray-300 text-gray-300 cursor-not-allowed hover:bg-transparent";
 
 	const shapeStyles = shape === "circle" ? "rounded-full" : "";
 

@@ -25,13 +25,14 @@ const Button = ({
 }: Props) => {
 	// Base button styles
 	const baseStyles =
-		"font-medium text-md uppercase hover:opacity-50 transition-opacity  focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap";
+		"font-medium text-md uppercase focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap";
 
 	// Variant-specific styles
 	const variantStyles = {
-		primary: "cursor-pointer border-primary text-primary focus:ring-red-400",
+		primary:
+			"cursor-pointer border-primary text-primary focus:ring-red-400 hover:bg-white",
 		secondary:
-			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400",
+			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400 hover:bg-white",
 	};
 
 	// Disabled styles override variant styles
@@ -54,11 +55,11 @@ const Button = ({
 			onClick={disabled ? undefined : onClick}
 			title={title}
 		>
-			<div className="flex flex-row items-stretch justify-between w-full border-1">
-				<span className="flex items-center flex-1 px-4 py-2 ">{children}</span>
+			<div className="flex w-full flex-row items-stretch justify-between border-1">
+				<span className="flex flex-1 items-center px-4 py-2 ">{children}</span>
 				{iconSlot && (
 					<span className="border-l-1">
-						<i className="h-10 w-10 flex items-center">{iconSlot}</i>
+						<i className="flex h-10 w-10 items-center">{iconSlot}</i>
 					</span>
 				)}
 			</div>

@@ -3,9 +3,9 @@ import { Loader } from "turnament-components";
 import { RouteProvider } from "./app/router";
 import { Page } from "./components/Page";
 
-const App: React.FC = () => {
+const App = () => {
 	return (
-		<div className="bg-vintage-paper">
+		<div className="bg-paper">
 			<RouteProvider>
 				<Suspense fallback={<Loader />}>
 					<Page />

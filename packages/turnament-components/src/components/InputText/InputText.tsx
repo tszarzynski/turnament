@@ -7,7 +7,7 @@ const InputText = ({
 	disabled,
 	...rest
 }: Props) => {
-	const variantStyles = "border-black";
+	const variantStyles = "border-black bg-white ";
 	const disabledStyles =
 		"border-gray-300 text-gray-300 cursor-not-allowed hover:bg-transparent";
 
