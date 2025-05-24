@@ -4,8 +4,10 @@ type Props = {
 
 export default function PageLayout({ children }: Props) {
 	return (
-		<div className="filter-grainy m-auto grid h-dvh max-w-xl grid-rows-[1fr_auto]">
-			{children}
+		<div className="bg-vintage-paper">
+			<div className="m-auto grid h-dvh max-w-xl grid-rows-[1fr_auto]">
+				{children}
+			</div>
 		</div>
 	);
 }

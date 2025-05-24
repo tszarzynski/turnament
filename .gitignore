@@ -25,3 +25,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+packages/turnament-web/dev-dist/registerSW.js
+packages/turnament-web/dev-dist/sw.js
+packages/turnament-web/dev-dist/workbox-a702e535.js

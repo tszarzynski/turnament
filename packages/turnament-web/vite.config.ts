@@ -1,10 +1,21 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
 	base: "/turnament/",
-	plugins: [react(), tailwindcss()],
+	plugins: [
+		react(),
+		tailwindcss(),
+		VitePWA({
+			registerType: "autoUpdate",
+			manifest: false,
+			devOptions: {
+				enabled: true,
+			},
+		}),
+	],
 	test: {
 		globals: true,
 		environment: "jsdom",
