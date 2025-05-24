@@ -62,9 +62,8 @@
 
 @theme {
   --color-primary: var(--color-red-500);
-  /* #B6362B; */
   --color-secondary: var(--color-blue-500);
-  /* #2982AC; */
+  --color-paper: var(--color-stone-100);
   --default-font-family: Syne, sans-serif
 }
 
@@ -93,7 +92,7 @@
 
 @utility bg-vintage-paper {
   position: relative;
-  background-color: var(--color-yellow-50);
+  background-color: var(--color-paper);
   /* Base cream color for paper */
 
   /* Apply the SVG filter for texture */

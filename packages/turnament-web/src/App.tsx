@@ -5,11 +5,13 @@ import { Page } from "./components/Page";
 
 const App: React.FC = () => {
 	return (
-		<RouteProvider>
-			<Suspense fallback={<Loader />}>
-				<Page />
-			</Suspense>
-		</RouteProvider>
+		<div className="bg-vintage-paper">
+			<RouteProvider>
+				<Suspense fallback={<Loader />}>
+					<Page />
+				</Suspense>
+			</RouteProvider>
+		</div>
 	);
 };
 
