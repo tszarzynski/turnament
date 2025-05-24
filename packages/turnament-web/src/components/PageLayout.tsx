@@ -15,5 +15,5 @@ export function PageContent({ children }: Props) {
 }
 
 export function PageBody({ children }: Props) {
-	return <main className="p-4">{children}</main>;
+	return <main className="py-6 px-4">{children}</main>;
 }

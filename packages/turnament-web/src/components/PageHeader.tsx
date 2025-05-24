@@ -15,7 +15,7 @@ export default function PageHeader({ children }: Props) {
 
 	return (
 		<header>
-			<div className="p-4">
+			<div className="py-6 px-4">
 				<Header
 					minRounds={minRounds}
 					playersNum={playersNum}

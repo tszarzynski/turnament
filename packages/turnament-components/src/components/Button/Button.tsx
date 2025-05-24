@@ -25,7 +25,7 @@ const Button = ({
 }: Props) => {
 	// Base button styles
 	const baseStyles =
-		"font-medium text-lg uppercase hover:opacity-50 transition-opacity  focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap";
+		"font-medium text-md uppercase hover:opacity-50 transition-opacity  focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap";
 
 	// Variant-specific styles
 	const variantStyles = {
