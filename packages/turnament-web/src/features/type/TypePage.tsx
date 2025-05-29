@@ -50,10 +50,12 @@ const TypePage = () => {
 				<PageBody>
 					<form className="border-2 border-secondary p-0.5">
 						<Hr />
-						<fieldset className="contents p-0.5">
-							<legend className="flex w-[calc(100%-56px)] items-center border-2 border-secondary px-2 py-1 text-center font-bold text-secondary text-upright text-xs">
-								Type
-							</legend>
+						<fieldset className="p-0.5">
+							<div>
+								<legend className="inline-flex w-[calc(100%-56px)] items-center border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs">
+									Type
+								</legend>
+							</div>
 							{schedulerOptions.map((option) => (
 								<div
 									key={option.value}
@@ -80,6 +82,7 @@ const TypePage = () => {
 								</div>
 							))}
 						</fieldset>
+						<Hr />
 						<fieldset className="mt-8 flex gap-0.5">
 							<label
 								htmlFor="points-to-win"

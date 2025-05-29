@@ -12,14 +12,14 @@ export const schedulerOptions: SchedulerOption[] = [
 	{
 		value: "ROUND_ROBIN",
 		name: "Round Robin",
-		shortName: "RR",
+		shortName: "R.R.",
 		description:
 			"A Round Robin tournament is a competition format where each participant competes against every other participant exactly once, ensuring equal opportunity and comprehensive matchups.",
 	},
 	{
 		value: "ELIMINATION",
 		name: "Elimination",
-		shortName: "Elim",
+		shortName: "Elimn.",
 		description:
 			"An Elimination tournament is a competition format where participants are progressively eliminated after a single loss, with matches narrowing down the field until only one competitor remains as the champion.",
 	},
@@ -33,7 +33,7 @@ export const schedulerOptions: SchedulerOption[] = [
 	{
 		value: "AMALFI",
 		name: "Amalfi",
-		shortName: "Swiss",
+		shortName: "Amalfi",
 		description:
 			"An Amalfi tournament is a modified Swiss-style format that pairs participants with similar records while optimizing match diversity, providing balanced competition with fewer rounds than a Round Robin system.",
 	},
