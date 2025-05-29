@@ -18,10 +18,12 @@ export const toPairs = (arr: number[], offset: number): Pairing[] => {
 		arrToFold = arr;
 	}
 
-	//TODO: Something is broken for short players lists
+	// Cap the offset to array length - 1
+	const safeOffset = Math.min(offset, arrToFold.length - 1);
+
 	const pairs: Pairing[] = [];
-	for (let i = 0; i < arrToFold.length - offset; i++) {
-		pairs.push([arrToFold[i], arrToFold[i + offset]]);
+	for (let i = 0; i < arrToFold.length - safeOffset; i++) {
+		pairs.push([arrToFold[i], arrToFold[i + safeOffset]]);
 	}
 
 	return bye ? [[bye, BYE_ID], ...pairs] : pairs;
@@ -32,7 +34,7 @@ export const pairPlayers = (players: PlayerWithStats[]): Pairing[] => {
 		...players.map((players) => players.opponents.length),
 	);
 
-	const numRounds = roundsNeeded(1)(players.length);
+	const numRounds = roundsNeeded(players.length);
 
 	return toPairs(
 		rankPlayers(players).map((player) => player.ID),

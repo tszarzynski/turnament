@@ -3,7 +3,5 @@
  * @param numPlayers Number of players
  * @param numStandings Number of standings to determine
  */
-export const roundsNeeded =
-	(numStandings: number) =>
-	(numPlayers: number): number =>
-		Math.ceil(Math.log2(numPlayers) + Math.log2(numStandings));
+export const roundsNeeded = (numPlayers: number): number =>
+	Math.ceil(Math.log2(numPlayers) + 1);

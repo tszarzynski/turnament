@@ -112,6 +112,7 @@ const TypePage = () => {
 					type="button"
 					fullWidth={false}
 					iconSlot={<IconNext />}
+					disabled={!schedulerType}
 					onClick={handleNext}
 				>
 					Start

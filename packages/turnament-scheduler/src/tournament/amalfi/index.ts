@@ -23,5 +23,5 @@ export const scheduler: Scheduler = {
 			roundID,
 		);
 	},
-	roundsNeeded: roundsNeeded(1),
+	roundsNeeded,
 };
