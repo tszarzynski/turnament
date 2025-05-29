@@ -29,7 +29,7 @@ export default function PageHeader({ children }: Props) {
 	const minGames = useBaseStore((state) => selectMinGamesNeeded(state));
 	const maxGames = useBaseStore((state) => selectMaxGamesNeeded(state));
 	const gamesPlayed = useBaseStore((state) => selectGamesPlayed(state));
-	console.log(minPtsToWin);
+
 	return (
 		<header>
 			<div className="px-4 py-6">

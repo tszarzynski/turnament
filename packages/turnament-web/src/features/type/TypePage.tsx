@@ -4,6 +4,7 @@ import {
 	Hr,
 	IconInfo,
 	IconNext,
+	IconPrev,
 	InputNumber,
 	Tooltip,
 } from "turnament-components";
@@ -104,6 +105,9 @@ const TypePage = () => {
 				</PageBody>
 			</PageContent>
 			<PageNavigation>
+				<Button onClick={() => routes.players().push()} iconSlot={<IconPrev />}>
+					Players
+				</Button>
 				<Button
 					type="button"
 					fullWidth={false}

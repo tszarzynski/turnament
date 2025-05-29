@@ -6,8 +6,8 @@ export default function usePlayerNames(players: Player[], matches: Match[]) {
 		throw new Error("Players array cannot be empty");
 	}
 
-	if (!matches || matches.length === 0) {
-		throw new Error("Matches array cannot be empty");
+	if (!matches) {
+		throw new Error("Matches array cannot be null");
 	}
 
 	const names = useMemo(() => {

@@ -18,6 +18,7 @@ export const toPairs = (arr: number[], offset: number): Pairing[] => {
 		arrToFold = arr;
 	}
 
+	//TODO: Something is broken for short players lists
 	const pairs: Pairing[] = [];
 	for (let i = 0; i < arrToFold.length - offset; i++) {
 		pairs.push([arrToFold[i], arrToFold[i + offset]]);
