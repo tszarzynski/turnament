@@ -48,7 +48,7 @@ const TypePage = () => {
 					<form className="border-2 border-secondary p-0.5">
 						<Hr />
 						<fieldset className="contents p-0.5">
-							<legend className="flex w-[calc(100%-56px)] items-center border border-secondary px-2 py-1 text-center font-bold text-secondary text-upright text-xs">
+							<legend className="flex w-[calc(100%-56px)] items-center border-2 border-secondary px-2 py-1 text-center font-bold text-secondary text-upright text-xs">
 								Type
 							</legend>
 							{schedulerOptions.map((option) => (
