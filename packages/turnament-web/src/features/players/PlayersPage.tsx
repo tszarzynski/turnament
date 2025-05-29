@@ -61,10 +61,9 @@ const PlayersPage = () => {
 								<div className="table-row">
 									{columns.map((column, index) => (
 										<div
-											// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-											key={`${column}${index}`}
+											key={`${index}${column}`}
 											className={
-												"table-cell border border-secondary px-4 py-2 font-bold text-secondary text-upright uppercase [letter-spacing:-4px] empty:w-[54px] empty:border-none"
+												"table-cell border border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs uppercase empty:w-[54px] empty:border-none"
 											}
 										>
 											{column}

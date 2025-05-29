@@ -1,20 +1,16 @@
-import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { useClickAway } from "react-use";
 import type { Match } from "turnament-scheduler";
-import IconButton from "../IconButton";
-import IconRemove from "../IconRemove";
-import IconAdd from "../IconAdd";
-import InputText from "../InputText";
+import InputNumber from "../InputNumber";
 
 type PlayerScoreProps = {
 	name: string;
 	score: number;
-	onChange?: (newScore: number) => void;
+	onChange: (newScore: number) => void;
 	onIsEditingChange?: (isEditing: boolean) => void;
 	variant: "primary" | "secondary";
 	disabled?: boolean;
-	highlight?: boolean;
+	completed?: boolean;
+	minPointsToWin: number;
 };
 
 const PlayerScore = ({
@@ -22,66 +18,29 @@ const PlayerScore = ({
 	score,
 	onChange,
 	disabled,
+	completed,
 	variant,
+	minPointsToWin,
 }: PlayerScoreProps) => {
-	const [isEditing, setIsEditing] = useState<boolean>(false);
-
-	const ref = useRef(null);
-	useClickAway(ref, () => {
-		isEditing && setIsEditing(false);
-	});
-
 	const variantStyles =
 		variant === "primary" ? "border-primary" : "border-secondary";
 	const disabledStyles = "border-gray-300 text-gray-300";
 
+	const styles = disabled || completed ? disabledStyles : variantStyles;
+
 	return (
 		<div className="flex flex-row items-stretch justify-between gap-0.5">
 			<h5
-				className={`flex flex-auto items-center border pl-3 font-bold text-lg ${disabled ? disabledStyles : variantStyles}`}
+				className={`flex flex-auto items-end border px-2 py-1 font-bold text-2xl text-handwritten leading-none ${styles}`}
 			>
 				{name}
 			</h5>
-			<div ref={ref} className="flex flex-row ">
-				{isEditing && (
-					<span className="h-[54px] w-[54px]">
-						<IconButton
-							onClick={() => onChange?.(score > 0 ? score - 1 : score)}
-							iconSlot={<IconRemove />}
-							shape="circle"
-						/>
-					</span>
-				)}
-				<form
-					autoComplete="off"
-					onSubmit={(e) => {
-						e.preventDefault();
-						isEditing && setIsEditing(false);
-					}}
-				>
-					<InputText
-						className="h-[54px] w-[54px] text-center"
-						type="text"
-						name="score"
-						value={score}
-						readOnly={true}
-						disabled={disabled}
-						onFocus={() => {
-							setIsEditing(!disabled && true);
-						}}
-						onChange={(e) => onChange?.(Number.parseInt(e.target.value))}
-					/>
-				</form>
-				{isEditing && (
-					<span className="ml-0.5 h-[54px] w-[54px]">
-						<IconButton
-							onClick={() => onChange?.(score + 1)}
-							iconSlot={<IconAdd />}
-							shape="circle"
-						/>
-					</span>
-				)}
-			</div>
+			<InputNumber
+				value={score}
+				onChange={onChange}
+				maxValue={minPointsToWin}
+				completed={completed}
+			/>
 		</div>
 	);
 };
@@ -92,6 +51,7 @@ type MatchCardProps = {
 	disabled?: boolean;
 	onScoreChange?: (matchToUpdate: Match) => void;
 	variant?: "primary" | "secondary";
+	minPointsToWin: number;
 };
 
 const MatchCard = ({
@@ -100,6 +60,7 @@ const MatchCard = ({
 	onScoreChange,
 	disabled = false,
 	variant = "secondary",
+	minPointsToWin,
 }: MatchCardProps) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const ref = useRef<HTMLDivElement>(null);
@@ -125,6 +86,8 @@ const MatchCard = ({
 		return () => undefined;
 	}, [isEditing]);
 
+	const completed = match.result.some((it) => it === minPointsToWin);
+
 	return (
 		<div ref={ref} className="flex flex-col">
 			<div className="focus-within:z-10">
@@ -141,7 +104,8 @@ const MatchCard = ({
 						onScoreChange?.(matchToUpdate);
 					}}
 					onIsEditingChange={handleIsEditingChange}
-					highlight={match.result[0] > match.result[1]}
+					minPointsToWin={minPointsToWin}
+					completed={completed}
 				/>
 			</div>
 			<div className="-mt-[1px] focus-within:z-10">
@@ -158,7 +122,8 @@ const MatchCard = ({
 						onScoreChange?.(matchToUpdate);
 					}}
 					onIsEditingChange={handleIsEditingChange}
-					highlight={match.result[1] > match.result[0]}
+					minPointsToWin={minPointsToWin}
+					completed={completed}
 				/>
 			</div>
 		</div>

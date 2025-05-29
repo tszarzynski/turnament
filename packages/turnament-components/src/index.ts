@@ -1,4 +1,7 @@
 /* PLOP_INJECT_EXPORT */
+	export { default as Tooltip } from './components/Tooltip';
+	export { default as IconInfo } from './components/IconInfo';
+	export { default as InputNumber } from './components/InputNumber';
 	export { default as IconTabs } from './components/IconTabs';
 	export { default as InputText } from './components/InputText';
 	export { default as Hr } from './components/Hr';

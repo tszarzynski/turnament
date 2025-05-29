@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { IconAdd, IconButton, InputText } from "turnament-components";
 
 type Props = {
@@ -10,12 +10,23 @@ const PlayerAddForm = ({ addPlayer, draggable }: Props) => {
 	const [name, setName] = useState("");
 	const [disabled, setDisabled] = useState(true);
 
+	const inputRef = useRef<HTMLInputElement>(null);
+	const scrollIntoView = () => {
+		setTimeout(() => {
+			inputRef.current?.scrollIntoView({
+				block: "end",
+				behavior: "smooth",
+			});
+		}, 100);
+	};
+
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		if (!name) return;
 
 		addPlayer(name);
 		setName("");
+		scrollIntoView();
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,19 +48,15 @@ const PlayerAddForm = ({ addPlayer, draggable }: Props) => {
 
 			<div className="table-cell align-middle">
 				<InputText
+					ref={inputRef}
 					className="w-full px-4 py-3 uppercase"
 					type="text"
 					placeholder="Player name"
 					value={name}
 					onChange={handleChange}
-					onFocus={(e) =>
-						setTimeout(() => {
-							e.target.scrollIntoView({
-								block: "end",
-								behavior: "smooth",
-							});
-						}, 100)
-					}
+					onFocus={() => {
+						scrollIntoView();
+					}}
 				/>
 			</div>
 			<div className="table-cell w-[54px]">

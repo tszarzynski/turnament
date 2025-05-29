@@ -38,7 +38,7 @@ const PlayerListItem = ({ name, index, draggable, removePlayer }: Props) => {
 			<div className="table-cell w-[54px] border border-secondary px-4 py-1 text-center text-secondary">
 				{index + 1}
 			</div>
-			<div className="table-cell border border-secondary px-4 py-1 font-bold text-lg">
+			<div className="letter-spacing-[4px] table-cell border border-secondary px-4 py-1 font-bold text-2xl text-handwritten">
 				{name}
 			</div>
 			<div className="table-cell w-[54px]">

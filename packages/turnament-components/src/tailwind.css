@@ -55,7 +55,20 @@
     background-size: contain;
   }
 
-
+  td:empty {
+    position: relative;
+  }
+  
+  td:empty::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top left, transparent calc(50% - 0.5px), var(--color-secondary) calc(50%), transparent calc(50% + 0.5px));
+    pointer-events: none;
+  }
 }
 
 
@@ -72,17 +85,27 @@
   text-orientation: upright;
   text-align: center;
   vertical-align: middle;
+  letter-spacing:-3px;
+  text-transform: uppercase;
+ 
+}
+
+@utility text-handwritten {
+  font-family: "Just Another Hand", cursive;
+  letter-spacing: 3px;
+  vertical-align: bottom;
 }
 
 @utility filter-grainy {
   filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="vintageGrain">\
-        <feTurbulence type="fractalNoise" baseFrequency="10.65" numOctaves="3" stitchTiles="stitch" result="turbulence"/>\
-        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1" />\
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="turbulence"/>\
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1.1" />\
       </filter>\
     </svg>#vintageGrain');
 }
+
 
 @utility bg-dashed {
   border: none;
@@ -92,10 +115,11 @@
 
 @utility bg-vintage-paper {
   position: relative;
+
   /* Base cream color for paper */
 
   /* Apply the SVG filter for texture */
-  filter: url('data:image/svg+xml,\
+  /* filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="vintagePaper">\
         <feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="5" stitchTiles="stitch" result="noise"/>\
@@ -106,7 +130,16 @@
         <feColorMatrix in="speckles" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0" result="coloredSpeckles"/>\
         <feBlend in="blendedImage" in2="coloredSpeckles" mode="multiply"/>\
       </filter>\
-    </svg>#vintagePaper');
+    </svg>#vintagePaper'); */
+
+
+    /* filter: url('data:image/svg+xml,\
+    <svg xmlns="http://www.w3.org/2000/svg">\
+      <filter id="vintageGrain">\
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="turbulence"/>\
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1.1" />\
+      </filter>\
+    </svg>#vintageGrain'); */
 
   /* Add additional texture with pseudo-element */
   &::before {

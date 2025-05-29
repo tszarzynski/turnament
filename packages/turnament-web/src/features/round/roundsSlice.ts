@@ -9,12 +9,13 @@ import {
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
 import type { PlayersSlice } from "../players/playersSlice";
-import { uniq } from "es-toolkit";
+import { sum, uniq } from "es-toolkit";
 
 interface State {
 	schedulerType: SchedulerType | undefined;
 	matches: Match[];
 	currentRoundNum: number;
+	minPointsToWin: number;
 }
 interface Actions {
 	addRound: (players: Player[]) => void;
@@ -22,13 +23,17 @@ interface Actions {
 	readdRound: (players: Player[]) => void;
 	resetRounds: () => void;
 	setSchedulerType: (type: SchedulerType) => void;
+	setMinPointsToWin: (value: number) => void;
 	updateMatch: (matchToUpdate: Match) => void;
 }
+
+export const DEFAULT_POiNTS_TO_WIN = 5;
 
 const initialState: State = {
 	schedulerType: undefined,
 	matches: [],
 	currentRoundNum: 0,
+	minPointsToWin: 0,
 };
 
 export type RoundsSlice = State & Actions;
@@ -114,6 +119,11 @@ export const createRoundsSlice: StateCreator<
 	resetRounds() {
 		set(initialState);
 	},
+	setMinPointsToWin(value: number) {
+		set((state) => {
+			state.minPointsToWin = value;
+		});
+	},
 });
 
 export const selectMinRoundNeeded = (state: RootState): number => {
@@ -128,6 +138,10 @@ export const selectCurrentRound = (state: RootState): Match[] =>
 		(match) => match.roundID === state.currentRoundNum && !match.hasBye,
 	);
 
+export const selectRoundsPlayedNum = (state: RootState) => {
+	return Math.max(state.currentRoundNum - 1, 0);
+};
+
 export const selectPreviousRounds = (state: RootState): Match[] =>
 	state.matches
 		.filter((match) => match.roundID !== state.currentRoundNum && !match.hasBye)
@@ -137,7 +151,40 @@ export const selectPreviousRoundsNum = (state: RootState) =>
 	uniq(selectPreviousRounds(state).map((m) => m.roundID));
 
 export const selectIsRoundCompleted = (state: RootState): boolean =>
-	selectCurrentRound(state).every(({ result }) => result[0] !== result[1]);
+	selectCurrentRound(state).every(({ result }) =>
+		result.some((it) => it === state.minPointsToWin),
+	);
 
 export const selectMatchesByRoundID = (roundID: number) => (state: RootState) =>
 	state.matches.filter((match) => match.roundID === roundID);
+
+export const selectMinMatchesNeeded = (state: RootState) => {
+	if (!state.schedulerType) return 0;
+
+	const minRoundsNeeded = selectMinRoundNeeded(state);
+	const playersNum = state.players.length;
+
+	return Math.floor(playersNum / 2) * minRoundsNeeded;
+};
+
+export const selectMatchesPlayedNum = (state: RootState) => {
+	return state.matches.filter((match) =>
+		match.result.some((it) => it === state.minPointsToWin),
+	).length;
+};
+
+export const selectMinGamesNeeded = (state: RootState) => {
+	return selectMinMatchesNeeded(state) * state.minPointsToWin;
+};
+
+export const selectMaxGamesNeeded = (state: RootState) => {
+	return selectMinMatchesNeeded(state) * (state.minPointsToWin * 2 - 1);
+};
+
+export const selectGamesPlayed = (state: RootState) => {
+	return state.matches
+		.filter((match) => match.hasBye === false)
+		.reduce((acc, curr) => {
+			return acc + sum(curr.result);
+		}, 0);
+};

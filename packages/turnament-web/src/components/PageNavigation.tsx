@@ -10,7 +10,7 @@ export default function PageNavigation({ children }: Props) {
 		React.Children.count(children) > 1 ? "justify-between" : "justify-end";
 
 	return (
-		<footer className="bg-vintage-paper">
+		<footer className="shadow">
 			<Hr variant="dashed" />
 			<div className={`flex p-4 ${justifyStyles}`}>{children}</div>
 		</footer>

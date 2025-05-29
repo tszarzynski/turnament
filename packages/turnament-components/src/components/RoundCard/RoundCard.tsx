@@ -8,52 +8,33 @@ type Props = {
 	players: Player[];
 	onScoreChange: (matchToUpdate: Match) => void;
 	roundNum: number;
+	minPointsToWin: number;
+	completed?: boolean;
 };
 
-const RoundCard = ({ matches, players, roundNum, onScoreChange }: Props) => {
+const RoundCard = ({
+	matches,
+	players,
+	roundNum,
+	onScoreChange,
+	minPointsToWin,
+	completed,
+}: Props) => {
 	const names = usePlayerNames(players, matches);
 
+	const variantStyles = "border-secondary";
+	const completedStyles = "border-gray-300 text-gray-300";
+	const styles = completed ? completedStyles : variantStyles;
+
 	return (
-		<div className="flex flex-col gap-0.5 border-2 border-secondary p-0.5">
+		<div className={`flex flex-col gap-0.5 border-2 p-0.5 ${styles}`}>
 			<Hr />
 			<div className="flex justify-between">
-				<h3 className="h-[54px] aspect-square rounded-full border-1 border-secondary text-center font-bold text-4xl leading-snug">
+				<h3
+					className={`aspect-square h-[54px] rounded-full border-2 text-center font-bold text-4xl text-handwritten leading-relaxed ${styles}`}
+				>
 					{roundNum}
 				</h3>
-				{/* <table>
-					<thead>
-						<tr>
-							<th
-								className={
-									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
-								}
-							>
-								Players
-							</th>
-							<th
-								className={
-									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
-								}
-							>
-								Matches
-							</th>
-							<th
-								className={
-									"text-upright w-[54px] text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary "
-								}
-							>
-								BYE
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td className="border border-secondary text-center">0</td>
-							<td className="border border-secondary text-center">0</td>
-							<td className="border border-secondary text-center">0</td>
-						</tr>
-					</tbody>
-				</table> */}
 			</div>
 			{matches.map((match, i) => (
 				<MatchCard
@@ -61,6 +42,7 @@ const RoundCard = ({ matches, players, roundNum, onScoreChange }: Props) => {
 					match={match}
 					names={names[i]}
 					onScoreChange={onScoreChange}
+					minPointsToWin={minPointsToWin}
 				/>
 			))}
 		</div>

@@ -11,24 +11,24 @@ const RankingTable = ({ playersWithStats }: Props) => {
 	return (
 		<div className="w-full border-2 border-secondary p-0.5">
 			<Hr />
-			<table className="min-w-full border-spacing-0.5 border-separate table-auto">
+			<table className="min-w-full table-auto border-separate border-spacing-0.5">
 				<TableHead columns={columns} />
 				<tbody>
 					{playersWithStats.map((player, index) => (
-						<tr key={player.ID}>
-							<td className="py-3 px-4 border border-secondary text-secondary text-center">
+						<tr key={player.ID} className="h-[54px] align-bottom">
+							<td className="align w-[54px] border border-secondary px-4 py-1 text-center text-secondary ">
 								{index + 1}
 							</td>
-							<td className="py-3 px-4 border border-secondary font-bold">
+							<td className="border border-secondary px-4 py-1 font-bold text-2xl text-handwritten leading-none">
 								{player.name}
 							</td>
-							<td className="py-3 px-4 border border-secondary">
+							<td className="border border-secondary px-4 py-1 text-handwritten">
 								{player.matchesWon}
 							</td>
-							<td className="py-3 px-4 border border-secondary">
+							<td className="border border-secondary px-4 py-1 text-handwritten">
 								{player.gamesWon}
 							</td>
-							<td className="py-3 px-4 border border-secondary">
+							<td className="border border-secondary px-4 py-1 text-handwritten">
 								{player.omv.toFixed(2)}
 							</td>
 						</tr>
@@ -43,13 +43,13 @@ export default RankingTable;
 
 const TableHead = ({ columns }: { columns: string[] }) => {
 	return (
-		<thead className="border border-secondary">
+		<thead>
 			<tr>
 				{columns.map((column) => (
 					<th
 						key={column}
 						className={
-							"text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+							"border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs"
 						}
 					>
 						{column}

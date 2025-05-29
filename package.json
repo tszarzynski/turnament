@@ -1,36 +1,35 @@
 {
-  "name": "turnament",
-  "author": "Tomasz Szarzynski",
-  "license": "MIT",
-  "private": true,
-  "homepage": "https://tszarzynski.github.io/turnament",
-  "scripts": {
-    "postinstall": "husky install",
-    "lint": "turbo lint",
-    "dev": "turbo watch dev",
-    "test": "turbo test -- --silent",
-    "build": "turbo build",
-    "serve": "turbo serve",
-    "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d ./packages/turnament-web/dist"
-  },
-  "devDependencies": {
-    "husky": "^5.0.9",
-    "lint-staged": "^10.5.4",
-    "turbo": "2.5.3",
-    "@biomejs/biome": "1.9.4",
-    "tsup": "8.4.0",
-    "gh-pages": "^6.3.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "format:check"
-    }
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{ts,js,json,md}": "prettier --write"
-  },
-  "packageManager": "pnpm@10.11.0+sha256.a69e9cb077da419d47d18f1dd52e207245b29cac6e076acedbeb8be3b1a67bd7"
+	"name": "turnament",
+	"author": "Tomasz Szarzynski",
+	"license": "MIT",
+	"private": true,
+	"homepage": "https://tszarzynski.github.io/turnament",
+	"scripts": {
+		"postinstall": "husky install",
+		"lint": "turbo lint",
+		"dev": "turbo watch dev",
+		"test": "turbo test -- --silent",
+		"build": "turbo build",
+		"serve": "turbo serve",
+		"predeploy": "pnpm run build",
+		"deploy": "gh-pages -d ./packages/turnament-web/dist"
+	},
+	"devDependencies": {
+		"husky": "^5.0.9",
+		"lint-staged": "^10.5.4",
+		"turbo": "2.5.3",
+		"@biomejs/biome": "1.9.4",
+		"gh-pages": "^6.3.0"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"pre-push": "format:check"
+		}
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix",
+		"*.{ts,js,json,md}": "prettier --write"
+	},
+	"packageManager": "pnpm@10.11.0+sha256.a69e9cb077da419d47d18f1dd52e207245b29cac6e076acedbeb8be3b1a67bd7"
 }

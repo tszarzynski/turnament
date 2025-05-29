@@ -16,27 +16,27 @@ exports[`RankingTable > renders without error 1`] = `
       >
         <tr>
           <th
-            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
           >
             Rank
           </th>
           <th
-            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
           >
             Name
           </th>
           <th
-            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
           >
             Wins
           </th>
           <th
-            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
           >
             Pts
           </th>
           <th
-            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary [letter-spacing:-4px]"
+            class="text-upright text-secondary text-xs py-2 px-4 font-bold uppercase border border-secondary"
           >
             OMV
           </th>

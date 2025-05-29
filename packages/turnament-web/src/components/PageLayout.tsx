@@ -13,7 +13,7 @@ export default function PageLayout({ children }: Props) {
 export function PageContent({ children }: Props) {
 	return (
 		<div className="overflow-y-auto scroll-smooth">
-			<div className="bg-vintage-paper h-full">{children}</div>
+			<div className="h-full">{children}</div>
 		</div>
 	);
 }

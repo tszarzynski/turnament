@@ -25,19 +25,17 @@ const Button = ({
 }: Props) => {
 	// Base button styles
 	const baseStyles =
-		"font-medium text-md uppercase focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap";
+		"font-medium text-md uppercase focus:outline-none focus:ring-2 focus:ring-offset-1 whitespace-nowrap group";
 
 	// Variant-specific styles
 	const variantStyles = {
-		primary:
-			"cursor-pointer border-primary text-primary focus:ring-red-400 hover:bg-white",
+		primary: "cursor-pointer border-primary text-primary focus:ring-red-400 ",
 		secondary:
-			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400 hover:bg-white",
+			"cursor-pointer border-secondary text-secondary  focus:ring-blue-400",
 	};
 
 	// Disabled styles override variant styles
-	const disabledStyles =
-		"border-gray-300 text-gray-300 cursor-not-allowed hover:bg-transparent";
+	const disabledStyles = "border-gray-300 text-gray-300 cursor-not-allowed";
 
 	// Full width style
 	const widthStyle = fullWidth ? "w-full" : "";
@@ -59,7 +57,9 @@ const Button = ({
 				<span className="flex flex-1 items-center px-4 py-2 ">{children}</span>
 				{iconSlot && (
 					<span className="border-l-1">
-						<i className="flex h-10 w-10 items-center">{iconSlot}</i>
+						<i className="flex h-10 w-10 items-center group-hover:bg-white group-disabled:group-hover:bg-transparent">
+							{iconSlot}
+						</i>
 					</span>
 				)}
 			</div>
