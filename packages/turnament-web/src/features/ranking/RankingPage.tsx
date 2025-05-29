@@ -17,8 +17,10 @@ const RankingPage = () => {
 	);
 	const resetPlayers = useBaseStore((state) => state.resetPlayers);
 	const resetRounds = useBaseStore((state) => state.resetRounds);
+	const disablePlayer = useBaseStore((state) => state.disablePlayer);
+
 	const handleFinishTournament = () => {
-		if (window.confirm("Are you sure?")) {
+		if (confirm("Are you sure?")) {
 			resetPlayers();
 			resetRounds();
 			routes.players().push();
@@ -30,7 +32,14 @@ const RankingPage = () => {
 			<PageContent>
 				<PageHeader>Ranking</PageHeader>
 				<PageBody>
-					<RankingTable playersWithStats={ranking} />
+					<RankingTable
+						playersWithStats={ranking}
+						onDisablePlayerClick={(player) => {
+							if (confirm("Are you sure?")) {
+								disablePlayer(player);
+							}
+						}}
+					/>
 				</PageBody>
 			</PageContent>
 			<PageNavigation>

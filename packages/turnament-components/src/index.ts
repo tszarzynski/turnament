@@ -1,4 +1,5 @@
 /* PLOP_INJECT_EXPORT */
+	export { default as IconEdit } from './components/IconEdit';
 	export { default as IconPrev } from './components/IconPrev';
 	export { default as Tooltip } from './components/Tooltip';
 	export { default as IconInfo } from './components/IconInfo';
