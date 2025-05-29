@@ -27,7 +27,7 @@ const RoundsPage = () => {
 					onClick={() => nextRound()}
 					iconSlot={<IconNext />}
 				>
-					Next Round
+					Next
 				</Button>
 				<Button onClick={() => routes.ranking().push()} iconSlot={<IconTabs />}>
 					Ranking

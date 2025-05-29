@@ -14,10 +14,11 @@ import PageHeader from "../../components/PageHeader";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
 import { schedulerOptions } from "../../utils/schedulerUtils";
-import { DEFAULT_POiNTS_TO_WIN } from "../round/roundsSlice";
+import { DEFAULT_POINTS_TO_WIN } from "../round/roundsSlice";
 
 const TypePage = () => {
 	const nextRound = useBaseStore((state) => state.nextRound);
+	const resetRounds = useBaseStore((state) => state.resetRounds);
 	const schedulerType = useBaseStore((state) => state.schedulerType);
 	const setSchedulerType = useBaseStore((state) => state.setSchedulerType);
 	const minPointsToWin = useBaseStore((state) => state.minPointsToWin);
@@ -37,7 +38,8 @@ const TypePage = () => {
 	};
 
 	useEffectOnce(() => {
-		setMinPointsToWin(DEFAULT_POiNTS_TO_WIN);
+		resetRounds();
+		setMinPointsToWin(DEFAULT_POINTS_TO_WIN);
 	});
 
 	return (

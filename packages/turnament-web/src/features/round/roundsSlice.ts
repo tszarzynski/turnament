@@ -27,7 +27,7 @@ interface Actions {
 	updateMatch: (matchToUpdate: Match) => void;
 }
 
-export const DEFAULT_POiNTS_TO_WIN = 5;
+export const DEFAULT_POINTS_TO_WIN = 5;
 
 const initialState: State = {
 	schedulerType: undefined,

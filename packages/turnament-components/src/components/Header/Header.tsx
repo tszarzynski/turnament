@@ -76,7 +76,7 @@ const Header = ({
 						{columns.slice(0, 3).map((column, index) => (
 							<td
 								key={`${index}${column}`}
-								className="h-[54px] border border-secondary px-2 py-1 text-center font-bold text-2xl text-handwritten leading-none"
+								className="h-[27px] border border-secondary px-2  text-center font-bold text-2xl text-handwritten leading-none"
 							>
 								{column}
 							</td>
@@ -104,7 +104,7 @@ const Header = ({
 						{columns.slice(3).map((column, index) => (
 							<td
 								key={`${index}${column}`}
-								className="h-[54px] border border-secondary px-2 py-1 text-center font-bold text-2xl text-handwritten leading-none"
+								className="h-[27px] border border-secondary px-2  text-center font-bold text-2xl text-handwritten leading-none"
 							>
 								{column}
 							</td>
