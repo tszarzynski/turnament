@@ -10,7 +10,7 @@ type PlayerScoreProps = {
 	variant: "primary" | "secondary";
 	disabled?: boolean;
 	completed?: boolean;
-	minPointsToWin: number;
+	minPointsToWin?: number;
 };
 
 const PlayerScore = ({
@@ -39,6 +39,7 @@ const PlayerScore = ({
 				value={score}
 				onChange={onChange}
 				maxValue={minPointsToWin}
+				disabled={disabled}
 				completed={completed}
 			/>
 		</div>
@@ -51,7 +52,7 @@ type MatchCardProps = {
 	disabled?: boolean;
 	onScoreChange?: (matchToUpdate: Match) => void;
 	variant?: "primary" | "secondary";
-	minPointsToWin: number;
+	minPointsToWin?: number;
 };
 
 const MatchCard = ({
