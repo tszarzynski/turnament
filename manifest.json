@@ -55,7 +55,7 @@
 	"scope": "/turnament/",
 	"start_url": "/turnament/",
 	"display": "standalone",
-	"theme_color": "#f6f5f5",
-	"background_color": "#f6f5f5",
+	"theme_color": "#fefce8",
+	"background_color": "#fefce8",
 	"orientation": "portrait"
 }
