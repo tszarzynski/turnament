@@ -52,7 +52,7 @@ const TypePage = () => {
 						<Hr />
 						<fieldset className="p-0.5">
 							<div>
-								<legend className="inline-flex w-[calc(100%-56px)] items-center border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs">
+								<legend className="inline-flex w-[calc(100%-56px)] select-none items-center border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs">
 									Type
 								</legend>
 							</div>
@@ -63,9 +63,9 @@ const TypePage = () => {
 								>
 									<label
 										htmlFor={option.value}
-										className="flex flex-1 items-center justify-between border border-secondary px-4 py-3 font-medium text-lg text-secondary uppercase"
+										className="flex flex-1 select-none items-center justify-between border border-secondary px-4 py-3 font-medium text-lg text-secondary uppercase"
 									>
-										{option.name}{" "}
+										{option.name}
 										<Tooltip content={option.description}>
 											<IconInfo />
 										</Tooltip>
@@ -86,7 +86,7 @@ const TypePage = () => {
 						<fieldset className="mt-8 flex gap-0.5">
 							<label
 								htmlFor="points-to-win"
-								className="flex flex-1 items-center justify-between border border-secondary px-4 py-3 font-medium text-lg text-secondary uppercase"
+								className="flex flex-1 select-none items-center justify-between border border-secondary px-4 py-3 font-medium text-lg text-secondary uppercase"
 							>
 								Min Points To Win
 								<Tooltip content="Minimum Points to Win defines the scoring threshold that a player must reach to secure victory in a match, establishing the target score that competitors aim to achieve.">

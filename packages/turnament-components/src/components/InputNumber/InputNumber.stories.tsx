@@ -1,10 +1,18 @@
-import InputNumber from './InputNumber';
+import InputNumber from "./InputNumber";
 
 export default {
-  component: InputNumber,
-  title: 'InputNumber',
+	component: InputNumber,
+	title: "InputNumber",
 };
 
 export const Default = () => {
-  return <InputNumber />;
+	return <InputNumber value={0} onChange={() => undefined} />;
+};
+
+export const Disabled = () => {
+	return <InputNumber value={0} onChange={() => undefined} disabled={true} />;
+};
+
+export const Completed = () => {
+	return <InputNumber value={0} onChange={() => undefined} completed={true} />;
 };

@@ -31,7 +31,7 @@ const PlayerScore = ({
 	return (
 		<div className="flex flex-row items-stretch justify-between gap-0.5">
 			<h5
-				className={`flex flex-auto items-end border px-2 py-1 font-bold text-2xl text-handwritten leading-none ${styles}`}
+				className={`flex flex-auto select-none items-end border px-2 py-1 font-bold text-2xl text-handwritten leading-none ${styles}`}
 			>
 				{name}
 			</h5>
@@ -50,6 +50,7 @@ type MatchCardProps = {
 	match: Match;
 	names: [string, string];
 	disabled?: boolean;
+	completed?: boolean;
 	onScoreChange?: (matchToUpdate: Match) => void;
 	variant?: "primary" | "secondary";
 	minPointsToWin?: number;

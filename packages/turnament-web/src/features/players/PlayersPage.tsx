@@ -63,7 +63,7 @@ const PlayersPage = () => {
 										<div
 											key={`${index}${column}`}
 											className={
-												"table-cell border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs uppercase empty:w-[54px] empty:border-none"
+												"table-cell select-none border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-xs uppercase empty:w-[54px] empty:border-none"
 											}
 										>
 											{column}

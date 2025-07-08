@@ -51,13 +51,23 @@ const Header = ({
 
 	return (
 		<div className="static border-secondary border-t-2 p-0.5 ">
-			<div className="py-6 text-center font-bold text-4xl text-secondary uppercase leading-none">
+			<div className="select-none py-6 text-center font-bold text-4xl text-secondary uppercase leading-none">
 				{children}
 			</div>
 
 			<Hr />
-			<table className="w-full table-fixed border-separate border-spacing-0.5">
+			<table className="w-full table-fixed border-separate border-spacing-0.5 select-none">
 				<thead>
+					<tr>
+						<th
+							colSpan={3}
+							className={
+								"border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-xs uppercase"
+							}
+						>
+							Settings
+						</th>
+					</tr>
 					<tr>
 						{headings.slice(0, 3).map((column) => (
 							<th
@@ -84,8 +94,18 @@ const Header = ({
 					</tr>
 				</tbody>
 			</table>
-			<table className="-mt-[1px] w-full table-fixed border-separate border-spacing-0.5">
+			<table className="-mt-[1px] w-full table-fixed border-separate border-spacing-0.5 select-none">
 				<thead>
+					<tr>
+						<th
+							colSpan={3}
+							className={
+								"border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-xs uppercase"
+							}
+						>
+							Stats
+						</th>
+					</tr>
 					<tr>
 						{headings.slice(3).map((column) => (
 							<th

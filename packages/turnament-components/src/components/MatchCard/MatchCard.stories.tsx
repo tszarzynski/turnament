@@ -64,3 +64,22 @@ export const Disabled = () => {
 		/>
 	);
 };
+
+export const Completed = () => {
+	const [match, setMatch] = useState<Match>({
+		ID: "ID",
+		roundID: 1,
+		hasBye: false,
+		pairing: [1, 2],
+		result: [3, 0],
+	});
+
+	return (
+		<MatchCard
+			match={match}
+			names={names}
+			onScoreChange={(matchToUpdate) => setMatch(matchToUpdate)}
+			minPointsToWin={3}
+		/>
+	);
+};
