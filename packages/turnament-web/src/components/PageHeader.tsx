@@ -9,8 +9,9 @@ import {
 	selectMinRoundNeeded,
 	selectRoundsPlayedNum,
 } from "../features/round/roundsSlice";
-import { Header, Hr } from "turnament-components";
+import { HeaderWithStats, Hr } from "turnament-components";
 import { getSchedulerByType } from "../utils/schedulerUtils";
+import { useEffectOnce } from "react-use";
 
 interface Props {
 	children: ReactNode;
@@ -31,10 +32,15 @@ export default function PageHeader({ children }: Props) {
 	const maxGames = useBaseStore((state) => selectMaxGamesNeeded(state));
 	const gamesPlayed = useBaseStore((state) => selectGamesPlayed(state));
 
+	useEffectOnce(() => {
+		document.title =
+			typeof children === "string" ? `Tournament - ${children}` : "";
+	});
+
 	return (
 		<header>
 			<div className="px-4 py-6">
-				<Header
+				<HeaderWithStats
 					minRounds={minRounds}
 					roundsPlayed={roundsPlayedNum}
 					minMatches={minMatches}
@@ -50,7 +56,7 @@ export default function PageHeader({ children }: Props) {
 					}
 				>
 					{children}
-				</Header>
+				</HeaderWithStats>
 			</div>
 			<Hr variant="dashed" />
 		</header>

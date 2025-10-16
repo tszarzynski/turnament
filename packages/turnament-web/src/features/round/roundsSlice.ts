@@ -11,10 +11,9 @@ import {
 	isMatchCompleted,
 } from "turnament-ranking";
 
+import { sum, uniq } from "es-toolkit";
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
-import type { PlayersSlice } from "../players/playersSlice";
-import { sum, uniq } from "es-toolkit";
 
 export type { SportType } from "turnament-ranking";
 
@@ -61,7 +60,7 @@ const initialState: State = {
 export type RoundsSlice = State & Actions;
 
 export const createRoundsSlice: StateCreator<
-	RoundsSlice & PlayersSlice,
+	RootState,
 	[["zustand/immer", never]],
 	[],
 	RoundsSlice

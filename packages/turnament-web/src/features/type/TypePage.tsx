@@ -33,6 +33,7 @@ const sportOptions: { value: SportType; name: string; description: string }[] =
   ];
 
 const TypePage = () => {
+  const initializePeer = useBaseStore((state) => state.initializePeer);
   const nextRound = useBaseStore((state) => state.nextRound);
   const resetRounds = useBaseStore((state) => state.resetRounds);
   const schedulerType = useBaseStore((state) => state.schedulerType);
@@ -61,6 +62,7 @@ const TypePage = () => {
 
   const handleNext = () => {
     nextRound();
+    initializePeer();
     routes.rounds().push();
   };
 

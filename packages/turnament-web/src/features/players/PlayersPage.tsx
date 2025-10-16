@@ -58,8 +58,8 @@ const PlayersPage = () => {
   };
 
   useEffect(() => {
-    setDisabled(() => items.length < 2);
-  }, [items]);
+    setDisabled(() => orderedItems.length < 2);
+  }, [orderedItems]);
 
   const columns = useMemo(
     () => (manualSeeding ? ["", "Seed", "Name", ""] : ["Seed", "Name", ""]),

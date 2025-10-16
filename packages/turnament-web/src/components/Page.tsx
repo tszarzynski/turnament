@@ -5,6 +5,8 @@ const PlayerListPage = lazy(() => import("../features/players/PlayersPage"));
 const TypePage = lazy(() => import("../features/type/TypePage"));
 const RankingPage = lazy(() => import("../features/ranking/RankingPage"));
 const RoundPage = lazy(() => import("../features/round/RoundsPage"));
+const PeerPage = lazy(() => import("../features/peer/PeerPage"));
+const SpectatorPage = lazy(() => import("../features/peer/SpectatorPage"));
 
 export function Page() {
 	const route = useRoute();
@@ -24,5 +26,13 @@ export function Page() {
 		return <RoundPage />;
 	}
 
-	return <div>Not Found {route.name}</div>;
+	if (route.name === routes.peer.name) {
+		return <PeerPage />;
+	}
+
+	if (route.name === routes.spectator.name) {
+		return <SpectatorPage route={route} />;
+	}
+
+	return <div>Not Found</div>;
 }
