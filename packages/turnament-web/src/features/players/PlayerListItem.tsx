@@ -1,42 +1,41 @@
-import { motion, Reorder, useDragControls } from "framer-motion";
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 import { IconButton, IconDrag, IconRemove } from "turnament-components";
-
-const draggableVariants = {
-	draggable: { width: "auto", opacity: 1 },
-	notDraggable: { width: 0, opacity: 0 },
-};
 
 type Props = {
 	name: string;
 	index: number;
+	rank: number;
 	draggable: boolean;
 	removePlayer: (id: number) => void;
 };
 
-const PlayerListItem = ({ name, index, draggable, removePlayer }: Props) => {
-	const controls = useDragControls();
+const PlayerListItem = ({ name, index, rank, draggable, removePlayer }: Props) => {
+	const {
+		attributes,
+		listeners,
+		setNodeRef,
+		transform,
+		transition,
+		isDragging,
+	} = useSortable({ id: index, disabled: !draggable });
+
+	const style = {
+		transform: CSS.Transform.toString(transform),
+		transition,
+		opacity: isDragging ? 0.5 : 1,
+		...(isDragging && { position: "relative" as const, zIndex: 1 }),
+	};
 
 	return (
-		<Reorder.Item
-			as="div"
-			value={index}
-			dragListener={false}
-			dragControls={controls}
-			className="table-row"
-		>
+		<div ref={setNodeRef} style={style} className="table-row">
 			{draggable && (
-				<motion.div
-					initial="notDraggable"
-					animate={draggable ? "draggable" : "notDraggable"}
-					variants={draggableVariants}
-					className="table-cell w-[54px]"
-					onPointerDown={(e) => controls.start(e)}
-				>
+				<div className="table-cell w-[54px] touch-none" {...listeners} {...attributes}>
 					<IconButton iconSlot={<IconDrag />} />
-				</motion.div>
+				</div>
 			)}
 			<div className="table-cell w-[54px] border border-secondary px-4 py-1 text-center text-secondary">
-				{index + 1}
+				{rank}
 			</div>
 			<div className="letter-spacing-[4px] table-cell border border-secondary px-4 py-1 font-bold text-2xl text-handwritten">
 				{name}
@@ -50,7 +49,7 @@ const PlayerListItem = ({ name, index, draggable, removePlayer }: Props) => {
 					shape="circle"
 				/>
 			</div>
-		</Reorder.Item>
+		</div>
 	);
 };
 

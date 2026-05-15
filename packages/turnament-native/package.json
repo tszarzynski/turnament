@@ -1,0 +1,24 @@
+{
+  "name": "turnament-native",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Native iOS and Android wrapper for Turnament",
+  "scripts": {
+    "build": "pnpm --filter turnament-web build:native",
+    "sync": "cap sync",
+    "open:ios": "cap open ios",
+    "open:android": "cap open android",
+    "run:ios": "cap run ios",
+    "run:android": "cap run android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/ios": "^7.2.0",
+    "turnament-web": "workspace:"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.2.0"
+  }
+}

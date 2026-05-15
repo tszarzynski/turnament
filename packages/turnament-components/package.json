@@ -43,6 +43,7 @@
 		"tailwindcss": "catalog:"
 	},
 	"dependencies": {
-		"react-use": "catalog:"
+		"react-use": "catalog:",
+		"turnament-scheduler": "workspace:*"
 	}
 }

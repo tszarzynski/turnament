@@ -44,8 +44,8 @@
     -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Syne:wght@400..800&display=swap"
-    rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Syne:wght@400..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Syne:wght@400..800&display=swap"></noscript>
   <!-- Start Single Page Apps for GitHub Pages -->
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
@@ -77,6 +77,17 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+  <div id="error-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;color:#c00;font-family:monospace;font-size:14px;padding:16px;overflow:auto;z-index:99999;white-space:pre-wrap;word-break:break-all;"></div>
+  <script>
+    window.addEventListener('error', function(e) {
+      var el = document.getElementById('error-overlay');
+      if (el) { el.style.display = 'block'; el.textContent += 'ERROR: ' + e.message + '\n  at ' + e.filename + ':' + e.lineno + '\n\n'; }
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      var el = document.getElementById('error-overlay');
+      if (el) { el.style.display = 'block'; el.textContent += 'UNHANDLED PROMISE: ' + (e.reason && (e.reason.stack || e.reason.message || e.reason)) + '\n\n'; }
+    });
+  </script>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

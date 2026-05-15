@@ -24,5 +24,5 @@ export function Page() {
 		return <RoundPage />;
 	}
 
-	return <div>Not Found</div>;
+	return <div>Not Found {route.name}</div>;
 }

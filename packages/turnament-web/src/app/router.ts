@@ -1,9 +1,14 @@
 import { createRouter, defineRoute } from "type-route";
 
-export const { routes, RouteProvider, useRoute } = createRouter({
-	home: defineRoute("/turnament"),
-	type: defineRoute("/turnament/type"),
-	players: defineRoute("/turnament/players"),
-	rounds: defineRoute("/turnament/rounds"),
-	ranking: defineRoute("/turnament/ranking"),
-});
+const isNative = import.meta.env.BASE_URL === '/';
+
+export const { routes, RouteProvider, useRoute } = createRouter(
+    { baseUrl: isNative ? "/" : "/turnament" },
+    {
+        home: defineRoute("/"),
+        type: defineRoute("/type"),
+        players: defineRoute("/players"),
+        rounds: defineRoute("/rounds"),
+        ranking: defineRoute("/ranking"),
+    }
+);

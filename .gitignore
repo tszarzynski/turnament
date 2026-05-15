@@ -28,3 +28,7 @@ yarn-error.log*
 packages/turnament-web/dev-dist/registerSW.js
 packages/turnament-web/dev-dist/sw.js
 packages/turnament-web/dev-dist/workbox-a702e535.js
+
+# Capacitor native builds (web assets copied into native projects)
+packages/turnament-native/ios/App/App/public/
+packages/turnament-native/android/app/src/main/assets/public/

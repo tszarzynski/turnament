@@ -12,7 +12,7 @@ export default function PageLayout({ children }: Props) {
 
 export function PageContent({ children }: Props) {
 	return (
-		<div className="overflow-y-auto scroll-smooth">
+		<div className="min-h-0 overflow-y-auto scroll-smooth">
 			<div className="h-full">{children}</div>
 		</div>
 	);
