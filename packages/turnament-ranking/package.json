@@ -1,0 +1,26 @@
+{
+	"name": "turnament-ranking",
+	"version": "0.1.0",
+	"private": "true",
+	"description": "",
+	"license": "Apache-2.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./src/index.ts"
+		}
+	},
+	"scripts": {
+		"test": "vitest run --globals",
+		"test:watch": "vitest --globals",
+		"lint": "pnpx @biomejs/biome check --fix"
+	},
+	"dependencies": {
+		"turnament-scheduler": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "catalog:",
+		"vitest": "catalog:"
+	}
+}
