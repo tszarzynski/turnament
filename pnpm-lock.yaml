@@ -68,6 +68,9 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.7
+      turnament-ranking:
+        specifier: workspace:*
+        version: link:../turnament-ranking
       turnament-scheduler:
         specifier: workspace:*
         version: link:../turnament-scheduler
@@ -87,6 +90,12 @@ importers:
       '@storybook/react-vite':
         specifier: 8.6.14
         version: 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.40.2)(storybook@8.6.14(prettier@2.8.8))(typescript@5.8.3)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.7.1))
+      '@types/react':
+        specifier: 19.1.4
+        version: 19.1.4
+      '@types/react-dom':
+        specifier: 19.1.5
+        version: 19.1.5(@types/react@19.1.4)
       '@vitest/browser':
         specifier: 3.1.4
         version: 3.1.4(playwright@1.52.0)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.7.1))(vitest@3.1.4)
@@ -133,6 +142,19 @@ importers:
       '@capacitor/cli':
         specifier: ^7.2.0
         version: 7.4.4
+
+  packages/turnament-ranking:
+    dependencies:
+      turnament-scheduler:
+        specifier: workspace:*
+        version: link:../turnament-scheduler
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.1.4(@vitest/browser@3.1.4)(jiti@2.4.2)(jsdom@16.7.0)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.7.1)
 
   packages/turnament-scheduler:
     dependencies:
@@ -200,6 +222,9 @@ importers:
       turnament-components:
         specifier: 'workspace:'
         version: link:../turnament-components
+      turnament-ranking:
+        specifier: workspace:*
+        version: link:../turnament-ranking
       turnament-scheduler:
         specifier: 'workspace:'
         version: link:../turnament-scheduler

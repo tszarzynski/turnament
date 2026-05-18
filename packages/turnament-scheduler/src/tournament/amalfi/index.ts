@@ -2,7 +2,6 @@ import { pipeline } from "ts-pipe-compose";
 import {
 	filterActivePlayers,
 	makePlayersWithResults,
-	makePlayersWithStats,
 } from "../../players";
 import { makeRound } from "../../round";
 import type { Match, Player, Scheduler } from "../../types";
@@ -16,8 +15,7 @@ export const scheduler: Scheduler = {
 		return makeRound(
 			pipeline(
 				makePlayersWithResults,
-				makePlayersWithStats,
-				filterActivePlayers, // filter out inactive players
+				filterActivePlayers,
 				pairPlayers,
 			)(players, results),
 			roundID,

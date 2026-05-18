@@ -1,4 +1,6 @@
 /* PLOP_INJECT_EXPORT */
+	export { default as IconUpload } from './components/IconUpload';
+	export { default as IconDownload } from './components/IconDownload';
 	export { default as IconEdit } from './components/IconEdit';
 	export { default as IconPrev } from './components/IconPrev';
 	export { default as Tooltip } from './components/Tooltip';
@@ -19,7 +21,7 @@
 export { default as IconStop } from "./components/IconStop";
 export { default as IconNext } from "./components/IconNext";
 export { default as Button } from "./components/Button";
-export { default as RankingTable } from "./components/RankingTable";
+export { default as RankingTable, type ColumnDef } from "./components/RankingTable";
 export { default as RoundCard } from "./components/RoundCard";
 export { default as MatchCard } from "./components/MatchCard";
 export { default as Header } from "./components/Header";

@@ -20,6 +20,7 @@ export default function PageHeader({ children }: Props) {
 	const playersNum = useBaseStore((state) => state.players.length);
 	const minPtsToWin = useBaseStore((state) => state.minPointsToWin);
 	const schedulerType = useBaseStore((state) => state.schedulerType);
+	const sportType = useBaseStore((state) => state.sportType);
 	const minRounds = useBaseStore((state) => selectMinRoundNeeded(state));
 	const minMatches = useBaseStore((state) => selectMinMatchesNeeded(state));
 	const roundsPlayedNum = useBaseStore((state) => selectRoundsPlayedNum(state));
@@ -43,6 +44,7 @@ export default function PageHeader({ children }: Props) {
 					gamesPlayed={gamesPlayed}
 					playersNum={playersNum}
 					minPtsToWin={minPtsToWin}
+					sportType={sportType}
 					turnamentType={
 						schedulerType ? getSchedulerByType(schedulerType).shortName : ""
 					}

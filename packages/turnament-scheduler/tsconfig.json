@@ -1,11 +1,12 @@
 {
-	"compilerOptions": {
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"strict": true
-	},
-	"include": ["src" ]
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "types": ["vitest/globals"],
+  },
+  "include": ["src"],
 }

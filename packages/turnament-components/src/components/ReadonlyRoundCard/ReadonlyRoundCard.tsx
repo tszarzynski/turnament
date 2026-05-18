@@ -3,13 +3,25 @@ import MatchCard from "../MatchCard";
 import usePlayerNames from "../usePlayerNames";
 import Hr from "../Hr";
 
+type SportType = "BACKGAMMON" | "CHESS";
+
 type Props = {
 	matches: Match[];
 	players: Player[];
 	roundNum: number;
+	sportType?: SportType;
+	scoringDivisor?: number;
+	minPointsToWin?: number;
 };
 
-const ReadonlyRoundCard = ({ matches, players, roundNum }: Props) => {
+const ReadonlyRoundCard = ({
+	matches,
+	players,
+	roundNum,
+	sportType,
+	scoringDivisor = 1,
+	minPointsToWin,
+}: Props) => {
 	const names = usePlayerNames(players, matches);
 
 	return (
@@ -29,6 +41,9 @@ const ReadonlyRoundCard = ({ matches, players, roundNum }: Props) => {
 						match={match}
 						names={names[i]}
 						disabled={true}
+						sportType={sportType}
+						scoringDivisor={scoringDivisor}
+						minPointsToWin={minPointsToWin}
 					/>
 				))}
 			</div>

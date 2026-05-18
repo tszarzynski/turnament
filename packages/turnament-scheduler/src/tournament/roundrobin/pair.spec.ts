@@ -88,3 +88,53 @@ test("pairPlayers should return correct pairings", () => {
 		[3, -1],
 	]);
 });
+
+test("Round Robin completeness: all n*(n-1)/2 unique pairs appear exactly once (4 players)", () => {
+	const players = [1, 2, 3, 4].map((id) => ({
+		ID: id,
+		name: `P${id}`,
+		active: true,
+	}));
+	const numRounds = 3; // n-1 for even
+
+	const allPairKeys = new Set<string>();
+	for (let round = 0; round < numRounds; round++) {
+		const pairings = pairPlayers(round)(players);
+		for (const [a, b] of pairings) {
+			if (b !== -1) {
+				const key = [a, b].sort((x, y) => x - y).join("-");
+				allPairKeys.add(key);
+			}
+		}
+	}
+
+	// 4 players → 4*3/2 = 6 unique pairs
+	expect(allPairKeys.size).toBe(6);
+});
+
+test("Round Robin completeness: all unique pairs appear exactly once (6 players)", () => {
+	const players = [1, 2, 3, 4, 5, 6].map((id) => ({
+		ID: id,
+		name: `P${id}`,
+		active: true,
+	}));
+	const numRounds = 5; // n-1
+
+	const pairCounts = new Map<string, number>();
+	for (let round = 0; round < numRounds; round++) {
+		const pairings = pairPlayers(round)(players);
+		for (const [a, b] of pairings) {
+			if (b !== -1) {
+				const key = [a, b].sort((x, y) => x - y).join("-");
+				pairCounts.set(key, (pairCounts.get(key) ?? 0) + 1);
+			}
+		}
+	}
+
+	// Every pair should appear exactly once
+	for (const count of pairCounts.values()) {
+		expect(count).toBe(1);
+	}
+	// 6 players → 6*5/2 = 15 unique pairs
+	expect(pairCounts.size).toBe(15);
+});

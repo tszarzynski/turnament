@@ -5,14 +5,23 @@ import {
 	type Player,
 	type SchedulerType,
 } from "turnament-scheduler";
+import {
+	getDefaultMatchConfig,
+	getScoringDivisor,
+	isMatchCompleted,
+} from "turnament-ranking";
 
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
 import type { PlayersSlice } from "../players/playersSlice";
 import { sum, uniq } from "es-toolkit";
 
+export type { SportType } from "turnament-ranking";
+
 interface State {
 	schedulerType: SchedulerType | undefined;
+	sportType: SportType | undefined;
+	scoringDivisor: number;
 	matches: Match[];
 	currentRoundNum: number;
 	minPointsToWin: number;
@@ -23,14 +32,15 @@ interface Actions {
 	readdRound: (players: Player[]) => void;
 	resetRounds: () => void;
 	setSchedulerType: (type: SchedulerType) => void;
+	setSportType: (sport: SportType) => void;
 	setMinPointsToWin: (value: number) => void;
 	updateMatch: (matchToUpdate: Match) => void;
 }
 
-export const DEFAULT_POINTS_TO_WIN = 5;
-
 const initialState: State = {
 	schedulerType: undefined,
+	sportType: undefined,
+	scoringDivisor: 1,
 	matches: [],
 	currentRoundNum: 0,
 	minPointsToWin: 0,
@@ -50,12 +60,18 @@ export const createRoundsSlice: StateCreator<
 			state.schedulerType = type;
 		});
 	},
+	setSportType(sport) {
+		set((state) => {
+			state.sportType = sport;
+			state.scoringDivisor = getScoringDivisor(sport);
+		});
+	},
 	addRound(players) {
 		const schedulerType = get().schedulerType;
-		const roundID = ++get().currentRoundNum;
 
 		if (!schedulerType) return;
 
+		const roundID = get().currentRoundNum + 1;
 		const scheduler = getSchedulerByType(schedulerType);
 		const matches = get().matches;
 
@@ -66,6 +82,7 @@ export const createRoundsSlice: StateCreator<
 		}
 
 		set((state) => {
+			state.currentRoundNum = roundID;
 			state.matches.push(...newRound);
 		});
 	},
@@ -152,7 +169,7 @@ export const selectPreviousRoundsNum = (state: RootState) =>
 
 export const selectIsRoundCompleted = (state: RootState): boolean =>
 	selectCurrentRound(state).every(({ result }) =>
-		result.some((it) => it === state.minPointsToWin),
+		isMatchCompleted(result, state.sportType, state.minPointsToWin),
 	);
 
 export const selectMatchesByRoundID = (roundID: number) => (state: RootState) =>
@@ -161,15 +178,17 @@ export const selectMatchesByRoundID = (roundID: number) => (state: RootState) =>
 export const selectMinMatchesNeeded = (state: RootState) => {
 	if (!state.schedulerType) return 0;
 
-	const minRoundsNeeded = selectMinRoundNeeded(state);
-	const playersNum = state.players.length;
+	const scheduler = getSchedulerByType(state.schedulerType);
+	const n = state.players.length;
 
-	return Math.floor(playersNum / 2) * minRoundsNeeded;
+	return scheduler.matchesNeeded
+		? scheduler.matchesNeeded(n)
+		: Math.floor(n / 2) * selectMinRoundNeeded(state);
 };
 
 export const selectMatchesPlayedNum = (state: RootState) => {
-	return state.matches.filter((match) =>
-		match.result.some((it) => it === state.minPointsToWin),
+	return state.matches.filter(({ result }) =>
+		isMatchCompleted(result, state.sportType, state.minPointsToWin),
 	).length;
 };
 
@@ -178,13 +197,19 @@ export const selectMinGamesNeeded = (state: RootState) => {
 };
 
 export const selectMaxGamesNeeded = (state: RootState) => {
-	return selectMinMatchesNeeded(state) * (state.minPointsToWin * 2 - 1);
+	const minMatches = selectMinMatchesNeeded(state);
+	if (state.sportType === "CHESS") {
+		// chess matches always play exactly minPointsToWin games — no spread
+		return minMatches * state.minPointsToWin;
+	}
+	return minMatches * (state.minPointsToWin * 2 - 1);
 };
 
 export const selectGamesPlayed = (state: RootState) => {
-	return state.matches
+	const raw = state.matches
 		.filter((match) => match.hasBye === false)
-		.reduce((acc, curr) => {
-			return acc + sum(curr.result);
-		}, 0);
+		.reduce((acc, curr) => acc + sum(curr.result), 0);
+	return raw / state.scoringDivisor;
 };
+
+export { getDefaultMatchConfig };

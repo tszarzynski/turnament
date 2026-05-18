@@ -1,5 +1,7 @@
 import Hr from "../Hr";
 
+type SportType = "BACKGAMMON" | "CHESS";
+
 type Props = {
   children: React.ReactNode;
   turnamentType?: string;
@@ -12,6 +14,7 @@ type Props = {
   minGames: number;
   maxGames: number;
   gamesPlayed: number;
+  sportType?: SportType;
 };
 
 function valueOrPlaceholder(value?: string | number) {
@@ -30,11 +33,14 @@ const Header = ({
   minGames,
   maxGames,
   gamesPlayed,
+  sportType,
 }: Props) => {
+  const ptsToWinLabel = sportType === "CHESS" ? "Best of" : "Pts To Win";
+
   const headings = [
     "Type",
     "Players",
-    "Pts To Win",
+    ptsToWinLabel,
     "Rounds",
     "Matches",
     "Games",
@@ -46,7 +52,11 @@ const Header = ({
     valueOrPlaceholder(minPtsToWin),
     minRounds ? `${roundsPlayed} / ${minRounds}` : "",
     minMatches ? `${matchesPlayed} / ${minMatches}` : "",
-    minGames ? `${gamesPlayed} / ${minGames}-${maxGames}` : "",
+    minGames
+      ? minGames === maxGames
+        ? `${gamesPlayed} / ${minGames}`
+        : `${gamesPlayed} / ${minGames}-${maxGames}`
+      : "",
   ];
 
   return (

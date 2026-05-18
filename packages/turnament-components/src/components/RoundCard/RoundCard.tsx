@@ -3,6 +3,8 @@ import Hr from "../Hr";
 import MatchCard from "../MatchCard";
 import usePlayerNames from "../usePlayerNames";
 
+type SportType = "BACKGAMMON" | "CHESS";
+
 type Props = {
 	matches: Match[];
 	players: Player[];
@@ -10,6 +12,8 @@ type Props = {
 	roundNum: number;
 	minPointsToWin: number;
 	completed?: boolean;
+	sportType?: SportType;
+	scoringDivisor?: number;
 };
 
 const RoundCard = ({
@@ -19,6 +23,8 @@ const RoundCard = ({
 	onScoreChange,
 	minPointsToWin,
 	completed,
+	sportType,
+	scoringDivisor = 1,
 }: Props) => {
 	const names = usePlayerNames(players, matches);
 
@@ -39,6 +45,8 @@ const RoundCard = ({
 					names={names[i]}
 					onScoreChange={onScoreChange}
 					minPointsToWin={minPointsToWin}
+					sportType={sportType}
+					scoringDivisor={scoringDivisor}
 				/>
 			))}
 		</div>

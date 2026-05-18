@@ -21,13 +21,7 @@ export interface Results {
 	opponents: PlayerID[];
 }
 
-export interface Stats {
-	omv: number;
-}
-
 export interface PlayerWithResults extends Player, Results {}
-
-export interface PlayerWithStats extends Player, Results, Stats {}
 
 export interface PlayerWithBye extends Player {
 	bye: number;
@@ -56,6 +50,7 @@ export type SchedulerType = "SWISS" | "ROUND_ROBIN" | "ELIMINATION" | "AMALFI";
 export interface Scheduler {
 	makeRound: (players: Player[], results: Match[], roundID: RoundID) => Match[];
 	roundsNeeded: (numPlayers: number) => number;
+	matchesNeeded?: (numPlayers: number) => number;
 	type: SchedulerType;
 	name?: string;
 }

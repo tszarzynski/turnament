@@ -1,49 +1,52 @@
 {
-	"name": "turnament-components",
-	"version": "0.1.0",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"import": "./src/index.ts"
-		},
-		"./tailwind.css": {
-			"import": "./src/tailwind.css"
-		}
-	},
-	"license": "MIT",
-	"devDependencies": {
-		"@storybook/addon-essentials": "8.6.14",
-		"@storybook/addon-themes": "8.6.14",
-		"@storybook/addon-viewport": "8.6.14",
-		"@storybook/react": "8.6.14",
-		"@storybook/react-vite": "8.6.14",
-		"plop": "4.0.1",
-		"storybook": "8.6.14",
-		"typescript": "catalog:",
-		"vite": "catalog:",
-		"vitest": "catalog:",
-		"@vitest/browser": "3.1.4",
-		"playwright": "1.52.0",
-		"vitest-browser-react": "0.2.0"
-	},
-	"scripts": {
-		"start:storybook": "storybook dev -p 9009",
-		"build:storybook": "storybook build",
-		"dev": "pnpm start:storybook",
-		"plop": "plop",
-		"test": "vitest run --globals",
-		"test:watch": "vitest --globals",
-		"lint": "pnpx @biomejs/biome check --fix"
-	},
-	"peerDependencies": {
-		"@tailwindcss/vite": "catalog:",
-		"react": "catalog:",
-		"react-dom": "catalog:",
-		"tailwindcss": "catalog:"
-	},
-	"dependencies": {
-		"react-use": "catalog:",
-		"turnament-scheduler": "workspace:*"
-	}
+  "name": "turnament-components",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./tailwind.css": {
+      "import": "./src/tailwind.css"
+    }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/addon-themes": "8.6.14",
+    "@storybook/addon-viewport": "8.6.14",
+    "@storybook/react": "8.6.14",
+    "@storybook/react-vite": "8.6.14",
+    "plop": "4.0.1",
+    "storybook": "8.6.14",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/browser": "3.1.4",
+    "playwright": "1.52.0",
+    "vitest-browser-react": "0.2.0"
+  },
+  "scripts": {
+    "start:storybook": "storybook dev -p 9009",
+    "build:storybook": "storybook build",
+    "dev": "pnpm start:storybook",
+    "plop": "plop",
+    "test": "vitest run --globals",
+    "test:watch": "vitest --globals",
+    "lint": "pnpx @biomejs/biome check --fix"
+  },
+  "peerDependencies": {
+    "@tailwindcss/vite": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwindcss": "catalog:"
+  },
+  "dependencies": {
+    "react-use": "catalog:",
+    "turnament-ranking": "workspace:*",
+    "turnament-scheduler": "workspace:*"
+  }
 }

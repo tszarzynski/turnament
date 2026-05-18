@@ -15,6 +15,12 @@ type Props = Omit<
 	minValue?: number;
 	maxValue?: number;
 	completed?: boolean;
+	scoringDivisor?: number;
+};
+
+const formatScore = (raw: number, divisor: number): string => {
+	const display = raw / divisor;
+	return Number.isInteger(display) ? String(display) : display.toFixed(1);
 };
 
 const InputNumber = ({
@@ -25,6 +31,7 @@ const InputNumber = ({
 	completed,
 	minValue = 0,
 	maxValue = Number.MAX_SAFE_INTEGER,
+	scoringDivisor = 1,
 }: Props) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -49,7 +56,7 @@ const InputNumber = ({
 				className="h-[54px] w-[54px] text-center"
 				type="text"
 				name="score"
-				value={value}
+				value={formatScore(value, scoringDivisor)}
 				readOnly={true}
 				disabled={disabled}
 				completed={completed}

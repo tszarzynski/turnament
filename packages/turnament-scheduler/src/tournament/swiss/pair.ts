@@ -1,11 +1,11 @@
 import { pipeline } from "ts-pipe-compose";
 import { nominateWeakestPlayerForBye } from "../../bye";
 import { BYE_ID } from "../../consts";
-import type { Pairing, PlayerWithStats } from "../../types";
+import type { Pairing, PlayerWithResults } from "../../types";
 import { makeWeightedGraph } from "./graph";
 import { calcMWMForGraph, transformMWMToPairings } from "./mwm";
 
-export const pairPlayers = (players: PlayerWithStats[]): Pairing[] => {
+export const pairPlayers = (players: PlayerWithResults[]): Pairing[] => {
 	// check if we have a player with BYE nomination
 	const nominatedID = nominateWeakestPlayerForBye(players);
 	// remove nominated player from the list

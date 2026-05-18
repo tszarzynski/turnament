@@ -1,1 +1,1 @@
-export { default } from './RankingTable';
+export { default, type ColumnDef } from './RankingTable';

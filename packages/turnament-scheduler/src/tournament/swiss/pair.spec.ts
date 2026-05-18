@@ -1,3 +1,6 @@
+import { scheduler } from ".";
+import { makePlayersWithResults, filterActivePlayers } from "../../players";
+import type { Match, Player } from "../../types";
 import { pairPlayers } from "./pair";
 
 test("pairPlayers should return correct pairings when tournament starts", () => {
@@ -74,4 +77,50 @@ test("pairPlayers should return correct pairings", () => {
 		[1, 3],
 		[2, -1],
 	]);
+});
+
+test("Swiss multi-round: no pair appears more than once across 3 rounds (6 players)", () => {
+	const players: Player[] = [1, 2, 3, 4, 5, 6].map((id) => ({
+		ID: id,
+		name: `P${id}`,
+		active: true,
+	}));
+
+	const allMatches: Match[] = [];
+	let roundID = 0;
+
+	for (let round = 0; round < 3; round++) {
+		roundID++;
+		const playersWithResults = makePlayersWithResults(players, allMatches);
+		const active = filterActivePlayers(playersWithResults);
+		const pairings = pairPlayers(active);
+
+		for (const [a, b] of pairings) {
+			if (b !== -1) {
+				allMatches.push({
+					ID: `${roundID}-${a}-${b}`,
+					roundID,
+					pairing: [a, b],
+					result: [5, 0],
+					hasBye: false,
+				});
+			} else {
+				allMatches.push({
+					ID: `${roundID}-${a}-bye`,
+					roundID,
+					pairing: [a, b],
+					result: [0, 0],
+					hasBye: true,
+				});
+			}
+		}
+	}
+
+	// Collect all real pairings as sorted pairs to check for duplicates
+	const realMatches = allMatches.filter((m) => !m.hasBye);
+	const pairKeys = realMatches.map(({ pairing: [a, b] }) =>
+		[a, b].sort((x, y) => x - y).join("-"),
+	);
+	const uniquePairs = new Set(pairKeys);
+	expect(uniquePairs.size).toBe(pairKeys.length);
 });

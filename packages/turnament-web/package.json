@@ -17,6 +17,7 @@
     "react-use": "catalog:",
     "tailwindcss": "catalog:",
     "turnament-components": "workspace:",
+    "turnament-ranking": "workspace:*",
     "turnament-scheduler": "workspace:",
     "type-route": "1.1.0",
     "typescript": "catalog:",

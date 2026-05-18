@@ -9,12 +9,18 @@ const PreviousRound = ({ roundID }: { roundID: number }) => {
 		useShallow(selectMatchesByRoundID(roundID)),
 	);
 	const players = useBaseStore((state) => state.players);
+	const sportType = useBaseStore((state) => state.sportType);
+	const scoringDivisor = useBaseStore((state) => state.scoringDivisor);
+	const minPointsToWin = useBaseStore((state) => state.minPointsToWin);
 
 	return (
 		<ReadonlyRoundCard
 			matches={previousRound}
 			players={players}
 			roundNum={roundID}
+			sportType={sportType}
+			scoringDivisor={scoringDivisor}
+			minPointsToWin={minPointsToWin}
 		/>
 	);
 };

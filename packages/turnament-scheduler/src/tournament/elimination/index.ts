@@ -4,7 +4,7 @@ import { makeRound } from "../../round";
 import type { Eliminator, Match, Player, Scheduler } from "../../types";
 import { calcNumRoundsFromResults } from "../../utils";
 import { pairPlayers } from "./pair";
-import { roundsNeeded } from "./rounds";
+import { matchesNeeded, roundsNeeded } from "./rounds";
 
 export const scheduler: Scheduler & Eliminator = {
 	name: "Elimination",
@@ -20,6 +20,7 @@ export const scheduler: Scheduler & Eliminator = {
 		);
 	},
 	roundsNeeded,
+	matchesNeeded,
 	eliminate: (players: Player[], results: Match[]) => {
 		const playersWithResults = makePlayersWithResults(players, results);
 		// filter out inactive players

@@ -1,30 +1,34 @@
 import { pipeline } from "ts-pipe-compose";
 import { BYE_ID } from "./consts";
-import { rankPlayers } from "./rank";
 import { asc, desc, sortWith } from "./sort";
 import type {
 	PlayerID,
 	PlayerWithBye,
 	PlayerWithResults,
-	PlayerWithStats,
 } from "./types";
 import { first, isOdd, last, prop } from "./utils";
 
 const countByes = (opponents: number[]) =>
 	opponents.filter((id) => id === BYE_ID).length;
+
 const playersWithByes = (players: PlayerWithResults[]) =>
 	players.map((player) => ({ ...player, bye: countByes(player.opponents) }));
 
+const sortByStanding = sortWith<PlayerWithResults>([
+	desc("matchesWon"),
+	desc("gamesWon"),
+]);
+
 /**
- * Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.
- * @param players list of players
+ * Nominate the weakest active player for a bye.
+ * Weakest = lowest standing; among equally weak, prefer fewest prior byes.
  */
 export const nominateWeakestPlayerForBye = (
-	players: PlayerWithStats[],
+	players: PlayerWithResults[],
 ): PlayerID =>
 	isOdd(players.length)
 		? pipeline(
-				rankPlayers,
+				sortByStanding,
 				playersWithByes,
 				sortWith<PlayerWithBye>([desc("bye")]),
 				last,
@@ -33,15 +37,15 @@ export const nominateWeakestPlayerForBye = (
 		: BYE_ID;
 
 /**
- * Check if we need to grant 'bye' to a player and return nominated player ID. Otherwise return -1.
- * @param players list of players
+ * Nominate the strongest active player for a bye.
+ * Strongest = highest standing; among equally strong, prefer fewest prior byes.
  */
 export const nominateStrongestPlayerForBye = (
-	players: PlayerWithStats[],
+	players: PlayerWithResults[],
 ): PlayerID =>
 	isOdd(players.length)
 		? pipeline(
-				rankPlayers,
+				sortByStanding,
 				playersWithByes,
 				sortWith<PlayerWithBye>([asc("bye")]),
 				first,

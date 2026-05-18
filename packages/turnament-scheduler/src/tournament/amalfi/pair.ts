@@ -1,8 +1,13 @@
 import { BYE_ID } from "../../consts";
-import { rankPlayers } from "../../rank";
-import type { Pairing, PlayerWithStats } from "../../types";
+import { desc, sortWith } from "../../sort";
+import type { Pairing, PlayerWithResults } from "../../types";
 import { isOdd } from "../../utils";
 import { roundsNeeded } from "./rounds";
+
+const sortByStanding = sortWith<PlayerWithResults>([
+	desc("matchesWon"),
+	desc("gamesWon"),
+]);
 
 /**
  * Folds array into pairs
@@ -29,7 +34,7 @@ export const toPairs = (arr: number[], offset: number): Pairing[] => {
 	return bye ? [[bye, BYE_ID], ...pairs] : pairs;
 };
 
-export const pairPlayers = (players: PlayerWithStats[]): Pairing[] => {
+export const pairPlayers = (players: PlayerWithResults[]): Pairing[] => {
 	const numPlayedRounds = Math.min(
 		...players.map((players) => players.opponents.length),
 	);
@@ -37,7 +42,7 @@ export const pairPlayers = (players: PlayerWithStats[]): Pairing[] => {
 	const numRounds = roundsNeeded(players.length);
 
 	return toPairs(
-		rankPlayers(players).map((player) => player.ID),
+		sortByStanding(players).map((player) => player.ID),
 		numRounds - numPlayedRounds,
 	);
 };

@@ -10,6 +10,8 @@ const CurrentRound = () => {
 	const roundNum = useBaseStore(useShallow((state) => state.currentRoundNum));
 	const updateMatch = useBaseStore((state) => state.updateMatch);
 	const minPointsToWin = useBaseStore((state) => state.minPointsToWin);
+	const sportType = useBaseStore((state) => state.sportType);
+	const scoringDivisor = useBaseStore((state) => state.scoringDivisor);
 	const isRoundCompleted = useBaseStore((state) =>
 		selectIsRoundCompleted(state),
 	);
@@ -26,6 +28,8 @@ const CurrentRound = () => {
 			onScoreChange={handleScoreChange}
 			minPointsToWin={minPointsToWin}
 			completed={isRoundCompleted}
+			sportType={sportType}
+			scoringDivisor={scoringDivisor}
 		/>
 	);
 };

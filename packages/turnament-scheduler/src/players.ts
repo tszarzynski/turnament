@@ -1,9 +1,7 @@
-import { calcOMV } from "./omv";
 import type {
 	Match,
 	Player,
 	PlayerWithResults,
-	PlayerWithStats,
 	Results,
 } from "./types";
 
@@ -25,7 +23,7 @@ export const makePlayersWithResults = (
 				return {
 					gamesWon: acc.gamesWon + match.result[idxPlayer],
 					matchesWon: acc.matchesWon + (hasWon || match.hasBye ? 1 : 0),
-					matchesLost: acc.matchesLost + (!hasWon ? 1 : 0),
+					matchesLost: acc.matchesLost + (!hasWon && !match.hasBye ? 1 : 0),
 					opponents: [...acc.opponents, match.pairing[idxOpponent]],
 				};
 			},
@@ -42,14 +40,6 @@ export const makePlayersWithResults = (
 			...results,
 		};
 	});
-
-export const makePlayersWithStats = (
-	players: PlayerWithResults[],
-): PlayerWithStats[] =>
-	players.map((player) => ({
-		...player,
-		omv: calcOMV(players, player),
-	}));
 
 export const filterActivePlayers = <T extends Player>(players: T[]): T[] =>
 	players.filter((player) => player.active);

@@ -4,7 +4,7 @@ import { makeRound } from "../../round";
 import type { Match, Player, Scheduler } from "../../types";
 import { calcNumRoundsFromResults } from "../../utils";
 import { pairPlayers } from "./pair";
-import { roundsNeeded } from "./rounds";
+import { matchesNeeded, roundsNeeded } from "./rounds";
 
 export const scheduler: Scheduler = {
 	name: "Round Robin",
@@ -19,4 +19,5 @@ export const scheduler: Scheduler = {
 		);
 	},
 	roundsNeeded,
+	matchesNeeded,
 };
