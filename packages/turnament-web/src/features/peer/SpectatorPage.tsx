@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { RankingTable } from "turnament-components";
-import type { PlayerWithStats } from "turnament-scheduler";
+import { RankingTable, type ColumnDef } from "turnament-components";
+import type { PlayerWithStats } from "turnament-ranking";
 import type { Route } from "type-route";
 import type { routes } from "../../app/router";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import { P2PSubscriber } from "./peerClient";
+
+const defaultColumns: ColumnDef[] = [
+	{ label: "Wins", value: (p) => p.matchesWon },
+	{ label: "NPS", value: (p) => p.nps },
+	{ label: "Pts", value: (p) => p.gamesWon },
+];
 
 const SpectatorPage = ({
 	route,
@@ -51,7 +57,7 @@ const SpectatorPage = ({
 					{connected && !ranking && !disconnected && (
 						<p className="text-center text-secondary">Waiting for results…</p>
 					)}
-					{ranking && <RankingTable playersWithStats={ranking} />}
+					{ranking && <RankingTable playersWithStats={ranking} columns={defaultColumns} />}
 				</PageBody>
 			</PageContent>
 		</PageLayout>
