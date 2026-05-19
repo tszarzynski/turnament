@@ -27,6 +27,7 @@ export const Default = () => {
 			roundNum={1}
 			players={players}
 			onScoreChange={() => null}
+			minPointsToWin={5}
 		/>
 	);
 };

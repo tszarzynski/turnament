@@ -8,9 +8,9 @@ const IconCast = () => {
 			className="h-10 w-10"
 			fill="none"
 			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			stroke-width="1"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="1"
 			aria-label="Cast icon"
 			role="img"
 		>

@@ -1,15 +1,18 @@
 import type React from "react";
 
-type Props = {
-	children: React.ReactNode;
+export type BaseButtonProps = {
 	variant?: "primary" | "secondary";
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 	className?: string;
 	onClick?: () => void;
-	fullWidth?: boolean;
 	iconSlot?: React.ReactNode;
 	title?: string;
+};
+
+type Props = BaseButtonProps & {
+	children: React.ReactNode;
+	fullWidth?: boolean;
 };
 
 const Button = ({

@@ -16,6 +16,7 @@ type Props = Omit<
 	maxValue?: number;
 	completed?: boolean;
 	scoringDivisor?: number;
+	className?: string;
 };
 
 const formatScore = (raw: number, divisor: number): string => {
@@ -32,6 +33,7 @@ const InputNumber = ({
 	minValue = 0,
 	maxValue = Number.MAX_SAFE_INTEGER,
 	scoringDivisor = 1,
+	className,
 }: Props) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -42,7 +44,7 @@ const InputNumber = ({
 	});
 
 	return (
-		<div ref={clickAwayRef} className="flex flex-row ">
+		<div ref={clickAwayRef} className={`flex flex-row ${className ?? ""}`}>
 			{isEditing && (
 				<span className="h-[54px] w-[54px]">
 					<IconButton
