@@ -2,7 +2,7 @@ import HeaderWithStats from "./HeaderWithStats";
 
 export default {
 	component: HeaderWithStats,
-	title: "Header",
+	title: "HeaderWithStats",
 };
 
 export const Default = () => {
