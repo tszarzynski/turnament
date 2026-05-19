@@ -10,8 +10,11 @@ const QR_CODE_URL =
 
 const SharePage = () => {
 	const peerID = useBaseStore((state) => state.peerID);
+	const peerError = useBaseStore((state) => state.peerError);
 	const qrRef = useRef<HTMLDivElement>(null);
-	const targetUrl = `${location.origin}/turnament/spectator/${peerID}`;
+	const targetUrl = peerID
+		? `${location.origin}${routes.spectator({ peerID }).href}`
+		: null;
 
 	useEffect(() => {
 		if (!targetUrl) return;
@@ -22,8 +25,6 @@ const SharePage = () => {
 		script.onload = () => {
 			// @ts-ignore
 			if (window.QRCode && qrRef.current) {
-				console.log(`Generating QRCode for: ${targetUrl} `);
-
 				// @ts-ignore
 				new window.QRCode(qrRef.current, {
 					text: targetUrl,
@@ -53,6 +54,8 @@ const SharePage = () => {
 						results.
 					</p>
 					<div className="flex min-h-[300px] flex-col items-center justify-center">
+						{!peerID && !peerError && <p className="text-center text-secondary">Initialising…</p>}
+						{peerError && <p className="text-center text-red-500">{peerError}</p>}
 						<div ref={qrRef} />
 					</div>
 				</PageBody>

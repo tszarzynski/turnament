@@ -1,22 +1,24 @@
-import type { DataConnection } from "peerjs";
 import type { StateCreator } from "zustand";
-import { useBaseStore, type RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { P2PPublisher } from "./peerClient";
 import { getRanking } from "turnament-scheduler";
 
 interface State {
 	peerID: string | null;
+	peerError: string | null;
 }
 
 type Actions = {
 	initializePeer(): void;
 	publish(): void;
+	destroyPeer(): void;
 };
 
 export type PeerSlice = State & Actions;
 
 const initialState: State = {
 	peerID: null,
+	peerError: null,
 };
 
 export const createPeerSlice: StateCreator<
@@ -27,28 +29,32 @@ export const createPeerSlice: StateCreator<
 > = (set, get) => ({
 	...initialState,
 	async initializePeer() {
-		const prevPeerID = get().peerID;
+		if (get().peerID) return;
 
-		const peerID = await P2PPublisher.initializePeer(prevPeerID);
-		P2PPublisher.peer?.on("connection", (connection) => {
-			console.log("Peer connected: ", connection.peer);
-			get().publish();
-
-			useBaseStore.subscribe(
-				(state) => state.matches,
-				(state) => P2PPublisher.publish(state),
-			);
-		});
-
-		set((state) => {
-			state.peerID = peerID;
-		});
+		try {
+			const peerID = await P2PPublisher.initializePeer(null, () => {
+				get().publish();
+			});
+			set((state) => {
+				state.peerID = peerID;
+				state.peerError = null;
+			});
+		} catch {
+			set((state) => {
+				state.peerError = "Could not connect to signalling server.";
+			});
+		}
 	},
 	publish() {
 		const players = get().players;
 		const matches = get().matches;
 		const ranking = getRanking(players, matches);
-		console.log("Publishing");
 		P2PPublisher.publish(ranking);
+	},
+	destroyPeer() {
+		set((state) => {
+			state.peerID = null;
+			state.peerError = null;
+		});
 	},
 });

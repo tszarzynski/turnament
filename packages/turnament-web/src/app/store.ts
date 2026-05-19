@@ -24,7 +24,18 @@ export const useBaseStore = create<RootState>()(
 			})),
 			{
 				name: "turnament-store",
+				partialize: (state) => {
+					const { peerID: _p, peerError: _e, initializePeer: _i, publish: _pub, destroyPeer: _d, ...rest } = state;
+					return rest;
+				},
 			},
 		),
 	),
+);
+
+useBaseStore.subscribe(
+	(state) => state.matches,
+	() => {
+		if (useBaseStore.getState().peerID) useBaseStore.getState().publish();
+	},
 );
