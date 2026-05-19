@@ -185,7 +185,7 @@ This creates a funnel: early rounds pair players far apart in standings, later r
 
 Players are progressively eliminated. A player with 2 losses is out.
 
-**Rounds needed:** `⌈log₂(n)⌉ + ⌈log₂(log₂(n))⌉`
+**Rounds needed:** `⌈log₂(n)⌉ + ⌈log₂(log₂(n))⌉ + 1`
 
 **Total matches:** `n × 2 − 2`
 

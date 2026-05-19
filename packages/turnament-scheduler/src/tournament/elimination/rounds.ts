@@ -3,7 +3,8 @@
  */
 export const roundsNeeded = (numPlayers: number): number =>
 	Math.ceil(Math.log2(numPlayers)) +
-	Math.ceil(Math.log2(Math.log2(numPlayers)));
+	Math.ceil(Math.log2(Math.log2(numPlayers))) +
+	1;
 
 /**
  * Returns minimum number of matches necessary to finish tournament
