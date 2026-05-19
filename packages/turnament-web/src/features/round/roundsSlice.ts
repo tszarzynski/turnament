@@ -26,6 +26,17 @@ interface State {
 	currentRoundNum: number;
 	minPointsToWin: number;
 }
+export interface SavedState {
+	players: Player[];
+	nextPlayerID: number;
+	schedulerType: SchedulerType | undefined;
+	sportType: SportType | undefined;
+	scoringDivisor: number;
+	matches: Match[];
+	currentRoundNum: number;
+	minPointsToWin: number;
+}
+
 interface Actions {
 	addRound: (players: Player[]) => void;
 	nextRound: () => void;
@@ -35,6 +46,7 @@ interface Actions {
 	setSportType: (sport: SportType) => void;
 	setMinPointsToWin: (value: number) => void;
 	updateMatch: (matchToUpdate: Match) => void;
+	restoreState: (saved: SavedState) => void;
 }
 
 const initialState: State = {
@@ -135,6 +147,18 @@ export const createRoundsSlice: StateCreator<
 	},
 	resetRounds() {
 		set(initialState);
+	},
+	restoreState(saved: SavedState) {
+		set((state) => {
+			state.players = saved.players;
+			state.nextPlayerID = saved.nextPlayerID;
+			state.schedulerType = saved.schedulerType;
+			state.sportType = saved.sportType;
+			state.scoringDivisor = saved.scoringDivisor;
+			state.matches = saved.matches;
+			state.currentRoundNum = saved.currentRoundNum;
+			state.minPointsToWin = saved.minPointsToWin;
+		});
 	},
 	setMinPointsToWin(value: number) {
 		set((state) => {

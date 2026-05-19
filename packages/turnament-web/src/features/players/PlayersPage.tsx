@@ -22,6 +22,7 @@ import {
   IconNext,
   IconReorder,
   IconShuffle,
+  IconUpload,
   ToggleButton,
 } from "turnament-components";
 import { routes } from "../../app/router";
@@ -32,6 +33,7 @@ import PageNavigation from "../../components/PageNavigation";
 import PlayerAddForm from "./PlayerAddForm";
 import PlayerListItem from "./PlayerListItem";
 import { useOrderedList } from "./hooks";
+import { useLoadTournament } from "../../hooks/useLoadTournament";
 import { shuffle } from "es-toolkit";
 
 const PlayersPage = () => {
@@ -40,6 +42,7 @@ const PlayersPage = () => {
 
   const { items, order, set, add, remove, reorder, orderedItems } =
     useOrderedList<string>();
+  const loadTournament = useLoadTournament();
   const [manualSeeding, toggleManualSeeding] = useToggle(false);
   const [disabled, setDisabled] = useState(true);
 
@@ -154,6 +157,9 @@ const PlayersPage = () => {
         </PageBody>
       </PageContent>
       <PageNavigation>
+        <Button iconSlot={<IconUpload />} onClick={loadTournament}>
+          Load
+        </Button>
         <Button
           iconSlot={<IconNext />}
           disabled={disabled}

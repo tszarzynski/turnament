@@ -2,9 +2,10 @@ import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
 
 import { useMemo } from "react";
-import { Button, IconStop, IconTabs, RankingTable, type ColumnDef } from "turnament-components";
+import { Button, IconDownload, IconStop, IconTabs, RankingTable, type ColumnDef } from "turnament-components";
 import { formatScore, getRanking } from "turnament-ranking";
 import { useBaseStore } from "../../app/store";
+import { useSaveTournament } from "../../hooks/useSaveTournament";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
 
@@ -16,6 +17,7 @@ const RankingPage = () => {
 	const resetPlayers = useBaseStore((state) => state.resetPlayers);
 	const resetRounds = useBaseStore((state) => state.resetRounds);
 	const disablePlayer = useBaseStore((state) => state.disablePlayer);
+	const saveTournament = useSaveTournament();
 
 	const ranking = useMemo(
 		() => getRanking(players, matches, sportType ?? undefined, scoringDivisor),
@@ -59,6 +61,11 @@ const RankingPage = () => {
 							}
 						}}
 					/>
+					<div className="mt-4 flex justify-end">
+						<Button onClick={saveTournament} iconSlot={<IconDownload />}>
+							Save
+						</Button>
+					</div>
 				</PageBody>
 			</PageContent>
 			<PageNavigation>
