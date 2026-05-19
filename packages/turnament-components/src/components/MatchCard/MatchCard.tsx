@@ -145,10 +145,29 @@ const MatchCard = ({
 				/>
 			</div>
 			{isTied && (
-				<div className="flex items-center justify-center py-0.5">
-					<span className="select-none border border-secondary px-2 py-0.5 font-bold text-secondary text-tiny uppercase tracking-widest">
-						Tiebreaker needed
-					</span>
+				<div className="flex gap-0.5 py-0.5">
+					{([0, 1] as const).map((idx) => {
+						const isActive = match.tiebreakWinner === idx;
+						return (
+							<button
+								key={idx}
+								type="button"
+								onClick={() =>
+									onScoreChange?.({
+										...match,
+										tiebreakWinner: isActive ? null : idx,
+									})
+								}
+								className={`flex-1 select-none border px-2 py-0.5 font-bold text-tiny uppercase tracking-widest ${
+									isActive
+										? "border-secondary bg-secondary text-white"
+										: "border-secondary text-secondary"
+								}`}
+							>
+								{names[idx]}
+							</button>
+						);
+					})}
 				</div>
 			)}
 			<div className="-mt-[1px] focus-within:z-10">

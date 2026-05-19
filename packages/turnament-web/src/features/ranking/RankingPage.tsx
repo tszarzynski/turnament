@@ -21,24 +21,35 @@ const RankingPage = () => {
 	const matches = useBaseStore((state) => state.matches);
 	const sportType = useBaseStore((state) => state.sportType);
 	const scoringDivisor = useBaseStore((state) => state.scoringDivisor);
+	const schedulerType = useBaseStore((state) => state.schedulerType);
 	const resetPlayers = useBaseStore((state) => state.resetPlayers);
 	const resetRounds = useBaseStore((state) => state.resetRounds);
 	const disablePlayer = useBaseStore((state) => state.disablePlayer);
 	const saveTournament = useSaveTournament();
 
 	const ranking = useMemo(
-		() => getRanking(players, matches, sportType ?? undefined, scoringDivisor),
-		[players, matches, sportType, scoringDivisor],
+		() => getRanking(players, matches, sportType ?? undefined, scoringDivisor, schedulerType ?? undefined),
+		[players, matches, sportType, scoringDivisor, schedulerType],
 	);
 
 	const columns = useMemo((): ColumnDef[] => {
+		if (schedulerType === "ELIMINATION") {
+			return [
+				{ label: "Wins", value: (p) => p.matchesWon },
+				{ label: "Losses", value: (p) => p.matchesLost },
+				{ label: sportType === "CHESS" ? "Score" : "Pts", value: (p) => sportType === "CHESS" ? formatScore(p.gamesWon, scoringDivisor) : p.gamesWon },
+			];
+		}
 		if (sportType === "CHESS") {
 			return [
 				{
 					label: "Score",
 					value: (p) => formatScore(p.gamesWon, scoringDivisor),
 				},
-				{ label: "BH-C1", value: (p) => p.buchholzCut1 },
+				{
+					label: schedulerType === "ROUND_ROBIN" ? "SB" : "BH-C1",
+					value: (p) => schedulerType === "ROUND_ROBIN" ? p.sonnebornBerger : p.buchholzCut1,
+				},
 				{ label: "Wins", value: (p) => p.matchesWon },
 			];
 		}
@@ -47,7 +58,7 @@ const RankingPage = () => {
 			{ label: "NPS", value: (p) => p.nps },
 			{ label: "Pts", value: (p) => p.gamesWon },
 		];
-	}, [sportType, scoringDivisor]);
+	}, [sportType, schedulerType, scoringDivisor]);
 
 	const handleFinishTournament = () => {
 		if (confirm("Are you sure?")) {

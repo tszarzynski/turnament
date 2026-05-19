@@ -32,6 +32,17 @@ const RoundCard = ({
 	const completedStyles = "border-black text-gray-500";
 	const styles = completed ? completedStyles : variantStyles;
 
+	if (matches.length === 0) {
+		return (
+			<div className="flex flex-col gap-0.5 border-2 border-black p-0.5">
+				<Hr />
+				<p className="py-4 text-center font-bold text-gray-500">
+					Tournament finished
+				</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className={`flex flex-col gap-0.5 border-2 p-0.5 ${styles}`}>
 			<Hr />

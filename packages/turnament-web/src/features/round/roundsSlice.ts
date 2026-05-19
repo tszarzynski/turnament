@@ -25,6 +25,7 @@ interface State {
 	matches: Match[];
 	currentRoundNum: number;
 	minPointsToWin: number;
+	isFinished: boolean;
 }
 export interface SavedState {
 	players: Player[];
@@ -35,6 +36,7 @@ export interface SavedState {
 	matches: Match[];
 	currentRoundNum: number;
 	minPointsToWin: number;
+	isFinished: boolean;
 }
 
 interface Actions {
@@ -42,6 +44,7 @@ interface Actions {
 	nextRound: () => void;
 	readdRound: (players: Player[]) => void;
 	resetRounds: () => void;
+	finishTournament: () => void;
 	setSchedulerType: (type: SchedulerType) => void;
 	setSportType: (sport: SportType) => void;
 	setMinPointsToWin: (value: number) => void;
@@ -56,6 +59,7 @@ const initialState: State = {
 	matches: [],
 	currentRoundNum: 0,
 	minPointsToWin: 0,
+	isFinished: false,
 };
 
 export type RoundsSlice = State & Actions;
@@ -148,6 +152,12 @@ export const createRoundsSlice: StateCreator<
 	resetRounds() {
 		set(initialState);
 	},
+	finishTournament() {
+		set((state) => {
+			state.isFinished = true;
+			state.currentRoundNum += 1;
+		});
+	},
 	restoreState(saved: SavedState) {
 		set((state) => {
 			state.players = saved.players;
@@ -158,6 +168,7 @@ export const createRoundsSlice: StateCreator<
 			state.matches = saved.matches;
 			state.currentRoundNum = saved.currentRoundNum;
 			state.minPointsToWin = saved.minPointsToWin;
+			state.isFinished = saved.isFinished ?? false;
 		});
 	},
 	setMinPointsToWin(value: number) {
@@ -195,6 +206,17 @@ export const selectIsRoundCompleted = (state: RootState): boolean =>
 	selectCurrentRound(state).every(({ result }) =>
 		isMatchCompleted(result, state.sportType, state.minPointsToWin),
 	);
+
+const HARD_CAP_FORMATS: SchedulerType[] = ["ELIMINATION", "ROUND_ROBIN"];
+
+export const selectIsLastRound = (state: RootState): boolean => {
+	if (!state.schedulerType) return false;
+	if (!HARD_CAP_FORMATS.includes(state.schedulerType)) return false;
+	return state.currentRoundNum >= selectMinRoundNeeded(state);
+};
+
+export const selectIsTournamentFinished = (state: RootState): boolean =>
+	state.isFinished;
 
 export const selectMatchesByRoundID = (roundID: number) => (state: RootState) =>
 	state.matches.filter((match) => match.roundID === roundID);

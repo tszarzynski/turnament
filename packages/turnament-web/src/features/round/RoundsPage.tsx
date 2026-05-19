@@ -6,11 +6,18 @@ import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
 import CurrentRound from "./CurrentRound";
 import PreviousRounds from "./PreviousRounds";
-import { selectIsRoundCompleted } from "./roundsSlice";
+import {
+	selectIsLastRound,
+	selectIsRoundCompleted,
+	selectIsTournamentFinished,
+} from "./roundsSlice";
 
 const RoundsPage = () => {
 	const isRoundCompleted = useBaseStore(selectIsRoundCompleted);
+	const isLastRound = useBaseStore(selectIsLastRound);
+	const isFinished = useBaseStore(selectIsTournamentFinished);
 	const nextRound = useBaseStore((state) => state.nextRound);
+	const finishTournament = useBaseStore((state) => state.finishTournament);
 
 	return (
 		<PageLayout>
@@ -22,13 +29,17 @@ const RoundsPage = () => {
 				</PageBody>
 			</PageContent>
 			<PageNavigation>
-				<Button
-					disabled={!isRoundCompleted}
-					onClick={() => nextRound()}
-					iconSlot={<IconNext />}
-				>
-					Next
-				</Button>
+				<div>
+					{!isFinished && (
+						<Button
+							disabled={!isRoundCompleted}
+							onClick={isLastRound ? () => finishTournament() : () => nextRound()}
+							iconSlot={<IconNext />}
+						>
+							Next
+						</Button>
+					)}
+				</div>
 				<Button onClick={() => routes.ranking().push()} iconSlot={<IconTabs />}>
 					Ranking
 				</Button>
