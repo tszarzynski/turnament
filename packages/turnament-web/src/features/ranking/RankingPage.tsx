@@ -1,13 +1,20 @@
-import { routes } from "../../app/router";
-import PageHeader from "../../components/PageHeader";
-
 import { useMemo } from "react";
-import { Button, IconCast, IconDownload, IconStop, IconTabs, RankingTable, type ColumnDef } from "turnament-components";
+import {
+	Button,
+	type ColumnDef,
+	IconCast,
+	IconDownload,
+	IconStop,
+	IconTabs,
+	RankingTable,
+} from "turnament-components";
 import { formatScore, getRanking } from "turnament-ranking";
+import { routes } from "../../app/router";
 import { useBaseStore } from "../../app/store";
-import { useSaveTournament } from "../../hooks/useSaveTournament";
+import PageHeader from "../../components/PageHeader";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
+import { useSaveTournament } from "../../hooks/useSaveTournament";
 
 const RankingPage = () => {
 	const players = useBaseStore((state) => state.players);
@@ -27,7 +34,10 @@ const RankingPage = () => {
 	const columns = useMemo((): ColumnDef[] => {
 		if (sportType === "CHESS") {
 			return [
-				{ label: "Score", value: (p) => formatScore(p.gamesWon, scoringDivisor) },
+				{
+					label: "Score",
+					value: (p) => formatScore(p.gamesWon, scoringDivisor),
+				},
 				{ label: "BH-C1", value: (p) => p.buchholzCut1 },
 				{ label: "Wins", value: (p) => p.matchesWon },
 			];
@@ -61,7 +71,13 @@ const RankingPage = () => {
 							}
 						}}
 					/>
-					<div className="mt-4 flex justify-end">
+					<div className="mt-4 flex justify-end gap-2">
+						<Button
+							onClick={() => routes.peer().push()}
+							iconSlot={<IconCast />}
+						>
+							Share
+						</Button>
 						<Button onClick={saveTournament} iconSlot={<IconDownload />}>
 							Save
 						</Button>
@@ -71,9 +87,6 @@ const RankingPage = () => {
 			<PageNavigation>
 				<Button onClick={handleFinishTournament} iconSlot={<IconStop />}>
 					Finish
-				</Button>
-				<Button onClick={() => routes.peer().push()} iconSlot={<IconCast />}>
-					Share
 				</Button>
 				<Button onClick={() => routes.rounds().push()} iconSlot={<IconTabs />}>
 					Rounds

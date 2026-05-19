@@ -38,7 +38,14 @@ const Header = ({
 	const showStats = minPtsToWin !== undefined;
 	const ptsToWinLabel = sportType === "CHESS" ? "Best of" : "Pts To Win";
 
-	const headings = ["Type", "Players", ptsToWinLabel, "Rounds", "Matches", "Games"];
+	const headings = [
+		"Type",
+		"Players",
+		ptsToWinLabel,
+		"Rounds",
+		"Matches",
+		"Games",
+	];
 
 	const columns = [
 		valueOrPlaceholder(turnamentType),

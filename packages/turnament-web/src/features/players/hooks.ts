@@ -1,4 +1,4 @@
-import { useReducer, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useReducer } from "react";
 
 type State<T> = {
 	items: T[];
@@ -77,7 +77,7 @@ export function useOrderedList<T>() {
 		dispatch({ type: "reorder", payload: { order } });
 
 	const orderedItems = useMemo(
-		() => order.map((o, index) => ({ item: items[o], order: o })),
+		() => order.map((o) => ({ item: items[o], order: o })),
 		[order, items],
 	);
 

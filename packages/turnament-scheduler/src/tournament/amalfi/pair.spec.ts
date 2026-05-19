@@ -1,5 +1,5 @@
-import { pairPlayers, toPairs } from "./pair";
 import { BYE_ID } from "../../consts";
+import { pairPlayers, toPairs } from "./pair";
 
 // ─── toPairs ────────────────────────────────────────────────────────────────
 
@@ -36,7 +36,12 @@ test("toPairs: 2 elements → single pair", () => {
 
 // ─── pairPlayers ────────────────────────────────────────────────────────────
 
-const makePlayer = (id: number, matchesWon: number, gamesWon: number, opponents: number[]) => ({
+const makePlayer = (
+	id: number,
+	matchesWon: number,
+	gamesWon: number,
+	opponents: number[],
+) => ({
 	ID: id,
 	name: `P${id}`,
 	active: true,
@@ -72,7 +77,10 @@ test("pairPlayers: round 1 with 6 players (even) → offset 4, two pairs", () =>
 		makePlayer(6, 0, 0, []),
 	];
 	const pairings = pairPlayers(players);
-	expect(pairings).toStrictEqual([[1, 5], [2, 6]]);
+	expect(pairings).toStrictEqual([
+		[1, 5],
+		[2, 6],
+	]);
 });
 
 test("pairPlayers: odd player count → bye assigned to first in sorted order", () => {

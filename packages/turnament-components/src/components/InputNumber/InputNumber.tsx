@@ -1,9 +1,9 @@
-import { useRef, useState, type Ref } from "react";
+import { type Ref, useRef, useState } from "react";
+import { useClickAway } from "react-use";
 import IconAdd from "../IconAdd";
 import IconButton from "../IconButton";
 import IconRemove from "../IconRemove";
 import InputText from "../InputText";
-import { useClickAway } from "react-use";
 
 type Props = Omit<
 	React.InputHTMLAttributes<HTMLInputElement>,

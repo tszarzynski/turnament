@@ -1,12 +1,12 @@
-export { getRanking, rankPlayers } from "./rank";
 export { calcBuchholzCut1 } from "./buchholz";
 export { calcNPS } from "./nps";
 export { calcOMV } from "./omv";
+export { getRanking, rankPlayers } from "./rank";
 export {
-	isMatchCompleted,
+	DEFAULT_POINTS_TO_WIN,
+	formatScore,
 	getDefaultMatchConfig,
 	getScoringDivisor,
-	formatScore,
-	DEFAULT_POINTS_TO_WIN,
+	isMatchCompleted,
 } from "./scoring";
-export type { PlayerWithStats, Stats, SportType } from "./types";
+export type { PlayerWithStats, SportType, Stats } from "./types";

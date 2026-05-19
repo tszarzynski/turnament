@@ -58,7 +58,10 @@ export default RoundCard;
 const RoundNum = ({
 	roundNum,
 	completed,
-}: { roundNum: number; completed?: boolean }) => {
+}: {
+	roundNum: number;
+	completed?: boolean;
+}) => {
 	return (
 		<h3
 			className={`aspect-square h-[54px] select-none rounded-full border-2 text-center font-bold text-4xl text-handwritten leading-relaxed ${completed ? "border-black text-black" : "border-secondary"}`}

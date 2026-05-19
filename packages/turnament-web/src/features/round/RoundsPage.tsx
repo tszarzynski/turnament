@@ -1,12 +1,12 @@
 import { Button, IconNext, IconTabs } from "turnament-components";
+import { routes } from "../../app/router";
 import { useBaseStore } from "../../app/store";
 import PageHeader from "../../components/PageHeader";
-import PreviousRounds from "./PreviousRounds";
-import CurrentRound from "./CurrentRound";
-import { selectIsRoundCompleted } from "./roundsSlice";
-import { routes } from "../../app/router";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
+import CurrentRound from "./CurrentRound";
+import PreviousRounds from "./PreviousRounds";
+import { selectIsRoundCompleted } from "./roundsSlice";
 
 const RoundsPage = () => {
 	const isRoundCompleted = useBaseStore(selectIsRoundCompleted);

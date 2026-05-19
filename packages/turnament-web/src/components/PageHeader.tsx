@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { useEffectOnce } from "react-use";
+import { Header, Hr } from "turnament-components";
 import { useBaseStore } from "../app/store";
 import {
 	selectGamesPlayed,
@@ -9,9 +11,7 @@ import {
 	selectMinRoundNeeded,
 	selectRoundsPlayedNum,
 } from "../features/round/roundsSlice";
-import { Header, Hr } from "turnament-components";
 import { getSchedulerByType } from "../utils/schedulerUtils";
-import { useEffectOnce } from "react-use";
 
 interface Props {
 	children: ReactNode;

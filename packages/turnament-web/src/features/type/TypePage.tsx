@@ -8,6 +8,7 @@ import {
 	InputNumber,
 	Tooltip,
 } from "turnament-components";
+import { getDefaultMatchConfig, type SportType } from "turnament-ranking";
 import type { SchedulerType } from "turnament-scheduler";
 import { routes } from "../../app/router";
 import { useBaseStore } from "../../app/store";
@@ -15,7 +16,6 @@ import PageHeader from "../../components/PageHeader";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
 import { schedulerOptions } from "../../utils/schedulerUtils";
-import { getDefaultMatchConfig, type SportType } from "turnament-ranking";
 
 const sportOptions: { value: SportType; name: string; description: string }[] =
 	[

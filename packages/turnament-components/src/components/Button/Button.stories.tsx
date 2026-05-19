@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "./Button";
 import IconNext from "../IconNext";
+import Button from "./Button";
 
 export default {
 	component: Button,

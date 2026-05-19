@@ -1,8 +1,5 @@
 import { pipeline } from "ts-pipe-compose";
-import {
-	filterActivePlayers,
-	makePlayersWithResults,
-} from "../../players";
+import { filterActivePlayers, makePlayersWithResults } from "../../players";
 import { makeRound } from "../../round";
 import type { Match, Player, Scheduler } from "../../types";
 import { pairPlayers } from "./pair";

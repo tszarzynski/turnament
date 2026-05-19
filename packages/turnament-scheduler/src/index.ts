@@ -4,10 +4,10 @@ import { scheduler as RoundRobinScheduler } from "./tournament/roundrobin";
 import { scheduler as SwissScheduler } from "./tournament/swiss";
 import type { Scheduler, SchedulerType } from "./types";
 
-export * from "./types";
 export * from "./consts";
+export { filterActivePlayers, makePlayersWithResults } from "./players";
 export * from "./sort";
-export { makePlayersWithResults, filterActivePlayers } from "./players";
+export * from "./types";
 
 export function getSchedulerByType(type: SchedulerType): Scheduler {
 	switch (type) {

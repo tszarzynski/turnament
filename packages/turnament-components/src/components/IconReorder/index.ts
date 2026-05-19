@@ -1,1 +1,1 @@
-export { default } from './IconReorder';
+export { default } from "./IconReorder";

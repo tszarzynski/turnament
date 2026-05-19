@@ -15,5 +15,7 @@ export const calcNPS = (
 		.filter((m) => !m.hasBye && m.pairing.includes(player.ID))
 		.reduce((spread, match) => {
 			const idx = match.pairing.indexOf(player.ID);
-			return spread + (match.result[idx] - match.result[1 - idx]) / scoringDivisor;
+			return (
+				spread + (match.result[idx] - match.result[1 - idx]) / scoringDivisor
+			);
 		}, 0);

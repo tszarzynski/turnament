@@ -1,5 +1,5 @@
-import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { IconButton, IconDrag, IconRemove } from "turnament-components";
 
 type Props = {
@@ -10,7 +10,13 @@ type Props = {
 	removePlayer: (id: number) => void;
 };
 
-const PlayerListItem = ({ name, index, rank, draggable, removePlayer }: Props) => {
+const PlayerListItem = ({
+	name,
+	index,
+	rank,
+	draggable,
+	removePlayer,
+}: Props) => {
 	const {
 		attributes,
 		listeners,
@@ -30,7 +36,11 @@ const PlayerListItem = ({ name, index, rank, draggable, removePlayer }: Props) =
 	return (
 		<div ref={setNodeRef} style={style} className="table-row">
 			{draggable && (
-				<div className="table-cell w-[54px] touch-none" {...listeners} {...attributes}>
+				<div
+					className="table-cell w-[54px] touch-none"
+					{...listeners}
+					{...attributes}
+				>
 					<IconButton iconSlot={<IconDrag />} />
 				</div>
 			)}

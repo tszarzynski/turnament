@@ -1,9 +1,4 @@
-import type {
-	Match,
-	Player,
-	PlayerWithResults,
-	Results,
-} from "./types";
+import type { Match, Player, PlayerWithResults, Results } from "./types";
 
 export const makePlayersWithResults = (
 	players: Player[],

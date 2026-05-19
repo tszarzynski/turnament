@@ -107,9 +107,7 @@ const MatchCard = ({
 				);
 
 	const isTied =
-		completed &&
-		sportType === "CHESS" &&
-		match.result[0] === match.result[1];
+		completed && sportType === "CHESS" && match.result[0] === match.result[1];
 
 	// Total raw points across both players = minPointsToWin * 2 (each game contributes exactly 2 raw points: 2+0 win/loss or 1+1 draw)
 	const totalRaw =

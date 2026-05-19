@@ -1,10 +1,10 @@
-import IconEdit from './IconEdit';
+import IconEdit from "./IconEdit";
 
 export default {
-  component: IconEdit,
-  title: 'IconEdit',
+	component: IconEdit,
+	title: "IconEdit",
 };
 
 export const Default = () => {
-  return <IconEdit />;
+	return <IconEdit />;
 };

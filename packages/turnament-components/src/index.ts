@@ -1,32 +1,33 @@
 /* PLOP_INJECT_EXPORT */
-export { default as Header } from "./components/Header";
-export { default as IconUpload } from "./components/IconUpload";
-export { default as IconDownload } from "./components/IconDownload";
-export { default as IconEdit } from "./components/IconEdit";
-export { default as IconPrev } from "./components/IconPrev";
-export { default as Tooltip } from "./components/Tooltip";
-export { default as IconInfo } from "./components/IconInfo";
-export { default as InputNumber } from "./components/InputNumber";
-export { default as IconTabs } from "./components/IconTabs";
-export { default as InputText } from "./components/InputText";
-export { default as Hr } from "./components/Hr";
-export { default as IconLoading } from "./components/IconLoading";
-export { default as ToggleButton } from "./components/ToggleButton";
-export { default as IconShuffle } from "./components/IconShuffle";
-export { default as IconReorder } from "./components/IconReorder";
-export { default as ReadonlyRoundCard } from "./components/ReadonlyRoundCard";
-export { default as IconButton } from "./components/IconButton";
-export { default as IconRemove } from "./components/IconRemove";
-export { default as IconAdd } from "./components/IconAdd";
-export { default as IconDrag } from "./components/IconDrag";
-export { default as IconCast } from "./components/IconCast";
-export { default as IconStop } from "./components/IconStop";
-export { default as IconNext } from "./components/IconNext";
+
 export { default as Button } from "./components/Button";
-export {
-  default as RankingTable,
-  type ColumnDef,
-} from "./components/RankingTable";
-export { default as RoundCard } from "./components/RoundCard";
-export { default as MatchCard } from "./components/MatchCard";
+export { default as Header } from "./components/Header";
+export { default as Hr } from "./components/Hr";
+export { default as IconAdd } from "./components/IconAdd";
+export { default as IconButton } from "./components/IconButton";
+export { default as IconCast } from "./components/IconCast";
+export { default as IconDownload } from "./components/IconDownload";
+export { default as IconDrag } from "./components/IconDrag";
+export { default as IconEdit } from "./components/IconEdit";
+export { default as IconInfo } from "./components/IconInfo";
+export { default as IconLoading } from "./components/IconLoading";
+export { default as IconNext } from "./components/IconNext";
+export { default as IconPrev } from "./components/IconPrev";
+export { default as IconRemove } from "./components/IconRemove";
+export { default as IconReorder } from "./components/IconReorder";
+export { default as IconShuffle } from "./components/IconShuffle";
+export { default as IconStop } from "./components/IconStop";
+export { default as IconTabs } from "./components/IconTabs";
+export { default as IconUpload } from "./components/IconUpload";
+export { default as InputNumber } from "./components/InputNumber";
+export { default as InputText } from "./components/InputText";
 export { default as Loader } from "./components/Loader";
+export { default as MatchCard } from "./components/MatchCard";
+export {
+	type ColumnDef,
+	default as RankingTable,
+} from "./components/RankingTable";
+export { default as ReadonlyRoundCard } from "./components/ReadonlyRoundCard";
+export { default as RoundCard } from "./components/RoundCard";
+export { default as ToggleButton } from "./components/ToggleButton";
+export { default as Tooltip } from "./components/Tooltip";

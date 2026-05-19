@@ -1,6 +1,6 @@
 import React from "react";
-import RankingTable from "./RankingTable";
 import type { PlayerWithStats } from "turnament-scheduler";
+import RankingTable from "./RankingTable";
 
 export default {
 	component: RankingTable,

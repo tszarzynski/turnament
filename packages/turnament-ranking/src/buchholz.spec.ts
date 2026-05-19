@@ -1,6 +1,13 @@
 import { calcBuchholzCut1 } from "./buchholz";
 
-const base = { active: true, gamesWon: 0, matchesLost: 0, omv: 0, buchholzCut1: 0, nps: 0 };
+const base = {
+	active: true,
+	gamesWon: 0,
+	matchesLost: 0,
+	omv: 0,
+	buchholzCut1: 0,
+	nps: 0,
+};
 
 test("calcBuchholzCut1 drops the lowest opponent score", () => {
 	const players = [

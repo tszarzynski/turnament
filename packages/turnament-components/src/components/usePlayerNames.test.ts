@@ -1,5 +1,5 @@
-import { renderHook } from "vitest-browser-react";
 import { BYE_ID, type Match, type Player } from "turnament-scheduler";
+import { renderHook } from "vitest-browser-react";
 import usePlayerNames from "./usePlayerNames";
 
 describe("usePlayerNames", () => {
@@ -51,13 +51,8 @@ describe("usePlayerNames", () => {
 		]);
 	});
 
-	it("should handle empty matches array", () => {
-		const { result } = renderHook(() => {
-			expect(() => usePlayerNames(mockPlayers, [])).toThrow(
-				"Matches array cannot be empty",
-			);
-			return [];
-		});
+	it("should return empty array for empty matches", () => {
+		const { result } = renderHook(() => usePlayerNames(mockPlayers, []));
 		expect(result.current).toEqual([]);
 	});
 

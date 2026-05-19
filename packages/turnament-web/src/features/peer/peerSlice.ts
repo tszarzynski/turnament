@@ -1,7 +1,7 @@
+import { getRanking } from "turnament-ranking";
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
 import { P2PPublisher } from "./peerClient";
-import { getRanking } from "turnament-ranking";
 
 interface State {
 	peerID: string | null;
@@ -46,10 +46,18 @@ export const createPeerSlice: StateCreator<
 		}
 	},
 	publish() {
-		const players = get().players;
-		const matches = get().matches;
-		const ranking = getRanking(players, matches);
-		P2PPublisher.publish(ranking);
+		const { players, matches, sportType, scoringDivisor } = get();
+		const ranking = getRanking(
+			players,
+			matches,
+			sportType ?? undefined,
+			scoringDivisor,
+		);
+		P2PPublisher.publish({
+			ranking,
+			sportType: sportType ?? null,
+			scoringDivisor,
+		});
 	},
 	destroyPeer() {
 		set((state) => {

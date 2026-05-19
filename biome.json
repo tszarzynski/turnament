@@ -1,7 +1,17 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"ignore": ["**/dist/*.*"]
+		"includes": [
+			"**",
+			"!!**/dist",
+			"!!**/node_modules",
+			"!!**/public"
+		]
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"linter": {
 		"rules": {
@@ -9,5 +19,9 @@
 				"useSortedClasses": "warn"
 			}
 		}
+	},
+	"formatter": {
+		"enabled": true,
+		"lineWidth": 80
 	}
 }

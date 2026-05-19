@@ -5,38 +5,24 @@ import { useBaseStore } from "../../app/store";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
 import PageNavigation from "../../components/PageNavigation";
 
-const QR_CODE_URL =
-	"https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
-
 const SharePage = () => {
 	const peerID = useBaseStore((state) => state.peerID);
 	const peerError = useBaseStore((state) => state.peerError);
-	const qrRef = useRef<HTMLDivElement>(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const targetUrl = peerID
 		? `${location.origin}${routes.spectator({ peerID }).href}`
 		: null;
 
 	useEffect(() => {
-		if (!targetUrl) return;
-
-		const script = document.createElement("script");
-		script.src = QR_CODE_URL;
-		script.async = true;
-		script.onload = () => {
-			// @ts-ignore
-			if (window.QRCode && qrRef.current) {
-				// @ts-ignore
-				new window.QRCode(qrRef.current, {
-					text: targetUrl,
-					width: 200,
-					height: 200,
-				});
+		if (!targetUrl || !canvasRef.current) return;
+		let active = true;
+		import("qrcode").then((QRCode) => {
+			if (active && canvasRef.current) {
+				QRCode.toCanvas(canvasRef.current, targetUrl, { width: 200 });
 			}
-		};
-		document.body.appendChild(script);
+		});
 		return () => {
-			document.body.removeChild(script);
-			if (qrRef.current) qrRef.current.innerHTML = "";
+			active = false;
 		};
 	}, [targetUrl]);
 
@@ -54,9 +40,13 @@ const SharePage = () => {
 						results.
 					</p>
 					<div className="flex min-h-[300px] flex-col items-center justify-center">
-						{!peerID && !peerError && <p className="text-center text-secondary">Initialising…</p>}
-						{peerError && <p className="text-center text-red-500">{peerError}</p>}
-						<div ref={qrRef} />
+						{!peerID && !peerError && (
+							<p className="text-center text-secondary">Initialising…</p>
+						)}
+						{peerError && (
+							<p className="text-center text-red-500">{peerError}</p>
+						)}
+						<canvas ref={canvasRef} />
 					</div>
 				</PageBody>
 			</PageContent>

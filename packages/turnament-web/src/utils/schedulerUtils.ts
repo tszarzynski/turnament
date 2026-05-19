@@ -1,5 +1,5 @@
-import type { SchedulerType } from "turnament-scheduler";
 import { assert } from "es-toolkit";
+import type { SchedulerType } from "turnament-scheduler";
 
 type SchedulerOption = {
 	value: SchedulerType;

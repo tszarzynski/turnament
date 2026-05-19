@@ -1,106 +1,106 @@
 @import "tailwindcss";
 
 @layer base {
-    html,
-    body {
-        height: 100%;
-        box-sizing: border-box;
-    }
+	html,
+	body {
+		height: 100%;
+		box-sizing: border-box;
+	}
 
-    details {
-        color: var(--color-gray-300);
-        border-color: var(--color-gray-300);
-    }
+	details {
+		color: var(--color-gray-300);
+		border-color: var(--color-gray-300);
+	}
 
-    details[open] {
-        color: black;
-        border-color: black;
-    }
+	details[open] {
+		color: black;
+		border-color: black;
+	}
 
-    summary {
-        cursor: pointer;
-        position: relative;
-    }
+	summary {
+		cursor: pointer;
+		position: relative;
+	}
 
-    summary::marker {
-        content: "";
-    }
+	summary::marker {
+		content: "";
+	}
 
-    summary::before {
-        content: "";
-        position: absolute;
-        top: 3px;
-        right: 0;
-        width: 54px;
-        height: 54px;
-        border-radius: 100%;
+	summary::before {
+		content: "";
+		position: absolute;
+		top: 3px;
+		right: 0;
+		width: 54px;
+		height: 54px;
+		border-radius: 100%;
 
-        border: 1px solid var(--color-gray-300);
-        background: url('data:image/svg+xml,\
+		border: 1px solid var(--color-gray-300);
+		background: url('data:image/svg+xml,\
     <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="oklch(87.2% 0.01 258.338)" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-label="Marker icon" role="img">\
     <path stroke="none" d="M0 0h24v24H0z"/> <polyline points="6 15 12 9 18 15" />\
     </svg>');
-        background-size: contain;
-        transform: rotate(-90deg);
-    }
+		background-size: contain;
+		transform: rotate(-90deg);
+	}
 
-    details[open] summary::before {
-        border: 1px solid black;
-        transform: rotate(-180deg);
-        background: url('data:image/svg+xml,\
+	details[open] summary::before {
+		border: 1px solid black;
+		transform: rotate(-180deg);
+		background: url('data:image/svg+xml,\
     <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="black" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-label="Marker icon" role="img">\
     <path stroke="none" d="M0 0h24v24H0z"/> <polyline points="6 15 12 9 18 15" />\
     </svg>');
-        background-size: contain;
-    }
+		background-size: contain;
+	}
 
-    td:empty {
-        position: relative;
-    }
+	td:empty {
+		position: relative;
+	}
 
-    td:empty::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            to top left,
-            transparent calc(50% - 0.5px),
-            var(--color-secondary) calc(50%),
-            transparent calc(50% + 0.5px)
-        );
-        pointer-events: none;
-    }
+	td:empty::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			to top left,
+			transparent calc(50% - 0.5px),
+			var(--color-secondary) calc(50%),
+			transparent calc(50% + 0.5px)
+		);
+		pointer-events: none;
+	}
 }
 
 @theme {
-    --color-primary: var(--color-red-500);
-    --color-secondary: var(--color-blue-500);
-    --color-paper: var(--color-yellow-50);
-    --default-font-family: Syne, sans-serif;
+	--color-primary: var(--color-red-500);
+	--color-secondary: var(--color-blue-500);
+	--color-paper: var(--color-yellow-50);
+	--default-font-family: Syne, sans-serif;
 
-    --text-tiny: 0.625rem;
+	--text-tiny: 0.625rem;
 }
 
 @utility text-upright {
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    text-align: center;
-    vertical-align: middle;
-    letter-spacing: -2.5px;
-    text-transform: uppercase;
+	writing-mode: vertical-lr;
+	text-orientation: upright;
+	text-align: center;
+	vertical-align: middle;
+	letter-spacing: -2.5px;
+	text-transform: uppercase;
 }
 
 @utility text-handwritten {
-    font-family: "Just Another Hand", cursive;
-    letter-spacing: 3px;
-    vertical-align: bottom;
+	font-family: "Just Another Hand", cursive;
+	letter-spacing: 3px;
+	vertical-align: bottom;
 }
 
 @utility filter-grainy {
-    filter: url('data:image/svg+xml,\
+	filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="vintageGrain">\
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="turbulence"/>\
@@ -110,18 +110,18 @@
 }
 
 @utility bg-dashed {
-    border: none;
-    height: 3px;
-    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3);
+	border: none;
+	height: 3px;
+	box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3);
 }
 
 @utility bg-vintage-paper {
-    position: relative;
+	position: relative;
 
-    /* Base cream color for paper */
+	/* Base cream color for paper */
 
-    /* Apply the SVG filter for texture */
-    /* filter: url('data:image/svg+xml,\
+	/* Apply the SVG filter for texture */
+	/* filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="vintagePaper">\
         <feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="5" stitchTiles="stitch" result="noise"/>\
@@ -134,7 +134,7 @@
       </filter>\
     </svg>#vintagePaper'); */
 
-    /* filter: url('data:image/svg+xml,\
+	/* filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="vintageGrain">\
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="turbulence"/>\
@@ -142,27 +142,27 @@
       </filter>\
     </svg>#vintageGrain'); */
 
-    /* Add additional texture with pseudo-element */
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        background-image: radial-gradient(
-            circle at 50% 30%,
-            rgba(255, 255, 240, 0.1) 0%,
-            rgba(0, 0, 0, 0.07) 100%
-        );
-        opacity: 0.6;
-        z-index: 1;
-    }
+	/* Add additional texture with pseudo-element */
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background-image: radial-gradient(
+			circle at 50% 30%,
+			rgba(255, 255, 240, 0.1) 0%,
+			rgba(0, 0, 0, 0.07) 100%
+		);
+		opacity: 0.6;
+		z-index: 1;
+	}
 
-    /* Ensure content is above the texture layer */
-    & > * {
-        position: relative;
-        z-index: 2;
-    }
+	/* Ensure content is above the texture layer */
+	& > * {
+		position: relative;
+		z-index: 2;
+	}
 }

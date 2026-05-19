@@ -11,7 +11,7 @@ const IconEdit = () => {
 			strokeWidth="1"
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			aria-label="Drag icon"
+			aria-label="Edit icon"
 			role="img"
 		>
 			<path d="M12 20h9" />

@@ -1,9 +1,8 @@
-import { makePlayersWithResults } from "turnament-scheduler";
 import type { Match, Player } from "turnament-scheduler";
+import { desc, makePlayersWithResults, sortWith } from "turnament-scheduler";
 import { calcBuchholzCut1 } from "./buchholz";
 import { calcNPS } from "./nps";
 import { calcOMV } from "./omv";
-import { desc, sortWith } from "turnament-scheduler";
 import type { PlayerWithStats, SportType } from "./types";
 
 const makePlayersWithStats = (
@@ -47,6 +46,10 @@ export const getRanking = (
 	scoringDivisor = 1,
 ): PlayerWithStats[] => {
 	const playersWithResults = makePlayersWithResults(players, results);
-	const playersWithStats = makePlayersWithStats(playersWithResults, results, scoringDivisor);
+	const playersWithStats = makePlayersWithStats(
+		playersWithResults,
+		results,
+		scoringDivisor,
+	);
 	return rankPlayers(playersWithStats, sportType);
 };

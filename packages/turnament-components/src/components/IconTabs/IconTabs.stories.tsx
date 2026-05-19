@@ -1,10 +1,10 @@
-import IconTabs from './IconTabs';
+import IconTabs from "./IconTabs";
 
 export default {
-  component: IconTabs,
-  title: 'IconTabs',
+	component: IconTabs,
+	title: "IconTabs",
 };
 
 export const Default = () => {
-  return <IconTabs />;
+	return <IconTabs />;
 };

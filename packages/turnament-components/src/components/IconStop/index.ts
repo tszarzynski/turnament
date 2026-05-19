@@ -1,1 +1,1 @@
-export { default } from './IconStop';
+export { default } from "./IconStop";

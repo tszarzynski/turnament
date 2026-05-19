@@ -1,10 +1,10 @@
-import Tooltip from './Tooltip';
+import Tooltip from "./Tooltip";
 
 export default {
-  component: Tooltip,
-  title: 'Tooltip',
+	component: Tooltip,
+	title: "Tooltip",
 };
 
 export const Default = () => {
-  return <Tooltip />;
+	return <Tooltip />;
 };

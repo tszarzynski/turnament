@@ -1,1 +1,1 @@
-export { default } from './IconCast';
+export { default } from "./IconCast";

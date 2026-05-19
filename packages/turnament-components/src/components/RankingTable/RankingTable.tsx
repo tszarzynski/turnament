@@ -1,6 +1,6 @@
 import { useToggle } from "react-use";
-import type { Player } from "turnament-scheduler";
 import type { PlayerWithStats } from "turnament-ranking";
+import type { Player } from "turnament-scheduler";
 import Hr from "../Hr";
 import IconButton from "../IconButton";
 import IconEdit from "../IconEdit";
@@ -18,10 +18,19 @@ type Props = {
 	onDisablePlayerClick?: (player: Pick<Player, "ID">) => void;
 };
 
-const RankingTable = ({ playersWithStats, columns, onDisablePlayerClick }: Props) => {
+const RankingTable = ({
+	playersWithStats,
+	columns,
+	onDisablePlayerClick,
+}: Props) => {
 	const [isEditing, toggleIsEditing] = useToggle(false);
 
-	const headings = ["Rank", "Name", ...columns.map((c) => c.label), ...(isEditing ? [""] : [])];
+	const headings = [
+		"Rank",
+		"Name",
+		...columns.map((c) => c.label),
+		...(isEditing ? [""] : []),
+	];
 
 	return (
 		<div className="w-full border-2 border-secondary p-0.5">
@@ -41,7 +50,10 @@ const RankingTable = ({ playersWithStats, columns, onDisablePlayerClick }: Props
 								{player.name}
 							</td>
 							{columns.map((col) => (
-								<td key={col.label} className="border border-secondary px-4 py-1 text-handwritten">
+								<td
+									key={col.label}
+									className="border border-secondary px-4 py-1 text-handwritten"
+								>
 									{col.value(player)}
 								</td>
 							))}

@@ -1,22 +1,22 @@
+import { sum, uniq } from "es-toolkit";
 import {
-	type SportType,
 	getDefaultMatchConfig,
 	getScoringDivisor,
 	isMatchCompleted,
+	type SportType,
 } from "turnament-ranking";
+
+export type { SportType };
+
 import {
+	getSchedulerByType,
+	isEliminator,
 	type Match,
 	type Player,
 	type SchedulerType,
-	getSchedulerByType,
-	isEliminator,
 } from "turnament-scheduler";
-
-import { sum, uniq } from "es-toolkit";
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
-
-
 
 interface State {
 	schedulerType: SchedulerType | undefined;
