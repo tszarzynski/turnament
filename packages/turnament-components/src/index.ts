@@ -19,6 +19,7 @@ export { default as IconButton } from "./components/IconButton";
 export { default as IconRemove } from "./components/IconRemove";
 export { default as IconAdd } from "./components/IconAdd";
 export { default as IconDrag } from "./components/IconDrag";
+export { default as IconCast } from "./components/IconCast";
 export { default as IconStop } from "./components/IconStop";
 export { default as IconNext } from "./components/IconNext";
 export { default as Button } from "./components/Button";
@@ -28,5 +29,4 @@ export {
 } from "./components/RankingTable";
 export { default as RoundCard } from "./components/RoundCard";
 export { default as MatchCard } from "./components/MatchCard";
-export { default as HeaderWithStats } from "./components/HeaderWithStats";
 export { default as Loader } from "./components/Loader";

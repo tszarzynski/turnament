@@ -3,147 +3,137 @@ import Hr from "../Hr";
 type SportType = "BACKGAMMON" | "CHESS";
 
 type Props = {
-  children: React.ReactNode;
-  turnamentType?: string;
-  playersNum?: number;
-  minPtsToWin: number;
-  roundsPlayed: number;
-  minRounds?: number;
-  matchesPlayed: number;
-  minMatches: number;
-  minGames: number;
-  maxGames: number;
-  gamesPlayed: number;
-  sportType?: SportType;
+	children: React.ReactNode;
+	turnamentType?: string;
+	playersNum?: number;
+	minPtsToWin?: number;
+	roundsPlayed?: number;
+	minRounds?: number;
+	matchesPlayed?: number;
+	minMatches?: number;
+	minGames?: number;
+	maxGames?: number;
+	gamesPlayed?: number;
+	sportType?: SportType;
 };
 
 function valueOrPlaceholder(value?: string | number) {
-  return value || "";
+	return value || "";
 }
 
 const Header = ({
-  children,
-  turnamentType,
-  playersNum,
-  minPtsToWin,
-  minRounds,
-  minMatches,
-  roundsPlayed,
-  matchesPlayed,
-  minGames,
-  maxGames,
-  gamesPlayed,
-  sportType,
+	children,
+	turnamentType,
+	playersNum,
+	minPtsToWin,
+	minRounds,
+	minMatches,
+	roundsPlayed,
+	matchesPlayed,
+	minGames,
+	maxGames,
+	gamesPlayed,
+	sportType,
 }: Props) => {
-  const ptsToWinLabel = sportType === "CHESS" ? "Best of" : "Pts To Win";
+	const showStats = minPtsToWin !== undefined;
+	const ptsToWinLabel = sportType === "CHESS" ? "Best of" : "Pts To Win";
 
-  const headings = [
-    "Type",
-    "Players",
-    ptsToWinLabel,
-    "Rounds",
-    "Matches",
-    "Games",
-  ];
+	const headings = ["Type", "Players", ptsToWinLabel, "Rounds", "Matches", "Games"];
 
-  const columns = [
-    valueOrPlaceholder(turnamentType),
-    valueOrPlaceholder(playersNum),
-    valueOrPlaceholder(minPtsToWin),
-    minRounds ? `${roundsPlayed} / ${minRounds}` : "",
-    minMatches ? `${matchesPlayed} / ${minMatches}` : "",
-    minGames
-      ? minGames === maxGames
-        ? `${gamesPlayed} / ${minGames}`
-        : `${gamesPlayed} / ${minGames}-${maxGames}`
-      : "",
-  ];
+	const columns = [
+		valueOrPlaceholder(turnamentType),
+		valueOrPlaceholder(playersNum),
+		valueOrPlaceholder(minPtsToWin),
+		minRounds ? `${roundsPlayed} / ${minRounds}` : "",
+		minMatches ? `${matchesPlayed} / ${minMatches}` : "",
+		minGames
+			? minGames === maxGames
+				? `${gamesPlayed} / ${minGames}`
+				: `${gamesPlayed} / ${minGames}-${maxGames}`
+			: "",
+	];
 
-  return (
-    <div className="static border-secondary border-t-2 p-0.5 ">
-      <div className="select-none py-6 text-center font-bold text-3xl text-secondary uppercase leading-none">
-        {children}
-      </div>
+	return (
+		<div className="static border-secondary border-t-2 p-0.5 ">
+			<div className="select-none py-6 text-center font-bold text-3xl text-secondary uppercase leading-none">
+				{children}
+			</div>
 
-      <Hr />
-      <table className="w-full table-fixed border-separate border-spacing-0.5 select-none">
-        <thead>
-          <tr>
-            <th
-              colSpan={3}
-              className={
-                "border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-tiny uppercase"
-              }
-            >
-              Settings
-            </th>
-          </tr>
-          <tr>
-            {headings.slice(0, 3).map((column) => (
-              <th
-                key={column}
-                className={
-                  "border-2 border-secondary px-2 py-1 font-bold text-secondary text-tiny uppercase"
-                }
-              >
-                {column}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {columns.slice(0, 3).map((column, index) => (
-              <td
-                key={`${index}${column}`}
-                className="h-[27px] border border-secondary px-2 text-center font-bold text-2xl text-handwritten leading-none"
-              >
-                {column}
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
-      <table className="-mt-[1px] w-full table-fixed border-separate border-spacing-0.5 select-none">
-        <thead>
-          <tr>
-            <th
-              colSpan={3}
-              className={
-                "border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-tiny uppercase"
-              }
-            >
-              Stats
-            </th>
-          </tr>
-          <tr>
-            {headings.slice(3).map((column) => (
-              <th
-                key={column}
-                className={
-                  "border-2 border-secondary px-2 py-1 font-bold text-secondary text-tiny uppercase"
-                }
-              >
-                {column}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {columns.slice(3).map((column, index) => (
-              <td
-                key={`${index}${column}`}
-                className="h-[27px] border border-secondary px-2 text-center font-bold text-2xl text-handwritten leading-none"
-              >
-                {column}
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
+			<Hr />
+			{showStats && (
+				<>
+					<table className="w-full table-fixed border-separate border-spacing-0.5 select-none">
+						<thead>
+							<tr>
+								<th
+									colSpan={3}
+									className="border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-tiny uppercase"
+								>
+									Settings
+								</th>
+							</tr>
+							<tr>
+								{headings.slice(0, 3).map((column) => (
+									<th
+										key={column}
+										className="border-2 border-secondary px-2 py-1 font-bold text-secondary text-tiny uppercase"
+									>
+										{column}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								{columns.slice(0, 3).map((column, index) => (
+									<td
+										key={`${index}${column}`}
+										className="h-[27px] border border-secondary px-2 text-center font-bold text-2xl text-handwritten leading-none"
+									>
+										{column}
+									</td>
+								))}
+							</tr>
+						</tbody>
+					</table>
+					<table className="-mt-[1px] w-full table-fixed border-separate border-spacing-0.5 select-none">
+						<thead>
+							<tr>
+								<th
+									colSpan={3}
+									className="border-2 border-secondary border-b-0 px-2 py-1 font-bold text-secondary text-tiny uppercase"
+								>
+									Stats
+								</th>
+							</tr>
+							<tr>
+								{headings.slice(3).map((column) => (
+									<th
+										key={column}
+										className="border-2 border-secondary px-2 py-1 font-bold text-secondary text-tiny uppercase"
+									>
+										{column}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								{columns.slice(3).map((column, index) => (
+									<td
+										key={`${index}${column}`}
+										className="h-[27px] border border-secondary px-2 text-center font-bold text-2xl text-handwritten leading-none"
+									>
+										{column}
+									</td>
+								))}
+							</tr>
+						</tbody>
+					</table>
+				</>
+			)}
+		</div>
+	);
 };
 
 export default Header;

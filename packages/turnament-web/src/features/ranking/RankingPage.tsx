@@ -2,7 +2,7 @@ import { routes } from "../../app/router";
 import PageHeader from "../../components/PageHeader";
 
 import { useMemo } from "react";
-import { Button, IconDownload, IconStop, IconTabs, RankingTable, type ColumnDef } from "turnament-components";
+import { Button, IconCast, IconDownload, IconStop, IconTabs, RankingTable, type ColumnDef } from "turnament-components";
 import { formatScore, getRanking } from "turnament-ranking";
 import { useBaseStore } from "../../app/store";
 import { useSaveTournament } from "../../hooks/useSaveTournament";
@@ -71,6 +71,9 @@ const RankingPage = () => {
 			<PageNavigation>
 				<Button onClick={handleFinishTournament} iconSlot={<IconStop />}>
 					Finish
+				</Button>
+				<Button onClick={() => routes.peer().push()} iconSlot={<IconCast />}>
+					Share
 				</Button>
 				<Button onClick={() => routes.rounds().push()} iconSlot={<IconTabs />}>
 					Rounds

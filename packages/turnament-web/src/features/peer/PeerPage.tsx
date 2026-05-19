@@ -61,7 +61,7 @@ const SharePage = () => {
 				</PageBody>
 			</PageContent>
 			<PageNavigation>
-				<Button onClick={() => routes.home().push()} iconSlot={<IconPrev />}>
+				<Button onClick={() => routes.ranking().push()} iconSlot={<IconPrev />}>
 					Back
 				</Button>
 			</PageNavigation>

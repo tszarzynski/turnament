@@ -9,7 +9,7 @@ import {
 	selectMinRoundNeeded,
 	selectRoundsPlayedNum,
 } from "../features/round/roundsSlice";
-import { HeaderWithStats, Hr } from "turnament-components";
+import { Header, Hr } from "turnament-components";
 import { getSchedulerByType } from "../utils/schedulerUtils";
 import { useEffectOnce } from "react-use";
 
@@ -40,7 +40,7 @@ export default function PageHeader({ children }: Props) {
 	return (
 		<header>
 			<div className="px-4 py-6">
-				<HeaderWithStats
+				<Header
 					minRounds={minRounds}
 					roundsPlayed={roundsPlayedNum}
 					minMatches={minMatches}
@@ -56,7 +56,7 @@ export default function PageHeader({ children }: Props) {
 					}
 				>
 					{children}
-				</HeaderWithStats>
+				</Header>
 			</div>
 			<Hr variant="dashed" />
 		</header>
