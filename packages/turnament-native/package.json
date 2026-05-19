@@ -12,13 +12,13 @@
     "run:android": "cap run android"
   },
   "dependencies": {
-    "@capacitor/android": "^7.2.0",
+    "@capacitor/android": "^8.3.4",
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/core": "^7.2.0",
-    "@capacitor/ios": "^7.2.0",
+    "@capacitor/core": "^8.3.4",
+    "@capacitor/ios": "^8.3.4",
     "turnament-web": "workspace:"
   },
   "devDependencies": {
-    "@capacitor/cli": "^7.2.0"
+    "@capacitor/cli": "^8.3.4"
   }
 }

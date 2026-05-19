@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useToggle } from "react-use";
-import type { Player, PlayerWithStats } from "turnament-ran";
+import type { PlayerWithStats } from "turnament-ranking";
 import Hr from "../Hr";
 import IconButton from "../IconButton";
 import IconEdit from "../IconEdit";
 import IconRemove from "../IconRemove";
 import ToggleButton from "../ToggleButton";
+import type { Player } from "turnament-scheduler";
 
 type Props = {
 	playersWithStats: PlayerWithStats[];

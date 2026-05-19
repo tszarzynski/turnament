@@ -15,10 +15,10 @@
 		"deploy": "gh-pages -d ./packages/turnament-web/dist"
 	},
 	"devDependencies": {
-		"husky": "^5.0.9",
-		"lint-staged": "^10.5.4",
-		"turbo": "2.5.3",
-		"@biomejs/biome": "1.9.4",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.0.5",
+		"turbo": "^2.9.14",
+		"@biomejs/biome": "^2.4.15",
 		"gh-pages": "^6.3.0"
 	},
 	"husky": {

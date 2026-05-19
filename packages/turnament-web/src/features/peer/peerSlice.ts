@@ -1,7 +1,7 @@
 import type { StateCreator } from "zustand";
 import type { RootState } from "../../app/store";
 import { P2PPublisher } from "./peerClient";
-import { getRanking } from "turnament-scheduler";
+import { getRanking } from "turnament-ranking";
 
 interface State {
 	peerID: string | null;
