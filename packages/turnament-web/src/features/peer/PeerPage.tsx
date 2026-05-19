@@ -8,7 +8,12 @@ import PageNavigation from "../../components/PageNavigation";
 const SharePage = () => {
 	const peerID = useBaseStore((state) => state.peerID);
 	const peerError = useBaseStore((state) => state.peerError);
+	const initializePeer = useBaseStore((state) => state.initializePeer);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+
+	useEffect(() => {
+		initializePeer();
+	}, []);
 	const targetUrl = peerID
 		? `${location.origin}${routes.spectator({ peerID }).href}`
 		: null;
