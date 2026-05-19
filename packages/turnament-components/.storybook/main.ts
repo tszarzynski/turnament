@@ -10,9 +10,6 @@ const config: StorybookConfig = {
 		options: {},
 	},
 
-	docs: {
-		docsMode: true,
-	},
 };
 
 export default config;
