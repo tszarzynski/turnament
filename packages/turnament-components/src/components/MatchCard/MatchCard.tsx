@@ -29,9 +29,9 @@ const PlayerScore = ({
 }: PlayerScoreProps) => {
 	const variantStyles =
 		variant === "primary" ? "border-primary" : "border-secondary";
-	const disabledStyles = "border-gray-300 text-gray-300";
+	const completedStyles = "border-gray-300";
 
-	const styles = disabled || completed ? disabledStyles : variantStyles;
+	const styles = disabled || completed ? completedStyles : variantStyles;
 
 	return (
 		<div className="flex flex-row items-stretch justify-between gap-0.5">
@@ -101,10 +101,10 @@ const MatchCard = ({
 		minPointsToWin !== undefined ? minPointsToWin * scoringDivisor : undefined;
 
 	const completed =
-		sportType === "CHESS" && minPointsToWin !== undefined
+		sportType === "CHESS" && minPointsToWin !== undefined && minPointsToWin > 0
 			? match.result[0] + match.result[1] === minPointsToWin * 2
 			: match.result.some(
-					(score) => minPointsToWin !== undefined && score >= minPointsToWin,
+					(score) => minPointsToWin !== undefined && minPointsToWin > 0 && score >= minPointsToWin,
 				);
 
 	const isTied =
@@ -132,6 +132,8 @@ const MatchCard = ({
 		onScoreChange?.({ ...match, result, tiebreakWinner: null });
 	};
 
+	const activeVariant = isCompleted ? "primary" : "secondary";
+
 	return (
 		<div ref={ref} className="flex flex-row gap-0.5">
 			{isTied && (
@@ -142,7 +144,7 @@ const MatchCard = ({
 								key={idx}
 								name={`tiebreak-${match.ID}`}
 								checked={match.tiebreakWinner === idx}
-								disabled={isCompleted}
+								disabled={disabled || isCompleted}
 								onChange={() =>
 									onScoreChange?.({ ...match, tiebreakWinner: idx })
 								}
@@ -154,7 +156,7 @@ const MatchCard = ({
 							/>
 						))}
 					</div>
-					<div className={`flex select-none items-center justify-center border px-1 ${isCompleted ? "border-gray-300 text-gray-300" : "border-secondary text-secondary"}`}>
+					<div className={`flex select-none items-center justify-center border px-1 ${disabled || isCompleted ? "border-gray-300" : "border-secondary text-secondary"}`}>
 						<span className="font-bold text-tiny text-upright">
 							tiebreak
 						</span>
@@ -167,7 +169,7 @@ const MatchCard = ({
 						name={names[0]}
 						score={match.result[0]}
 						disabled={disabled}
-						variant={variant}
+						variant={disabled ? variant : activeVariant}
 						onChange={handlePlayer0Change}
 						onIsEditingChange={handleIsEditingChange}
 						maxRawScore={maxRawScore}
@@ -180,7 +182,7 @@ const MatchCard = ({
 						name={names[1]}
 						score={match.result[1]}
 						disabled={disabled}
-						variant={variant}
+						variant={disabled ? variant : activeVariant}
 						onChange={handlePlayer1Change}
 						onIsEditingChange={handleIsEditingChange}
 						maxRawScore={maxRawScore}
