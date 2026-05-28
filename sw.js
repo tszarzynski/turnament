@@ -1,12 +1,1 @@
-// Unregister any previously installed service worker
-self.addEventListener("install", () => self.skipWaiting());
-self.addEventListener("activate", (e) => {
-	e.waitUntil(
-		self.registration
-			.unregister()
-			.then(() => self.clients.matchAll())
-			.then((clients) => {
-				clients.forEach((c) => c.navigate(c.url));
-			}),
-	);
-});
+if(!self.define){let s,e={};const l=(l,n)=>(l=new URL(l+".js",n).href,e[l]||new Promise((e=>{if("document"in self){const s=document.createElement("script");s.src=l,s.onload=e,document.head.appendChild(s)}else s=l,importScripts(l),e()})).then((()=>{let s=e[l];if(!s)throw new Error(`Module ${l} didn’t register its module`);return s})));self.define=(n,i)=>{const r=s||("document"in self?document.currentScript.src:"")||location.href;if(e[r])return;let u={};const o=s=>l(s,r),t={module:{uri:r},exports:u,require:o};e[r]=Promise.all(n.map((s=>t[s]||o(s)))).then((s=>(i(...s),u)))}}define(["./workbox-3aa584b4"],(function(s){"use strict";self.skipWaiting(),s.clientsClaim(),s.precacheAndRoute([{url:"404.html",revision:"e248a78139bdd4c86628ced2469a760b"},{url:"assets/browser-_8CYV_1i.js",revision:null},{url:"assets/getRankingColumns-DZUAxoP3.js",revision:null},{url:"assets/IconPrev-CUG04wfW.js",revision:null},{url:"assets/IconRemove-Be_lFppd.js",revision:null},{url:"assets/IconTabs-BdDBE0Xo.js",revision:null},{url:"assets/index-DMqz0TFz.js",revision:null},{url:"assets/index-kxzvS8fI.css",revision:null},{url:"assets/InputRadio-BlPbwgZ8.js",revision:null},{url:"assets/InputText-D75T55_Y.js",revision:null},{url:"assets/PageHeader-CFR1uaZI.js",revision:null},{url:"assets/PageLayout-DQbuJKXm.js",revision:null},{url:"assets/PageNavigation-CUDx_M6l.js",revision:null},{url:"assets/PeerPage-BZEcQBkj.js",revision:null},{url:"assets/PlayersPage-DgGIva2F.js",revision:null},{url:"assets/RankingPage-DZ1zDCkb.js",revision:null},{url:"assets/RoundsPage-CHmBSqIW.js",revision:null},{url:"assets/SpectatorPage-Ck44LevQ.js",revision:null},{url:"assets/ToggleButton-BAD-V1R4.js",revision:null},{url:"assets/Tooltip-CyjOWPZr.js",revision:null},{url:"assets/TypePage-DNVAFd2o.js",revision:null},{url:"assets/useClickAway-PMaZrMYG.js",revision:null},{url:"index.html",revision:"10eb4197258f4bfba73eab666a66cd61"},{url:"registerSW.js",revision:"9754c101d0d82406066d5df2379bb5be"}],{}),s.cleanupOutdatedCaches(),s.registerRoute(new s.NavigationRoute(s.createHandlerBoundToURL("index.html")))}));
