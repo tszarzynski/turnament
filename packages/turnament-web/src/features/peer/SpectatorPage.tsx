@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { type ColumnDef, RankingTable } from "turnament-components";
+import { type ColumnDef, Header, Hr, RankingTable } from "turnament-components";
 import type { PlayerWithStats, SportType } from "turnament-ranking";
 import { formatScore } from "turnament-ranking";
+import type { SchedulerType } from "turnament-scheduler";
 import type { Route } from "type-route";
 import type { routes } from "../../app/router";
 import PageLayout, { PageBody, PageContent } from "../../components/PageLayout";
@@ -11,16 +12,31 @@ type SpectatorPayload = {
 	ranking: PlayerWithStats[];
 	sportType: SportType | null;
 	scoringDivisor: number;
+	schedulerType: SchedulerType | null;
 };
 
 function getColumns(
 	sportType: SportType | null,
 	scoringDivisor: number,
+	schedulerType: SchedulerType | null,
 ): ColumnDef[] {
+	if (schedulerType === "ELIMINATION") {
+		return [
+			{ label: "Wins", value: (p) => p.matchesWon },
+			{ label: "Losses", value: (p) => p.matchesLost },
+			{
+				label: sportType === "CHESS" ? "Score" : "Pts",
+				value: (p) => sportType === "CHESS" ? formatScore(p.gamesWon, scoringDivisor) : p.gamesWon,
+			},
+		];
+	}
 	if (sportType === "CHESS") {
 		return [
 			{ label: "Score", value: (p) => formatScore(p.gamesWon, scoringDivisor) },
-			{ label: "BH-C1", value: (p) => p.buchholzCut1 },
+			{
+				label: schedulerType === "ROUND_ROBIN" ? "SB" : "BH-C1",
+				value: (p) => schedulerType === "ROUND_ROBIN" ? p.sonnebornBerger : p.buchholzCut1,
+			},
 			{ label: "Wins", value: (p) => p.matchesWon },
 		];
 	}
@@ -47,14 +63,14 @@ const SpectatorPage = ({
 			await P2PSubscriber.initializePeer(null);
 			if (cancelled) return;
 
+			P2PSubscriber.addDataListener((data: unknown) => {
+				if (!cancelled) setPayload(data as SpectatorPayload);
+			});
+
 			P2PSubscriber.subscribe(route.params.peerID, () => {
 				if (!cancelled) setDisconnected(true);
 			});
 			setConnected(true);
-
-			P2PSubscriber.addDataListener((data: unknown) => {
-				if (!cancelled) setPayload(data as SpectatorPayload);
-			});
 		};
 
 		initialisePeer();
@@ -68,11 +84,18 @@ const SpectatorPage = ({
 	const columns = getColumns(
 		payload?.sportType ?? null,
 		payload?.scoringDivisor ?? 1,
+		payload?.schedulerType ?? null,
 	);
 
 	return (
 		<PageLayout>
 			<PageContent>
+				<header>
+					<div className="px-4 py-6">
+						<Header>Ranking</Header>
+					</div>
+					<Hr variant="dashed" />
+				</header>
 				<PageBody>
 					{!connected && (
 						<p className="text-center text-secondary">Connecting…</p>

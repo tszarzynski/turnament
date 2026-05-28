@@ -46,17 +46,19 @@ export const createPeerSlice: StateCreator<
 		}
 	},
 	publish() {
-		const { players, matches, sportType, scoringDivisor } = get();
+		const { players, matches, sportType, scoringDivisor, schedulerType } = get();
 		const ranking = getRanking(
 			players,
 			matches,
 			sportType ?? undefined,
 			scoringDivisor,
+			schedulerType ?? undefined,
 		);
 		P2PPublisher.publish({
 			ranking,
 			sportType: sportType ?? null,
 			scoringDivisor,
+			schedulerType: schedulerType ?? null,
 		});
 	},
 	destroyPeer() {

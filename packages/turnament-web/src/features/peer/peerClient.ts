@@ -40,8 +40,10 @@ export class P2PPublisher extends P2PBase {
 			P2PPublisher.initialized = true;
 
 			P2PBase.peer!.on("connection", (connection) => {
-				P2PPublisher.connections.push(connection);
-				P2PPublisher.onConnectionCallback?.();
+				connection.on("open", () => {
+					P2PPublisher.connections.push(connection);
+					P2PPublisher.onConnectionCallback?.();
+				});
 			});
 
 			P2PBase.peer!.on("disconnected", () => {
