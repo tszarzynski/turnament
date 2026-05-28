@@ -1,1 +1,12 @@
-if(!self.define){let s,e={};const l=(l,n)=>(l=new URL(l+".js",n).href,e[l]||new Promise((e=>{if("document"in self){const s=document.createElement("script");s.src=l,s.onload=e,document.head.appendChild(s)}else s=l,importScripts(l),e()})).then((()=>{let s=e[l];if(!s)throw new Error(`Module ${l} didn’t register its module`);return s})));self.define=(n,i)=>{const r=s||("document"in self?document.currentScript.src:"")||location.href;if(e[r])return;let u={};const t=s=>l(s,r),o={module:{uri:r},exports:u,require:t};e[r]=Promise.all(n.map((s=>o[s]||t(s)))).then((s=>(i(...s),u)))}}define(["./workbox-3aa584b4"],(function(s){"use strict";self.skipWaiting(),s.clientsClaim(),s.precacheAndRoute([{url:"404.html",revision:"e248a78139bdd4c86628ced2469a760b"},{url:"assets/browser-DH22v3h9.js",revision:null},{url:"assets/getRankingColumns-BMSlQMA7.js",revision:null},{url:"assets/IconPrev-DIXNchz5.js",revision:null},{url:"assets/IconRemove-BAhlsuOi.js",revision:null},{url:"assets/IconTabs-sxjyCViP.js",revision:null},{url:"assets/index-ChWwaNp3.js",revision:null},{url:"assets/index-kxzvS8fI.css",revision:null},{url:"assets/InputRadio-DqJMDUaK.js",revision:null},{url:"assets/InputText-DtSs3_pU.js",revision:null},{url:"assets/PageHeader-B90glARE.js",revision:null},{url:"assets/PageLayout-4t7fozyS.js",revision:null},{url:"assets/PageNavigation-CchJSoHd.js",revision:null},{url:"assets/PeerPage-C5wFqYvQ.js",revision:null},{url:"assets/PlayersPage-BS_CjtPC.js",revision:null},{url:"assets/RankingPage-BfS6YNSH.js",revision:null},{url:"assets/RoundsPage-CUlDctqJ.js",revision:null},{url:"assets/SpectatorPage-B5zJprfL.js",revision:null},{url:"assets/ToggleButton-B8REvTdo.js",revision:null},{url:"assets/Tooltip-CnCN6yCu.js",revision:null},{url:"assets/TypePage-CR8NRJUY.js",revision:null},{url:"assets/useClickAway-Ch4jliCa.js",revision:null},{url:"index.html",revision:"f6b13279e9edd5f613845352ed31fce3"},{url:"registerSW.js",revision:"9754c101d0d82406066d5df2379bb5be"}],{}),s.cleanupOutdatedCaches(),s.registerRoute(new s.NavigationRoute(s.createHandlerBoundToURL("index.html")))}));
+// Unregister any previously installed service worker
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (e) => {
+	e.waitUntil(
+		self.registration
+			.unregister()
+			.then(() => self.clients.matchAll())
+			.then((clients) => {
+				clients.forEach((c) => c.navigate(c.url));
+			}),
+	);
+});
