@@ -6,6 +6,7 @@ import {
 	IconNext,
 	IconPrev,
 	InputNumber,
+	InputRadio,
 	Tooltip,
 } from "turnament-components";
 import { getDefaultMatchConfig, type SportType } from "turnament-ranking";
@@ -103,17 +104,16 @@ const TypePage = () => {
 									>
 										{option.name}
 										<Tooltip content={option.description}>
-											<IconInfo />
+											<IconInfo className="h-5 w-5" strokeWidth={2} />
 										</Tooltip>
 									</label>
-									<input
+									<InputRadio
 										id={option.value}
 										name="sport-type"
-										type="radio"
 										value={option.value}
 										checked={sportType === option.value}
 										onChange={() => handleSportChange(option.value)}
-										className="mr-3 ml-0.5 h-[42px] w-[42px] bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
+										className="mr-3 ml-0.5 bg-primary"
 									/>
 								</div>
 							))}
@@ -136,17 +136,16 @@ const TypePage = () => {
 									>
 										{option.name}
 										<Tooltip content={option.description}>
-											<IconInfo />
+											<IconInfo className="h-5 w-5" strokeWidth={2} />
 										</Tooltip>
 									</label>
-									<input
+									<InputRadio
 										id={option.value}
 										name="tournament-type"
-										type="radio"
 										value={option.value}
 										checked={schedulerType === option.value}
 										onChange={handleOptionChange}
-										className="mr-3 ml-0.5 h-[42px] w-[42px] bg-primary accent-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1"
+										className="mr-3 ml-0.5 bg-primary"
 									/>
 								</div>
 							))}
@@ -159,7 +158,7 @@ const TypePage = () => {
 							>
 								{matchConfigLabel}
 								<Tooltip content={matchConfigTooltip}>
-									<IconInfo />
+									<IconInfo className="h-5 w-5" strokeWidth={2} />
 								</Tooltip>
 							</label>
 							<InputNumber

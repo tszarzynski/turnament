@@ -4,12 +4,15 @@ import type { Player } from "turnament-scheduler";
 import Hr from "../Hr";
 import IconButton from "../IconButton";
 import IconEdit from "../IconEdit";
+import IconInfo from "../IconInfo";
 import IconRemove from "../IconRemove";
 import ToggleButton from "../ToggleButton";
+import Tooltip from "../Tooltip";
 
 export type ColumnDef = {
 	label: string;
 	value: (player: PlayerWithStats) => string | number;
+	description?: string;
 };
 
 type Props = {
@@ -25,18 +28,20 @@ const RankingTable = ({
 }: Props) => {
 	const [isEditing, toggleIsEditing] = useToggle(false);
 
+	const columnsWithDescription = columns.filter((c) => c.description);
+
 	const headings = [
-		"Rank",
-		"Name",
-		...columns.map((c) => c.label),
-		...(isEditing ? [""] : []),
+		{ label: "Rank" },
+		{ label: "Name" },
+		...columns.map((c) => ({ label: c.label, description: c.description })),
+		...(isEditing ? [{ label: "" }] : []),
 	];
 
 	return (
 		<div className="w-full border-2 border-secondary p-0.5">
 			<Hr />
 			<table className="min-w-full table-auto border-separate border-spacing-0.5">
-				<TableHead columns={headings} />
+				<TableHead headings={headings} />
 				<tbody>
 					{playersWithStats.map((player, index) => (
 						<tr
@@ -83,6 +88,29 @@ const RankingTable = ({
 							title="Reorder list"
 							shape="circle"
 						/>
+						{columnsWithDescription.length > 0 && (
+							<Tooltip
+								content={
+									<div className="flex flex-col gap-2">
+										<p className="font-bold text-tiny uppercase tracking-widest">Ranking criteria</p>
+										<ol className="flex flex-col gap-1">
+											{columnsWithDescription.map((c, i) => (
+												<li key={c.label}>
+													<span className="font-bold">{i + 1}. {c.label}</span> — {c.description}
+												</li>
+											))}
+										</ol>
+									</div>
+								}
+								position="left"
+							>
+								<div className="border rounded-full text-secondary hover:bg-white">
+									<i className="h-10 w-10 flex items-center justify-center">
+										<IconInfo />
+									</i>
+								</div>
+							</Tooltip>
+						)}
 					</div>
 				</>
 			)}
@@ -92,16 +120,17 @@ const RankingTable = ({
 
 export default RankingTable;
 
-const TableHead = ({ columns }: { columns: string[] }) => {
+const TableHead = ({ headings }: { headings: { label: string; description?: string }[] }) => {
 	return (
 		<thead>
 			<tr>
-				{columns.map((column) => (
+				{headings.map(({ label, description }) => (
 					<th
-						key={column}
+						key={label}
+						title={description}
 						className="border-2 border-secondary px-2 py-1 font-bold text-secondary text-upright text-tiny empty:border-none"
 					>
-						{column}
+						{label}
 					</th>
 				))}
 			</tr>

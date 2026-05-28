@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Match } from "turnament-scheduler";
 import InputNumber from "../InputNumber";
+import InputRadio from "../InputRadio";
 
 type SportType = "BACKGAMMON" | "CHESS";
 
@@ -109,6 +110,8 @@ const MatchCard = ({
 	const isTied =
 		completed && sportType === "CHESS" && match.result[0] === match.result[1];
 
+	const isCompleted = completed && (!isTied || match.tiebreakWinner != null);
+
 	// Total raw points across both players = minPointsToWin * 2 (each game contributes exactly 2 raw points: 2+0 win/loss or 1+1 draw)
 	const totalRaw =
 		minPointsToWin !== undefined ? minPointsToWin * 2 : undefined;
@@ -118,7 +121,7 @@ const MatchCard = ({
 			sportType === "CHESS" && totalRaw !== undefined
 				? [newRaw, totalRaw - newRaw]
 				: [newRaw, match.result[1]];
-		onScoreChange?.({ ...match, result });
+		onScoreChange?.({ ...match, result, tiebreakWinner: null });
 	};
 
 	const handlePlayer1Change = (newRaw: number) => {
@@ -126,62 +129,65 @@ const MatchCard = ({
 			sportType === "CHESS" && totalRaw !== undefined
 				? [totalRaw - newRaw, newRaw]
 				: [match.result[0], newRaw];
-		onScoreChange?.({ ...match, result });
+		onScoreChange?.({ ...match, result, tiebreakWinner: null });
 	};
 
 	return (
-		<div ref={ref} className="flex flex-col">
-			<div className="focus-within:z-10">
-				<PlayerScore
-					name={names[0]}
-					score={match.result[0]}
-					disabled={disabled}
-					variant={variant}
-					onChange={handlePlayer0Change}
-					onIsEditingChange={handleIsEditingChange}
-					maxRawScore={maxRawScore}
-					scoringDivisor={scoringDivisor}
-					completed={completed}
-				/>
-			</div>
+		<div ref={ref} className="flex flex-row gap-0.5">
 			{isTied && (
-				<div className="flex gap-0.5 py-0.5">
-					{([0, 1] as const).map((idx) => {
-						const isActive = match.tiebreakWinner === idx;
-						return (
-							<button
+				<div className="flex flex-row gap-0.5">
+					<div className="flex flex-col items-end gap-0.5">
+						{([0, 1] as const).map((idx) => (
+							<InputRadio
 								key={idx}
-								type="button"
-								onClick={() =>
-									onScoreChange?.({
-										...match,
-										tiebreakWinner: isActive ? null : idx,
-									})
+								name={`tiebreak-${match.ID}`}
+								checked={match.tiebreakWinner === idx}
+								disabled={isCompleted}
+								onChange={() =>
+									onScoreChange?.({ ...match, tiebreakWinner: idx })
 								}
-								className={`flex-1 select-none border px-2 py-0.5 font-bold text-tiny uppercase tracking-widest ${
-									isActive
-										? "border-secondary bg-secondary text-white"
-										: "border-secondary text-secondary"
-								}`}
-							>
-								{names[idx]}
-							</button>
-						);
-					})}
+								onClick={() =>
+									match.tiebreakWinner === idx &&
+									onScoreChange?.({ ...match, tiebreakWinner: null })
+								}
+								className="ml-3 my-[6px]"
+							/>
+						))}
+					</div>
+					<div className={`flex select-none items-center justify-center border px-1 ${isCompleted ? "border-gray-300 text-gray-300" : "border-secondary text-secondary"}`}>
+						<span className="font-bold text-tiny text-upright">
+							tiebreak
+						</span>
+					</div>
 				</div>
 			)}
-			<div className="-mt-[1px] focus-within:z-10">
-				<PlayerScore
-					name={names[1]}
-					score={match.result[1]}
-					disabled={disabled}
-					variant={variant}
-					onChange={handlePlayer1Change}
-					onIsEditingChange={handleIsEditingChange}
-					maxRawScore={maxRawScore}
-					scoringDivisor={scoringDivisor}
-					completed={completed}
-				/>
+			<div className="flex flex-1 flex-col">
+				<div className="focus-within:z-10">
+					<PlayerScore
+						name={names[0]}
+						score={match.result[0]}
+						disabled={disabled}
+						variant={variant}
+						onChange={handlePlayer0Change}
+						onIsEditingChange={handleIsEditingChange}
+						maxRawScore={maxRawScore}
+						scoringDivisor={scoringDivisor}
+						completed={isCompleted}
+					/>
+				</div>
+				<div className="-mt-[1px] focus-within:z-10">
+					<PlayerScore
+						name={names[1]}
+						score={match.result[1]}
+						disabled={disabled}
+						variant={variant}
+						onChange={handlePlayer1Change}
+						onIsEditingChange={handleIsEditingChange}
+						maxRawScore={maxRawScore}
+						scoringDivisor={scoringDivisor}
+						completed={isCompleted}
+					/>
+				</div>
 			</div>
 		</div>
 	);

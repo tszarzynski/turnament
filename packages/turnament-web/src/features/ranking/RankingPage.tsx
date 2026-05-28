@@ -35,9 +35,9 @@ const RankingPage = () => {
 	const columns = useMemo((): ColumnDef[] => {
 		if (schedulerType === "ELIMINATION") {
 			return [
-				{ label: "Wins", value: (p) => p.matchesWon },
-				{ label: "Losses", value: (p) => p.matchesLost },
-				{ label: sportType === "CHESS" ? "Score" : "Pts", value: (p) => sportType === "CHESS" ? formatScore(p.gamesWon, scoringDivisor) : p.gamesWon },
+				{ label: "Wins", value: (p) => p.matchesWon, description: "Matches won" },
+				{ label: "Losses", value: (p) => p.matchesLost, description: "Matches lost" },
+				{ label: sportType === "CHESS" ? "Score" : "Pts", value: (p) => sportType === "CHESS" ? formatScore(p.gamesWon, scoringDivisor) : p.gamesWon, description: "Total points scored" },
 			];
 		}
 		if (sportType === "CHESS") {
@@ -45,18 +45,22 @@ const RankingPage = () => {
 				{
 					label: "Score",
 					value: (p) => formatScore(p.gamesWon, scoringDivisor),
+					description: "Total game points",
 				},
 				{
 					label: schedulerType === "ROUND_ROBIN" ? "SB" : "BH-C1",
 					value: (p) => schedulerType === "ROUND_ROBIN" ? p.sonnebornBerger : p.buchholzCut1,
+					description: schedulerType === "ROUND_ROBIN"
+						? "Sonneborn-Berger: sum of opponents' scores weighted by result"
+						: "Buchholz Cut-1: sum of opponents' scores, lowest excluded",
 				},
-				{ label: "Wins", value: (p) => p.matchesWon },
+				{ label: "Wins", value: (p) => p.matchesWon, description: "Matches won" },
 			];
 		}
 		return [
-			{ label: "Wins", value: (p) => p.matchesWon },
-			{ label: "NPS", value: (p) => p.nps },
-			{ label: "Pts", value: (p) => p.gamesWon },
+			{ label: "Wins", value: (p) => p.matchesWon, description: "Matches won" },
+			{ label: "NPS", value: (p) => p.nps, description: "Net point spread: points scored minus points conceded" },
+			{ label: "Pts", value: (p) => p.gamesWon, description: "Total points scored" },
 		];
 	}, [sportType, schedulerType, scoringDivisor]);
 

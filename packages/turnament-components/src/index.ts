@@ -20,6 +20,7 @@ export { default as IconStop } from "./components/IconStop";
 export { default as IconTabs } from "./components/IconTabs";
 export { default as IconUpload } from "./components/IconUpload";
 export { default as InputNumber } from "./components/InputNumber";
+export { default as InputRadio } from "./components/InputRadio";
 export { default as InputText } from "./components/InputText";
 export { default as Loader } from "./components/Loader";
 export { default as MatchCard } from "./components/MatchCard";

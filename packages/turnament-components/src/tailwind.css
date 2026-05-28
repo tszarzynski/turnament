@@ -77,7 +77,7 @@
 
 @theme {
 	--color-primary: var(--color-red-500);
-	--color-secondary: var(--color-blue-500);
+	--color-secondary: var(--color-blue-400);
 	--color-paper: var(--color-yellow-50);
 	--default-font-family: Syne, sans-serif;
 
@@ -118,31 +118,6 @@
 @utility bg-vintage-paper {
 	position: relative;
 
-	/* Base cream color for paper */
-
-	/* Apply the SVG filter for texture */
-	/* filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="vintagePaper">\
-        <feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="5" stitchTiles="stitch" result="noise"/>\
-        <feColorMatrix type="matrix" values="0.1 0 0 0 0.95 0 0.1 0 0 0.9 0 0 0.1 0 0.8 0 0 0 1 0" result="coloredNoise"/>\
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" result="displacedImage"/>\
-        <feBlend in="coloredNoise" in2="displacedImage" mode="multiply" result="blendedImage"/>\
-        <feTurbulence type="turbulence" baseFrequency="0.8" numOctaves="3" result="speckles"/>\
-        <feColorMatrix in="speckles" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0" result="coloredSpeckles"/>\
-        <feBlend in="blendedImage" in2="coloredSpeckles" mode="multiply"/>\
-      </filter>\
-    </svg>#vintagePaper'); */
-
-	/* filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="vintageGrain">\
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch" result="turbulence"/>\
-        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1.1" />\
-      </filter>\
-    </svg>#vintageGrain'); */
-
-	/* Add additional texture with pseudo-element */
 	&::before {
 		content: "";
 		position: absolute;
@@ -151,16 +126,20 @@
 		width: 100%;
 		height: 100%;
 		pointer-events: none;
-		background-image: radial-gradient(
-			circle at 50% 30%,
-			rgba(255, 255, 240, 0.1) 0%,
-			rgba(0, 0, 0, 0.07) 100%
-		);
-		opacity: 0.6;
+		background-image: url('data:image/svg+xml,\
+    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">\
+      <filter id="paper">\
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="5" stitchTiles="stitch"/>\
+      </filter>\
+      <rect width="300" height="300" filter="url(%23paper)"/>\
+    </svg>');
+		background-repeat: repeat;
+		background-size: 300px 300px;
+		mix-blend-mode: multiply;
+		opacity: 0.18;
 		z-index: 1;
 	}
 
-	/* Ensure content is above the texture layer */
 	& > * {
 		position: relative;
 		z-index: 2;
