@@ -1,25 +1,47 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { createPeerSlice, type PeerSlice } from "../features/peer/peerSlice";
 import {
-	type PlayersSlice,
 	createPlayerSlice,
+	type PlayersSlice,
 } from "../features/players/playersSlice";
 import {
-	type RoundsSlice,
 	createRoundsSlice,
+	type RoundsSlice,
 } from "../features/round/roundsSlice";
 
-export type RootState = PlayersSlice & RoundsSlice;
+export type RootState = PlayersSlice & RoundsSlice & PeerSlice;
 
 export const useBaseStore = create<RootState>()(
-	persist(
-		immer((...args) => ({
-			...createPlayerSlice(...args),
-			...createRoundsSlice(...args),
-		})),
-		{
-			name: "turnament-store",
-		},
+	subscribeWithSelector(
+		persist(
+			immer((...args) => ({
+				...createPlayerSlice(...args),
+				...createRoundsSlice(...args),
+				...createPeerSlice(...args),
+			})),
+			{
+				name: "turnament-store",
+				partialize: (state) => {
+					const {
+						peerID: _p,
+						peerError: _e,
+						initializePeer: _i,
+						publish: _pub,
+						destroyPeer: _d,
+						...rest
+					} = state;
+					return rest;
+				},
+			},
+		),
 	),
+);
+
+useBaseStore.subscribe(
+	(state) => state.matches,
+	() => {
+		if (useBaseStore.getState().peerID) useBaseStore.getState().publish();
+	},
 );

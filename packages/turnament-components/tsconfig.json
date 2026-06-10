@@ -9,7 +9,8 @@
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"strict": true,
-		"target": "ESNext"
+		"target": "ESNext",
+		"types": ["vitest/globals"]
 	},
 	"include": ["src", ".storybook"]
 }

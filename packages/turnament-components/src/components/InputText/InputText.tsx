@@ -19,8 +19,8 @@ const InputText = ({
 
 	const variantStyles = "border-black bg-white ";
 	const disabledStyles =
-		"border-gray-300 text-gray-300 cursor-not-allowed hover:bg-transparent";
-	const completedStyles = "border-gray-300 text-gray-300 hover:bg-transparent";
+		"border-gray-300 cursor-not-allowed hover:bg-transparent";
+	const completedStyles = "border-gray-300 hover:bg-transparent";
 	const styles = disabled
 		? disabledStyles
 		: completed

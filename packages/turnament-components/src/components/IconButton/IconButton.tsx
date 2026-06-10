@@ -1,13 +1,6 @@
-import type React from "react";
+import { type BaseButtonProps } from "../Button";
 
-type Props = {
-	variant?: "primary" | "secondary";
-	disabled?: boolean;
-	type?: "button" | "submit" | "reset";
-	className?: string;
-	onClick?: () => void;
-	iconSlot?: React.ReactNode;
-	title?: string;
+type Props = BaseButtonProps & {
 	shape?: "square" | "circle";
 };
 

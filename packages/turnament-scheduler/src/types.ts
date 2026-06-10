@@ -33,6 +33,7 @@ export interface Match {
 	pairing: Pairing;
 	result: MatchResult;
 	hasBye: boolean;
+	tiebreakWinner?: 0 | 1 | null;
 }
 
 /**

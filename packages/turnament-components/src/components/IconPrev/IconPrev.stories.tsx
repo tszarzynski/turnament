@@ -1,10 +1,10 @@
-import IconPrev from './IconPrev';
+import IconPrev from "./IconPrev";
 
 export default {
-  component: IconPrev,
-  title: 'IconPrev',
+	component: IconPrev,
+	title: "IconPrev",
 };
 
 export const Default = () => {
-  return <IconPrev />;
+	return <IconPrev />;
 };

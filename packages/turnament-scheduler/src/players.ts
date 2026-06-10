@@ -1,9 +1,4 @@
-import type {
-	Match,
-	Player,
-	PlayerWithResults,
-	Results,
-} from "./types";
+import type { Match, Player, PlayerWithResults, Results } from "./types";
 
 export const makePlayersWithResults = (
 	players: Player[],
@@ -19,7 +14,9 @@ export const makePlayersWithResults = (
 			(acc: Results, match: Match) => {
 				const idxPlayer = match.pairing.findIndex((p) => player.ID === p);
 				const idxOpponent = match.pairing.length - 1 - idxPlayer;
-				const hasWon = match.result[idxPlayer] > match.result[idxOpponent];
+				const hasWon =
+				match.result[idxPlayer] > match.result[idxOpponent] ||
+				match.tiebreakWinner === idxPlayer;
 				return {
 					gamesWon: acc.gamesWon + match.result[idxPlayer],
 					matchesWon: acc.matchesWon + (hasWon || match.hasBye ? 1 : 0),

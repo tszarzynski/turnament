@@ -1,4 +1,3 @@
-import React from "react";
 import type { Match } from "turnament-scheduler";
 import RoundCard from "./RoundCard";
 
@@ -27,6 +26,7 @@ export const Default = () => {
 			roundNum={1}
 			players={players}
 			onScoreChange={() => null}
+			minPointsToWin={5}
 		/>
 	);
 };

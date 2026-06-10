@@ -1,8 +1,7 @@
 import { ReadonlyRoundCard } from "turnament-components";
-import { selectMatchesByRoundID, selectPreviousRoundsNum } from "./roundsSlice";
-
 import { useShallow } from "zustand/react/shallow";
 import { useBaseStore } from "../../app/store";
+import { selectMatchesByRoundID, selectPreviousRoundsNum } from "./roundsSlice";
 
 const PreviousRound = ({ roundID }: { roundID: number }) => {
 	const previousRound = useBaseStore(

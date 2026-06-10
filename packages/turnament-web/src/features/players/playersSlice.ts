@@ -1,6 +1,6 @@
 import type { Player } from "turnament-scheduler";
 import type { StateCreator } from "zustand";
-import type { RoundsSlice } from "../round/roundsSlice";
+import type { RootState } from "../../app/store";
 
 interface State {
 	players: Player[];
@@ -23,7 +23,7 @@ const initialState: State = {
 };
 
 export const createPlayerSlice: StateCreator<
-	PlayersSlice & RoundsSlice,
+	RootState,
 	[["zustand/immer", never]],
 	[],
 	PlayersSlice

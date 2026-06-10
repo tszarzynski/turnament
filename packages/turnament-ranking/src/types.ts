@@ -6,6 +6,7 @@ export interface Stats {
 	omv: number;
 	buchholzCut1: number;
 	nps: number;
+	sonnebornBerger: number;
 }
 
 export interface PlayerWithStats extends Player, Results, Stats {}

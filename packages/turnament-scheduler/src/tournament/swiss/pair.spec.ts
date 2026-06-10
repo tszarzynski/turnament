@@ -1,6 +1,6 @@
-import { scheduler } from ".";
-import { makePlayersWithResults, filterActivePlayers } from "../../players";
+import { filterActivePlayers, makePlayersWithResults } from "../../players";
 import type { Match, Player } from "../../types";
+import { scheduler } from ".";
 import { pairPlayers } from "./pair";
 
 test("pairPlayers should return correct pairings when tournament starts", () => {

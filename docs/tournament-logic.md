@@ -53,6 +53,7 @@ PlayerWithStats extends PlayerWithResults with:
   omv: number
   buchholzCut1: number
   nps: number
+  sonnebornBerger: number
 ```
 
 ---
@@ -185,7 +186,7 @@ This creates a funnel: early rounds pair players far apart in standings, later r
 
 Players are progressively eliminated. A player with 2 losses is out.
 
-**Rounds needed:** `⌈log₂(n)⌉ + ⌈log₂(log₂(n))⌉`
+**Rounds needed:** `⌈log₂(n)⌉ + ⌈log₂(log₂(n))⌉ + 1`
 
 **Total matches:** `n × 2 − 2`
 
@@ -215,6 +216,8 @@ Players are progressively eliminated. A player with 2 losses is out.
 
 **Elimination trigger:** After each round, any player with `matchesLost > 1` is deactivated and removed from future pairings.
 
+**Dynamic pairing model (not a fixed bracket):** Unlike a standard double-elimination bracket where both brackets run in lockstep every round, this implementation generates pairings dynamically each round based on current player state. Players play as soon as they are available — there is no pre-drawn bracket and no dedicated Grand Finals round. The Grand Finals match emerges naturally when exactly one upper-bracket and one lower-bracket player remain. This compresses the schedule: e.g. 16 players finish in 7 rounds rather than the 8–9 a fixed bracket requires. The formula `⌈log₂(n)⌉ + ⌈log₂(log₂(n))⌉ + 1` reflects this compressed schedule. A Grand Finals reset round is not supported.
+
 ---
 
 ## Format Comparison
@@ -222,7 +225,7 @@ Players are progressively eliminated. A player with 2 losses is out.
 ```
                   Round Robin   Swiss      Amalfi     Elimination
 ──────────────────────────────────────────────────────────────────
-Rounds            n−1           ~log₂(n)   log₂(n)+1  log₂(n)+extra
+Rounds            n−1           ~log₂(n)   log₂(n)+1  ⌈log₂(n)⌉+⌈log₂(log₂(n))⌉+1
 Elimination?      No            No         No         Yes (2 losses)
 Rematches?        No            Avoided    Possible   Unlikely
 Pairing quality   Exact         Optimal    Good       Bracket-based
@@ -234,25 +237,26 @@ Bye handling      Rotation      Weakest    First      Top seeds
 
 ## Ranking
 
-Rankings are computed by `getRanking(players, matches, sportType, scoringDivisor)` in `turnament-ranking`.
+Rankings are computed by `getRanking(players, matches, sportType, scoringDivisor, schedulerType)` in `turnament-ranking`. The sort order depends on **both** the sport and the tournament format.
 
-### Backgammon ranking order
+### Ranking by format and sport
 
-```
-1. matchesWon      ← primary: number of match wins
-2. nps             ← secondary: net point spread (rewards efficient wins)
-3. gamesWon        ← tertiary: total raw points scored
-```
+| Format | Chess | Backgammon |
+|---|---|---|
+| Swiss | `gamesWon → buchholzCut1 → matchesWon` | `matchesWon → nps → gamesWon` |
+| Amalfi | same as Swiss | same as Swiss |
+| Round Robin | `gamesWon → sonnebornBerger → matchesWon` | `matchesWon → nps → gamesWon` |
+| Elimination | `matchesWon → matchesLost↑ → gamesWon` | `matchesWon → matchesLost↑ → gamesWon` |
 
-### Chess ranking order
+**Why chess and backgammon differ (Swiss/Amalfi/Round Robin):** In backgammon, the match win is the primary unit — you either win or lose the match. In chess, fractional points from draws mean raw score (`gamesWon`) is more granular and is the primary sort key.
 
-```
-1. gamesWon        ← primary: total points (stored doubled, relative order preserved)
-2. buchholzCut1    ← secondary: strength of schedule (FIDE standard)
-3. matchesWon      ← tertiary: number of match wins
-```
+**Why Buchholz is used for Swiss/Amalfi but not Round Robin:** Buchholz sums all opponents' final scores. In Swiss/Amalfi, different players with the same score will have faced opponents of different strength (depending on their bracket path), so Buchholz meaningfully differentiates them. In a balanced round robin, every player faces every other player — so each player's Buchholz equals (total tournament points) − (own score), which is identical for all tied players. Buchholz cannot break any tie in round robin.
 
-The rationale for the difference: in backgammon the match win is the primary unit (you either win or lose the match). In chess, fractional points from draws mean raw score is more granular and informative as the primary sort key.
+**Why Sonneborn-Berger is used for Round Robin chess:** Unlike Buchholz, SB weights by your individual result against each opponent (win = full opponent score, draw = half, loss = 0). Beating a stronger opponent is worth more than drawing against them. This does differentiate tied players in round robin.
+
+**Why Elimination uses a different sort entirely:** The bracket position determines ranking — most wins and fewest losses reflect progress through the bracket. Buchholz and Sonneborn-Berger are not meaningful here: players don't play balanced schedules, and ranking beyond 2nd place is inherently non-deterministic from the bracket structure alone.
+
+**Known limitation — bye inflation in Elimination:** Top seeds in non-power-of-2 fields receive first-round byes, which increment `matchesWon` without a real opponent. Two players with the same real bracket depth may differ in `matchesWon` if one received a bye. `gamesWon` as the third criterion partially compensates (a bye contributes 0 to `gamesWon`).
 
 ---
 
@@ -321,6 +325,29 @@ Positive NPS = you outscored opponents on average. Used as backgammon's secondar
 
 ---
 
+### Sonneborn-Berger (SB)
+
+FIDE standard tiebreaker for round-robin chess tournaments. Unlike Buchholz (which sums raw opponent scores regardless of your result), SB weights by your individual result against each opponent.
+
+```
+SB(player) = Σ (opponent's final gamesWon × result factor)
+             for each non-bye match
+             where result factor: win=1.0, draw=0.5, loss=0.0
+
+Chess encoding note: raw result values are 2 (win), 1 (draw), 0 (loss).
+Dividing by scoringDivisor (2) gives the standard 1.0/0.5/0.0 factor.
+
+Example (4-player round robin, all games played):
+  You beat Player A (finished with 6 pts) → 6 × 1.0 = 6
+  You drew Player B (finished with 4 pts) → 4 × 0.5 = 2
+  You lost to Player C (finished with 7 pts) → 7 × 0.0 = 0
+  SB = 8
+```
+
+Higher SB = you beat/drew stronger opponents. Effective as a round-robin tiebreaker where Buchholz collapses to a constant for all tied players.
+
+---
+
 ## Header Stats
 
 The tournament progress header shows three stat columns:
@@ -355,5 +382,6 @@ The tournament progress header shows three stat columns:
 | OMV calculation | `turnament-ranking/src/omv.ts` |
 | Buchholz Cut-1 calculation | `turnament-ranking/src/buchholz.ts` |
 | Net Point Spread calculation | `turnament-ranking/src/nps.ts` |
+| Sonneborn-Berger calculation | `turnament-ranking/src/sonnebornBerger.ts` |
 | Ranking sort orders | `turnament-ranking/src/rank.ts` |
 | Store selectors (rounds, matches, games) | `turnament-web/src/features/round/roundsSlice.ts` |

@@ -1,5 +1,5 @@
-import { BYE_ID } from "turnament-scheduler";
 import type { PlayerWithResults } from "turnament-scheduler";
+import { BYE_ID } from "turnament-scheduler";
 
 /**
  * Calculate Buchholz Cut-1 for a given player.

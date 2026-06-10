@@ -1,11 +1,7 @@
 import { pipeline } from "ts-pipe-compose";
 import { BYE_ID } from "./consts";
 import { asc, desc, sortWith } from "./sort";
-import type {
-	PlayerID,
-	PlayerWithBye,
-	PlayerWithResults,
-} from "./types";
+import type { PlayerID, PlayerWithBye, PlayerWithResults } from "./types";
 import { first, isOdd, last, prop } from "./utils";
 
 const countByes = (opponents: number[]) =>

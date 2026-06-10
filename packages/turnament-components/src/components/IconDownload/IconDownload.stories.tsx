@@ -1,10 +1,10 @@
-import IconDownload from './IconDownload';
+import IconDownload from "./IconDownload";
 
 export default {
-  component: IconDownload,
-  title: 'IconDownload',
+	component: IconDownload,
+	title: "IconDownload",
 };
 
 export const Default = () => {
-  return <IconDownload />;
+	return <IconDownload />;
 };

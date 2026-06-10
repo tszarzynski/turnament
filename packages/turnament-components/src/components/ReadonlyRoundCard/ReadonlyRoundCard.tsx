@@ -1,7 +1,7 @@
 import type { Match, Player } from "turnament-scheduler";
+import Hr from "../Hr";
 import MatchCard from "../MatchCard";
 import usePlayerNames from "../usePlayerNames";
-import Hr from "../Hr";
 
 type SportType = "BACKGAMMON" | "CHESS";
 

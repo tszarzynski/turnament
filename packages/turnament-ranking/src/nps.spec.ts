@@ -1,5 +1,5 @@
-import { calcNPS } from "./nps";
 import type { Match } from "turnament-scheduler";
+import { calcNPS } from "./nps";
 
 const player = {
 	ID: 1,

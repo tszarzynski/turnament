@@ -1,5 +1,5 @@
-import { getRanking, rankPlayers } from "./rank";
 import type { Match, Player } from "turnament-scheduler";
+import { getRanking, rankPlayers } from "./rank";
 
 const base = {
 	active: true,
@@ -17,7 +17,11 @@ test("rankPlayers (backgammon): sorts by matchesWon → nps → gamesWon", () =>
 		{ ...base, ID: 2, name: "P2", matchesWon: 1, nps: 2, gamesWon: 5 },
 		{ ...base, ID: 3, name: "P3", matchesWon: 2, nps: 0, gamesWon: 10 },
 	];
-	expect(rankPlayers(players, "BACKGAMMON")).toMatchObject([{ ID: 3 }, { ID: 2 }, { ID: 1 }]);
+	expect(rankPlayers(players, "BACKGAMMON")).toMatchObject([
+		{ ID: 3 },
+		{ ID: 2 },
+		{ ID: 1 },
+	]);
 });
 
 test("rankPlayers (backgammon): default (no sportType) behaves as backgammon", () => {
@@ -34,7 +38,11 @@ test("rankPlayers (chess): sorts by gamesWon → buchholzCut1 → matchesWon", (
 		{ ...base, ID: 2, name: "P2", gamesWon: 6, buchholzCut1: 5, matchesWon: 1 },
 		{ ...base, ID: 3, name: "P3", gamesWon: 4, buchholzCut1: 8, matchesWon: 3 },
 	];
-	expect(rankPlayers(players, "CHESS")).toMatchObject([{ ID: 2 }, { ID: 1 }, { ID: 3 }]);
+	expect(rankPlayers(players, "CHESS")).toMatchObject([
+		{ ID: 2 },
+		{ ID: 1 },
+		{ ID: 3 },
+	]);
 });
 
 test("rankPlayers (chess): matchesWon as final tiebreaker", () => {

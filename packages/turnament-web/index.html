@@ -58,16 +58,14 @@
     // When the single page app is loaded further down in this file,
     // the correct url will be waiting in the browser's history for
     // the single page app to route accordingly.
-    (function (l) {
+    (((l) => {
       if (l.search[1] === '/') {
-        var decoded = l.search.slice(1).split('&').map(function (s) {
-          return s.replace(/~and~/g, '&')
-        }).join('?');
+        var decoded = l.search.slice(1).split('&').map((s) => s.replace(/~and~/g, '&')).join('?');
         window.history.replaceState(null, null,
           l.pathname.slice(0, -1) + decoded + l.hash
         );
       }
-    }(window.location))
+    })(window.location))
   </script>
   <!-- End Single Page Apps for GitHub Pages -->
 
@@ -79,11 +77,11 @@
   <div id="root"></div>
   <div id="error-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;color:#c00;font-family:monospace;font-size:14px;padding:16px;overflow:auto;z-index:99999;white-space:pre-wrap;word-break:break-all;"></div>
   <script>
-    window.addEventListener('error', function(e) {
+    window.addEventListener('error', (e) => {
       var el = document.getElementById('error-overlay');
       if (el) { el.style.display = 'block'; el.textContent += 'ERROR: ' + e.message + '\n  at ' + e.filename + ':' + e.lineno + '\n\n'; }
     });
-    window.addEventListener('unhandledrejection', function(e) {
+    window.addEventListener('unhandledrejection', (e) => {
       var el = document.getElementById('error-overlay');
       if (el) { el.style.display = 'block'; el.textContent += 'UNHANDLED PROMISE: ' + (e.reason && (e.reason.stack || e.reason.message || e.reason)) + '\n\n'; }
     });

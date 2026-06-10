@@ -20,9 +20,15 @@ test("getDefaultMatchConfig: chess defaults", () => {
 });
 
 test("getDefaultMatchConfig: backgammon always returns DEFAULT_POINTS_TO_WIN", () => {
-	expect(getDefaultMatchConfig("BACKGAMMON", "SWISS")).toBe(DEFAULT_POINTS_TO_WIN);
-	expect(getDefaultMatchConfig("BACKGAMMON", "ELIMINATION")).toBe(DEFAULT_POINTS_TO_WIN);
-	expect(getDefaultMatchConfig("BACKGAMMON", undefined)).toBe(DEFAULT_POINTS_TO_WIN);
+	expect(getDefaultMatchConfig("BACKGAMMON", "SWISS")).toBe(
+		DEFAULT_POINTS_TO_WIN,
+	);
+	expect(getDefaultMatchConfig("BACKGAMMON", "ELIMINATION")).toBe(
+		DEFAULT_POINTS_TO_WIN,
+	);
+	expect(getDefaultMatchConfig("BACKGAMMON", undefined)).toBe(
+		DEFAULT_POINTS_TO_WIN,
+	);
 });
 
 test("isMatchCompleted: backgammon — done when score reaches or exceeds target", () => {
@@ -32,8 +38,8 @@ test("isMatchCompleted: backgammon — done when score reaches or exceeds target
 });
 
 test("isMatchCompleted: chess — done when sum equals minPointsToWin * 2", () => {
-	expect(isMatchCompleted([3, 5], "CHESS", 4)).toBe(true);  // 1.5 + 2.5 = 4
-	expect(isMatchCompleted([4, 4], "CHESS", 4)).toBe(true);  // 2.0 + 2.0 = 4
+	expect(isMatchCompleted([3, 5], "CHESS", 4)).toBe(true); // 1.5 + 2.5 = 4
+	expect(isMatchCompleted([4, 4], "CHESS", 4)).toBe(true); // 2.0 + 2.0 = 4
 	expect(isMatchCompleted([2, 4], "CHESS", 4)).toBe(false); // only 3 games played
 });
 
@@ -62,9 +68,9 @@ test("isMatchCompleted: chess undershoot does NOT complete (sum < target*2)", ()
 });
 
 test("isMatchCompleted: chess exact completion (sum === target*2)", () => {
-	expect(isMatchCompleted([3, 5], "CHESS", 4)).toBe(true);  // sum=8
-	expect(isMatchCompleted([4, 4], "CHESS", 4)).toBe(true);  // tied but complete
-	expect(isMatchCompleted([8, 0], "CHESS", 4)).toBe(true);  // one-sided
+	expect(isMatchCompleted([3, 5], "CHESS", 4)).toBe(true); // sum=8
+	expect(isMatchCompleted([4, 4], "CHESS", 4)).toBe(true); // tied but complete
+	expect(isMatchCompleted([8, 0], "CHESS", 4)).toBe(true); // one-sided
 });
 
 test("isMatchCompleted: backgammon exact target completes", () => {

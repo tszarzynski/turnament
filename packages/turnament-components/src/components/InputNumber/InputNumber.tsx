@@ -1,9 +1,9 @@
-import { useRef, useState, type Ref } from "react";
+import { type Ref, useRef, useState } from "react";
+import { useClickAway } from "react-use";
 import IconAdd from "../IconAdd";
 import IconButton from "../IconButton";
 import IconRemove from "../IconRemove";
 import InputText from "../InputText";
-import { useClickAway } from "react-use";
 
 type Props = Omit<
 	React.InputHTMLAttributes<HTMLInputElement>,
@@ -16,6 +16,7 @@ type Props = Omit<
 	maxValue?: number;
 	completed?: boolean;
 	scoringDivisor?: number;
+	className?: string;
 };
 
 const formatScore = (raw: number, divisor: number): string => {
@@ -32,6 +33,7 @@ const InputNumber = ({
 	minValue = 0,
 	maxValue = Number.MAX_SAFE_INTEGER,
 	scoringDivisor = 1,
+	className,
 }: Props) => {
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -42,7 +44,7 @@ const InputNumber = ({
 	});
 
 	return (
-		<div ref={clickAwayRef} className="flex flex-row ">
+		<div ref={clickAwayRef} className={`flex flex-row ${className ?? ""}`}>
 			{isEditing && (
 				<span className="h-[54px] w-[54px]">
 					<IconButton

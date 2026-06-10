@@ -5,7 +5,7 @@ import { Page } from "./components/Page";
 
 const App = () => {
 	return (
-		<div className="bg-paper">
+		<div className="bg-paper bg-vintage-paper">
 			<RouteProvider>
 				<Suspense fallback={<Loader />}>
 					<Page />

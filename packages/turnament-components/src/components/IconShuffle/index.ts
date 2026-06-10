@@ -1,1 +1,1 @@
-export { default } from './IconShuffle';
+export { default } from "./IconShuffle";
